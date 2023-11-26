@@ -6,7 +6,7 @@ export const userRouter = createTRPCRouter({
   getOne: protectedProcedure
     .input(z.object({ userId: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.user.findUnique({
+      return ctx.db.user.findUnique({
         where: { id: input.userId },
       });
     }),
@@ -14,7 +14,7 @@ export const userRouter = createTRPCRouter({
   getUserFromName: protectedProcedure
     .input(z.object({ name: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.user.findUnique({
+      return ctx.db.user.findUnique({
         where: { name: input.name },
       });
     }),

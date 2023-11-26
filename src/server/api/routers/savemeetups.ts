@@ -28,14 +28,14 @@ export const saveMeetupRouter = createTRPCRouter({
   getAllSavedMeetups: publicProcedure
     .input(z.object({ userId: z.string() }))
     .query(async ({ input, ctx }) => {
-      const savedMeetups = await ctx.prisma.savedMeetup.findMany({
+      const savedMeetups = await ctx.db.savedMeetup.findMany({
         where: { userId: input.userId },
         include: {
           meetup: true,
         },
       });
       const meetups = savedMeetups.map(
-        (savedMeetup: SavedMeetupWithMeetup) => savedMeetup.meetup
+        (savedMeetup: SavedMeetupWithMeetup) => savedMeetup.meetup,
       );
       return meetups;
     }),
@@ -45,7 +45,7 @@ export const saveMeetupRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       const { userId, meetupId } = input;
 
-      const savedMeetup = await ctx.prisma.savedMeetup.create({
+      const savedMeetup = await ctx.db.savedMeetup.create({
         data: {
           userId,
           meetupId,

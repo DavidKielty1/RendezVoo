@@ -9,7 +9,7 @@ export const commentRouter = createTRPCRouter({
   getAll: protectedProcedure
     .input(z.object({ meetupId: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.comment.findMany({
+      return ctx.db.comment.findMany({
         take: 50,
         orderBy: [{ createdAt: "desc" }],
         where: {
@@ -33,10 +33,10 @@ export const commentRouter = createTRPCRouter({
         content: z.string(),
         meetupId: z.string(),
         userId: z.string(),
-      })
+      }),
     )
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.comment.create({
+      return ctx.db.comment.create({
         data: {
           title: input.title,
           meetupId: input.meetupId,
@@ -49,7 +49,7 @@ export const commentRouter = createTRPCRouter({
   delete: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.comment.delete({
+      return ctx.db.comment.delete({
         where: {
           id: input.id,
         },
