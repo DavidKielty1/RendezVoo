@@ -1,5 +1,8 @@
-import { postRouter } from "~/server/api/routers/post";
 import { createTRPCRouter } from "~/server/api/trpc";
+import { meetupRouter } from "~/server/api/routers/meetups";
+import { commentRouter } from "~/server/api/routers/comments";
+import { userRouter } from "~/server/api/routers/user";
+import { saveMeetupRouter } from "./routers/savemeetups";
 
 /**
  * This is the primary router for your server.
@@ -7,7 +10,10 @@ import { createTRPCRouter } from "~/server/api/trpc";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  post: postRouter,
+  meetup: meetupRouter,
+  comment: commentRouter,
+  user: userRouter,
+  savemeetup: saveMeetupRouter,
 });
 
 // export type definition of API
