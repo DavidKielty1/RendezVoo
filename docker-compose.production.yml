@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  app:
+    platform: "linux/amd64"
+    image: docker-rendezvue
+    build:
+      dockerfile: Dockerfile.production
+    ports:
+      - 3000:3000
