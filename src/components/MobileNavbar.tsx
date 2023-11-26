@@ -23,7 +23,7 @@ export default function MobileNavbar() {
   }
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const mobileMenuRef = useRef<HTMLDivElement>(null); 
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -89,7 +89,7 @@ export default function MobileNavbar() {
               <div
                 className={`block w-full bg-slate-600 py-6 font-serif text-4xl font-normal text-white`}
               >
-                RendezVue
+                RendezVoo
               </div>
               {sessionData && (
                 <Link

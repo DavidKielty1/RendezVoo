@@ -50,7 +50,7 @@ export default function DesktopNavbar() {
           className={`${textColorClass} z-50 cursor-pointer hover:text-purple-400`}
           onClick={() => void router.push("/")}
         >
-          RendezVue
+          RendezVoo
         </div>
         {!isHomePage && !isMeetupsPage && (
           <Link
@@ -130,7 +130,7 @@ export default function DesktopNavbar() {
                   <button
                     type="button"
                     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                    onClick={async() => {
+                    onClick={async () => {
                       await router.push("/");
                       void signOut();
                     }}

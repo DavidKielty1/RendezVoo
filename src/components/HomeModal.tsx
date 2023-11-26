@@ -21,7 +21,7 @@ export default function HomeModal() {
           )}
         </div>
         <div className="relative top-[-60px] z-50 flex w-screen flex-col gap-8 text-center text-white">
-          <h1 className="text-6xl xl:text-8xl">RendezVue</h1>
+          <h1 className="text-6xl xl:text-8xl">RendezVoo</h1>
           <h2 className="text-2xl xl:text-4xl">
             Connect, Meet, Discover: Making Tomorrow&apos;s Best Moments
           </h2>
