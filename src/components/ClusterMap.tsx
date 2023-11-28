@@ -30,7 +30,7 @@ export default function ClusterMap() {
     if (!mapRef.current && mapContainerRef.current) {
       mapRef.current = new mapboxgl.Map({
         container: mapContainerRef.current,
-        style: "mapbox://styles/mapbox/light-v10",
+        style: "mapbox://styles/mapbox/light-v11",
         center: [-4.1317, 50.8525],
         zoom: 4,
       });

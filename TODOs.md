@@ -46,7 +46,7 @@ Re-use the sparklyGradient elsewhere throughout site.
 Svg in navbar?
 Desktop Navbar.
 API routers?
-.
+
 _NavBar_
 Clicking on profile picture does nothing.
 

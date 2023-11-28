@@ -14,7 +14,7 @@ const MeetupDetailMap: React.FC<Meetup> = (selectedMeetup) => {
 
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: "mapbox://styles/mapbox/light-v10",
+      style: "mapbox://styles/mapbox/light-v11",
       center: selectedMeetup.coordinates as [number, number],
       zoom: 14,
     });
