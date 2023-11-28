@@ -1,11 +1,11 @@
 _Search & Filter_
-Expandable searchtools Component
+Expandable searchtools Component.
 Sorting and filtering by date/proximity **/country/city**.
 **Search words.**
 HeadlessUI Combobox for searching? Dynamically link to array/objet holding up-to-date location information.
-Turn off spellcheck
-Turn on predictive text
-{Extra}..
+Turn off spellcheck.
+Turn on predictive text.
+
 _Comments_
 Change comment title to user. Link to profile.
 Profile pic thumbnail by name.
