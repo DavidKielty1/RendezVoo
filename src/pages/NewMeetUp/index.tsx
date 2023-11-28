@@ -7,7 +7,7 @@ function NewMeetUp() {
       <Head>
         <title>David Kielty New Meetup</title>
         <meta name="description" content="" />
-        <link rel="icon" href="../../../public/favicon.ico" />
+        <link rel="icon" href="..//favicon.ico" />
       </Head>
       <NewMeetupForm />
     </>

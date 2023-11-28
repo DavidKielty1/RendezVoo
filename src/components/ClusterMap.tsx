@@ -6,8 +6,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-// const MapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
+import { env } from "../env.js";
 import { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -16,8 +16,7 @@ import { type Meetup } from "~/utils/types";
 import Link from "next/link";
 import router from "next/router";
 
-const mapToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN as string;
-mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN as string;
+const mapToken = env.NEXT_PUBLIC_MAPTOKEN;
 mapboxgl.accessToken = mapToken;
 
 export default function ClusterMap() {
@@ -51,7 +50,7 @@ export default function ClusterMap() {
               properties: {
                 popUpMarkup: `<a href='/${meetup.id}' class='map-popup-link' style="color: blue; text-decoration: underline;" data-id='${meetup.id}'>${meetup.title}</a>`,
               },
-            })) || [],
+            })) ?? [],
         };
 
         if (mapRef.current && meetups && meetups.length > 0) {
@@ -156,7 +155,7 @@ export default function ClusterMap() {
                       });
                     }
                   }
-                }
+                },
               );
             }
           });
@@ -167,7 +166,7 @@ export default function ClusterMap() {
             (
               e: mapboxgl.MapMouseEvent & {
                 features?: mapboxgl.MapboxGeoJSONFeature[] | undefined;
-              } & mapboxgl.EventData
+              } & mapboxgl.EventData,
             ) => {
               const features = e.features;
               if (!features || features.length === 0) return;
@@ -179,9 +178,7 @@ export default function ClusterMap() {
               if (geometry.type === "Point" && "coordinates" in geometry) {
                 const coordinates = geometry.coordinates;
 
-                const popUpMarkup =
-                  firstFeature.properties &&
-                  firstFeature.properties["popUpMarkup"];
+                const popUpMarkup = firstFeature?.properties?.popUpMarkup;
                 if (!popUpMarkup) return;
                 if (!mapRef.current) return;
 
@@ -201,7 +198,7 @@ export default function ClusterMap() {
                     });
                   });
               }
-            }
+            },
           );
           mapRef.current.on("mouseenter", "clusters", () => {
             if (!mapRef.current) return;

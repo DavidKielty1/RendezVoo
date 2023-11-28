@@ -37,7 +37,7 @@ function MeetupDetails() {
       onSuccess: (data: Meetup) => {
         setSelectedMeetup(data);
       },
-    }
+    },
   );
 
   return (
@@ -45,7 +45,7 @@ function MeetupDetails() {
       <Head>
         <title>David Kielty Meetup Detail</title>
         <meta name="description" content="" />
-        <link rel="icon" href="../../../public/favicon.ico" />
+        <link rel="icon" href="..//favicon.ico" />
       </Head>
       {selectedMeetup ? (
         <div className="grid gap-7 pb-10 md:grid-cols-2">
