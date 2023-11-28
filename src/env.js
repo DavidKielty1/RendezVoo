@@ -23,10 +23,8 @@ export const env = createEnv({
       process.env.VERCEL ? z.string() : z.string().url(),
     ),
     // Add ` on ID and SECRET if you want to make sure they're not empty
-    GITHUB_CLIENT_ID_DEV: z.string(),
-    GITHUB_CLIENT_SECRET_DEV: z.string(),
-    GITHUB_CLIENT_ID_PROD: z.string(),
-    GITHUB_CLIENT_SECRET_PROD: z.string(),
+    GITHUB_CLIENT_ID: z.string(),
+    GITHUB_CLIENT_SECRET: z.string(),
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
     MAPTOKEN: z.string(),
@@ -47,10 +45,8 @@ export const env = createEnv({
       // VERCEL_URL doesn't include `https` so it cant be validated as a URL
       process.env.VERCEL ? z.string() : z.string().url(),
     ),
-    NEXT_PUBLIC_GITHUB_CLIENT_ID_DEV: z.string(),
-    NEXT_PUBLIC_GITHUB_CLIENT_SECRET_DEV: z.string(),
-    NEXT_PUBLIC_GITHUB_CLIENT_ID_PROD: z.string(),
-    NEXT_PUBLIC_GITHUB_CLIENT_SECRET_PROD: z.string(),
+    NEXT_PUBLIC_GITHUB_CLIENT_ID: z.string(),
+    NEXT_PUBLIC_GITHUB_CLIENT_SECRET: z.string(),
     NEXT_PUBLIC_GOOGLE_CLIENT_ID: z.string(),
     NEXT_PUBLIC_GOOGLE_CLIENT_SECRET: z.string(),
     NEXT_PUBLIC_MAPTOKEN: z.string(),
@@ -69,10 +65,8 @@ export const env = createEnv({
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
 
-    GITHUB_CLIENT_ID_DEV: process.env.GITHUB_CLIENT_ID_DEV,
-    GITHUB_CLIENT_SECRET_DEV: process.env.GITHUB_CLIENT_SECRET_DEV,
-    GITHUB_CLIENT_ID_PROD: process.env.GITHUB_CLIENT_ID_PROD,
-    GITHUB_CLIENT_SECRET_PROD: process.env.GITHUB_CLIENT_SECRET_PROD,
+    GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
+    GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
 
     MAPTOKEN: process.env.MAPTOKEN,
     MAPBOX_URL: process.env.MAPBOX_URL,
@@ -83,11 +77,8 @@ export const env = createEnv({
     NEXT_PUBLIC_GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     NEXT_PUBLIC_GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
 
-    NEXT_PUBLIC_GITHUB_CLIENT_ID_DEV: process.env.GITHUB_CLIENT_ID_DEV,
-    NEXT_PUBLIC_GITHUB_CLIENT_SECRET_DEV: process.env.GITHUB_CLIENT_SECRET_DEV,
-    NEXT_PUBLIC_GITHUB_CLIENT_ID_PROD: process.env.GITHUB_CLIENT_ID_PROD,
-    NEXT_PUBLIC_GITHUB_CLIENT_SECRET_PROD:
-      process.env.GITHUB_CLIENT_SECRET_PROD,
+    NEXT_PUBLIC_GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
+    NEXT_PUBLIC_GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
 
     NEXT_PUBLIC_MAPTOKEN: process.env.MAPTOKEN,
     NEXT_PUBLIC_MAPBOX_URL: process.env.MAPBOX_URL,
