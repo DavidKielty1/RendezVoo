@@ -7,7 +7,7 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import "leaflet-defaulticon-compatibility";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-const MapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+const MapboxToken = process.env.NEXT_PUBLIC_MAPTOKEN;
 
 export default function Mapbox() {
   return (
@@ -18,9 +18,7 @@ export default function Mapbox() {
       scrollWheelZoom={false}
     >
       <TileLayer
-        url={`https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/256/{z}/{x}/{y}@2x?access_token=${
-          MapboxToken as string
-        }`}
+        url={`https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/256/{z}/{x}/{y}@2x?access_token=${MapboxToken!}`}
         attribution='Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
       />
       <Marker position={[51.505, -0.09]}>

@@ -1,7 +1,7 @@
 import mapboxgl from "mapbox-gl";
 import React, { useEffect, useRef } from "react";
 
-const mapToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!;
+const mapToken = process.env.NEXT_PUBLIC_MAPTOKEN!;
 
 import { type Meetup } from "~/utils/types";
 

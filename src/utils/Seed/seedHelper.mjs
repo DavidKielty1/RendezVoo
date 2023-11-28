@@ -20,7 +20,7 @@ const randomChoice = (arr) => {
 };
 
 import mbxGeocoding from "@mapbox/mapbox-sdk/services/geocoding.js";
-const MapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+const MapboxToken = process.env.NEXT_PUBLIC_MAPTOKEN;
 const geocoder = mbxGeocoding({ accessToken: MapboxToken });
 
 const generateMeetupData = async () => {
@@ -54,7 +54,7 @@ const generateMeetupData = async () => {
   const time = new Date().toLocaleString();
   const image =
     `/images/${encodeURIComponent(
-      imagePaths[Math.floor(Math.random() * imagePaths.length)]
+      imagePaths[Math.floor(Math.random() * imagePaths.length)],
     )}` || "default-image-path";
 
   return {
