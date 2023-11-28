@@ -37,7 +37,7 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    NEXT_PUBLIC_DATABASE_URL: z.string().url(),
+    // NEXT_PUBLIC_DATABASE_URL: z.string().url(),
     NEXT_PUBLIC_NEXTAUTH_URL: z.preprocess(
       // This makes Vercel deployments not fail if you don't set NEXTAUTH_URL
       // Since NextAuth.js automatically uses the VERCEL_URL if present.
@@ -72,7 +72,7 @@ export const env = createEnv({
     MAPBOX_URL: process.env.MAPBOX_URL,
 
     /* Next Public*/
-    NEXT_PUBLIC_DATABASE_URL: process.env.DATABASE_URL,
+    // NEXT_PUBLIC_DATABASE_URL: process.env.DATABASE_URL,
     NEXT_PUBLIC_NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     NEXT_PUBLIC_GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     NEXT_PUBLIC_GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
