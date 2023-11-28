@@ -5,7 +5,7 @@ Sorting and filtering by date/proximity **/country/city**.
 HeadlessUI Combobox for searching? Dynamically link to array/objet holding up-to-date location information.
 Turn off spellcheck
 Turn on predictive text
-
+.
 _Comments_
 Change comment title to user. Link to profile.
 Profile pic thumbnail by name.
@@ -117,7 +117,6 @@ Different street names within cities (if can't find multiple mapbox popup soluti
 For search functionality: "Add 50 more cities from UK, 50 more cities world-wide. Create 400 seeds.
 Change it so along with the comment, the user will add that meetup to their saved meetup also.
 Perhaps members could also @ other people who have commented on the post.
-
 
 .
 
