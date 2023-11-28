@@ -80,7 +80,7 @@ export const env = createEnv({
     NEXT_PUBLIC_GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
     NEXT_PUBLIC_GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
 
-    NEXT_PUBLIC_MAPTOKEN: process.env.NEXT_PUBLIC_MAPTOKEN,
+    NEXT_PUBLIC_MAPTOKEN: process.env.MAPTOKEN,
     NEXT_PUBLIC_MAPBOX_URL: process.env.MAPBOX_URL,
   },
   /**
