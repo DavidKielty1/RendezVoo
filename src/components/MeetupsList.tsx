@@ -22,7 +22,7 @@ export const MeetupsList = () => {
       onSuccess: (data: Meetup[]) => {
         setMeetups(data ?? fetchedMeetups);
       },
-    }
+    },
   );
 
   return (

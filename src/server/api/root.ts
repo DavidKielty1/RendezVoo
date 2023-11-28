@@ -2,7 +2,7 @@ import { createTRPCRouter } from "~/server/api/trpc";
 import { meetupRouter } from "~/server/api/routers/meetups";
 import { commentRouter } from "~/server/api/routers/comments";
 import { userRouter } from "~/server/api/routers/user";
-import { saveMeetupRouter } from "./routers/savemeetups";
+import { savedMeetupRouter } from "./routers/savedmeetup";
 
 /**
  * This is the primary router for your server.
@@ -13,7 +13,7 @@ export const appRouter = createTRPCRouter({
   meetup: meetupRouter,
   comment: commentRouter,
   user: userRouter,
-  savemeetup: saveMeetupRouter,
+  savedmeetup: savedMeetupRouter,
 });
 
 // export type definition of API

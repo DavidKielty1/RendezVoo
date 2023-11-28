@@ -97,6 +97,8 @@ Image Cloudinary upload x1.
 Upon submitting, navigate to the new meetup page (How can I get ID if not already made)?
 Form location intellisense? Mapbox? Find solution. HeadlessUI Combobox for searching? Dynamically link to array/objet holding up-to-date location information.
 Need to prompt toast in redirected page after new meetup submission => Require change from router to Next/redirect? (Full page refresh cancels toast).Portals. See headlessUI Dialog (Modal).
+Validation - should not be a date less than DateNow().
+New Meetup is submitted/rendered in wrong date-time. Check seed. Look for datetime without seconds.
 
 _Edit_
 Refactor Edit. Editpage Parent Index Component -> Edit child component.

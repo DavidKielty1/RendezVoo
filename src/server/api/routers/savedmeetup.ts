@@ -24,7 +24,7 @@ type SavedMeetupWithMeetup = {
   };
 };
 
-export const saveMeetupRouter = createTRPCRouter({
+export const savedMeetupRouter = createTRPCRouter({
   getAllSavedMeetups: publicProcedure
     .input(z.object({ userId: z.string() }))
     .query(async ({ input, ctx }) => {
