@@ -36,20 +36,20 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    // NEXT_PUBLIC_DATABASE_URL: z.string().url(),
-    // NEXT_PUBLIC_NEXTAUTH_URL: z.preprocess(
-    //   // This makes Vercel deployments not fail if you don't set NEXTAUTH_URL
-    //   // Since NextAuth.js automatically uses the VERCEL_URL if present.
-    //   (str) => process.env.VERCEL_URL ?? str,
-    //   // VERCEL_URL doesn't include `https` so it cant be validated as a URL
-    //   process.env.VERCEL ? z.string() : z.string().url(),
-    // ),
-    // NEXT_PUBLIC_GITHUB_CLIENT_ID: z.string(),
-    // NEXT_PUBLIC_GITHUB_CLIENT_SECRET: z.string(),
-    // NEXT_PUBLIC_GOOGLE_CLIENT_ID: z.string(),
-    // NEXT_PUBLIC_GOOGLE_CLIENT_SECRET: z.string(),
+    NEXT_PUBLIC_DATABASE_URL: z.string().url(),
+    NEXT_PUBLIC_NEXTAUTH_URL: z.preprocess(
+      // This makes Vercel deployments not fail if you don't set NEXTAUTH_URL
+      // Since NextAuth.js automatically uses the VERCEL_URL if present.
+      (str) => process.env.VERCEL_URL ?? str,
+      // VERCEL_URL doesn't include `https` so it cant be validated as a URL
+      process.env.VERCEL ? z.string() : z.string().url(),
+    ),
+    NEXT_PUBLIC_GITHUB_CLIENT_ID: z.string(),
+    NEXT_PUBLIC_GITHUB_CLIENT_SECRET: z.string(),
+    NEXT_PUBLIC_GOOGLE_CLIENT_ID: z.string(),
+    NEXT_PUBLIC_GOOGLE_CLIENT_SECRET: z.string(),
     NEXT_PUBLIC_MAPTOKEN: z.string(),
-    // NEXT_PUBLIC_MAPBOX_URL: z.string().url(),
+    NEXT_PUBLIC_MAPBOX_URL: z.string().url(),
   },
 
   /**
@@ -68,16 +68,16 @@ export const env = createEnv({
     MAPTOKEN: process.env.MAPTOKEN,
 
     /* Next Public*/
-    // NEXT_PUBLIC_DATABASE_URL: process.env.NEXT_PUBLIC_DATABASE_URL,
-    // NEXT_PUBLIC_NEXTAUTH_URL: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
-    // NEXT_PUBLIC_GITHUB_CLIENT_ID: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID,
-    // NEXT_PUBLIC_GITHUB_CLIENT_SECRET:
-    //   process.env.NEXT_PUBLIC_GITHUB_CLIENT_SECRET,
-    // NEXT_PUBLIC_GOOGLE_CLIENT_ID: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-    // NEXT_PUBLIC_GOOGLE_CLIENT_SECRET:
-    //   process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
-    NEXT_PUBLIC_MAPTOKEN: process.env.MAPTOKEN,
-    // NEXT_PUBLIC_MAPBOX_URL: process.env.NEXT_PUBLIC_MAPBOX_URL,
+    NEXT_PUBLIC_DATABASE_URL: process.env.NEXT_PUBLIC_DATABASE_URL,
+    NEXT_PUBLIC_NEXTAUTH_URL: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
+    NEXT_PUBLIC_GITHUB_CLIENT_ID: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID,
+    NEXT_PUBLIC_GITHUB_CLIENT_SECRET:
+      process.env.NEXT_PUBLIC_GITHUB_CLIENT_SECRET,
+    NEXT_PUBLIC_GOOGLE_CLIENT_ID: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+    NEXT_PUBLIC_GOOGLE_CLIENT_SECRET:
+      process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
+    NEXT_PUBLIC_MAPTOKEN: process.env.NEXT_PUBLIC_MAPTOKEN,
+    NEXT_PUBLIC_MAPBOX_URL: process.env.NEXT_PUBLIC_MAPBOX_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
