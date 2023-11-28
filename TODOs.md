@@ -13,7 +13,7 @@ Comment threads - every comment can have multiple repliesMake reply schemaSort r
 Thumbs up/reactions schema.
 Routing to delete/edit only your own comments.
 Feedback on comment fail if not logged in. => Only show commentEditor if signed in.
-.
+
 _Mapbox_
 Look in to rendering multiple overlapping coords at the same time.
 Skeletal template upon page load.
