@@ -5,6 +5,7 @@ Sorting and filtering by date/proximity **/country/city**.
 HeadlessUI Combobox for searching? Dynamically link to array/objet holding up-to-date location information.
 Turn off spellcheck.
 Turn on predictive text.
+Current app is not sorting or filtering a single list, but providing and rendering completely new components based on the new list.
 
 _Comments_
 Change comment title to user. Link to profile.
@@ -32,10 +33,10 @@ Can I set the favicon somewhere globally? Top level index/app component?
 
 _Refactor_
 Categories array within ProfileTabs component.
-Pagination buttons @MeetupsList, @SubmittedMeetups, @SavedMeetups, @FilteredMeetupsList
+Pagination buttons @MeetupsList, @SubmittedMeetups, @SavedMeetups, @FilteredMeetupsList, @SortedMeetupsList
 Can useSession be set globally? - globalStateManagement?
 Next/Head Favicon, description.
-Try to refactor showDetails (search find bg-green-200) to separate component. Used in @FilteredMeetups, @Meetuplist, @SubmittedMeetups
+Try to refactor showDetails (search find bg-green-200) to separate component. Used in @FilteredMeetups, @Meetuplist, @SubmittedMeetups, @SortedMeetupsList
 Transitions components.
 Can I refactor the type-guarding in [MeetupId]Index component? Ask Chatgpt for this one.
 Edit form at some point.
@@ -53,6 +54,7 @@ Clicking on profile picture does nothing.
 _APIs_
 Getting there tab.
 Flights tab.
+MeetupDelete route does not work with meetups that have comments.
 
 _PrivacyPolicy_
 Using google.

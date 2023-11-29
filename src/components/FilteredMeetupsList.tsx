@@ -23,7 +23,7 @@ export default function FilteredMeetupsList({ searchInput }: Props) {
       onSuccess: (data: Meetup[]) => {
         setFilteredMeetups(data ?? filteredData);
       },
-    }
+    },
   );
 
   function showDetailsHandler(meetup: Meetup) {

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Transition } from "@headlessui/react";
 
 import { type Meetup } from "~/utils/types";
+import Link from "next/link";
 
 export const MeetupsList = () => {
   const myLoader = ({ src }: { src: string; width: number }) => {
@@ -83,15 +84,16 @@ export const MeetupsList = () => {
 
                     <div className="mb-2 flex flex-col py-4 lg:py-0">
                       <div className="flex gap-2 self-center xl:self-start xl:pl-4">
-                        <button
+                        <Link
                           className="btn btn-sm border-0 bg-green-200 capitalize text-slate-600 hover:bg-green-300"
-                          onClick={(evt) => {
-                            evt.preventDefault();
-                            void router.push(`/${meetup.id}`);
-                          }}
+                          // onClick={(evt) => {
+                          //   evt.preventDefault();
+                          //   void router.push(`/${meetup.id}`);
+                          // }}
+                          href={`/${meetup.id}`}
                         >
                           Details
-                        </button>
+                        </Link>
                       </div>
                       <div className="w-full text-end">
                         <span className="absolute bottom-0.5 right-2 text-xs">

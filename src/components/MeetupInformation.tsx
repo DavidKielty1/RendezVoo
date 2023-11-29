@@ -30,12 +30,7 @@ export default function MeetupInformation({ selectedMeetup, userId }: Props) {
     });
   };
 
-  const deleteMeetupHandler = api.meetup.delete.useMutation({
-    onSuccess: () => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      void refetchMeetups();
-    },
-  });
+  const deleteMeetupHandler = api.meetup.delete.useMutation({});
 
   return (
     <section className="items-left card flex max-h-[1000px] justify-between border-gray-200 text-slate-500 shadow-xl">

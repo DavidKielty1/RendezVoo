@@ -8,13 +8,16 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import { env } from "../env.js";
-import { useEffect, useRef, useState } from "react";
-import mapboxgl from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
+import { useEffect, useRef } from "react";
 import { api } from "../utils/api";
 import { type Meetup } from "~/utils/types";
-import Link from "next/link";
 import router from "next/router";
+
+import mapboxgl from "mapbox-gl";
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
+import "mapbox-gl/dist/mapbox-gl.css";
+import * as turf from "@turf/turf";
 
 const mapToken = env.NEXT_PUBLIC_MAPTOKEN;
 mapboxgl.accessToken = mapToken;
@@ -44,8 +47,8 @@ export default function ClusterMap() {
             meetups?.map((meetup: Meetup) => ({
               type: "Feature",
               geometry: {
-                type: "Point",
                 coordinates: meetup.coordinates as [number, number],
+                type: "Point",
               },
               properties: {
                 popUpMarkup: `<a href='/${meetup.id}' class='map-popup-link' style="color: blue; text-decoration: underline;" data-id='${meetup.id}'>${meetup.title}</a>`,
@@ -53,6 +56,10 @@ export default function ClusterMap() {
             })) ?? [],
         };
 
+        //// TODO:
+        //// Location store = meetupsGeoJSON(two arrays)[index].geometry.coordinates[num, num]
+        ////
+        ////
         if (mapRef.current && meetups && meetups.length > 0) {
           mapRef.current.addSource("meetups", {
             type: "geojson",
@@ -217,6 +224,53 @@ export default function ClusterMap() {
             source.setData(meetupsGeoJSON);
           }
         }
+
+        // -- GEOCODER CODE -- //
+        // -- GEOCODER CODE -- //
+        // -- GEOCODER CODE -- //
+
+        // const geocoder = new MapboxGeocoder({
+        //   accessToken: mapboxgl.accessToken,
+        //   mapboxgl: mapboxgl,
+        //   marker: true,
+        //   bbox: [-77.210763, 38.803367, -76.853675, 39.052643], // Set the bounding box coordinates
+        // });
+        // geocoder.on("result", (event) => {
+        //   const searchResult = event.result.geometry;
+        //   const options = { units: "miles" };
+        //   for (const meetup of meetupsGeoJSON.features) {
+        //     if (meetup.properties) {
+        //       meetup.properties.distance = turf.distance(
+        //         searchResult,
+        //         meetup.geometry,
+        //         options,
+        //       );
+        //     }
+        //   }
+        //   console.log(
+        //     "meetupsGeoJSON example geometry",
+        //     meetupsGeoJSON.features,
+        //   );
+        //   meetupsGeoJSON.features.sort((a, b) => {
+        //     if (a.properties?.distance > b.properties?.distance) {
+        //       return 1;
+        //     }
+        //     if (a.properties?.distance < b.properties?.distance) {
+        //       return -1;
+        //     }
+        //     return 0; // a must be equal to b
+        //   });
+        //   const listings = document.getElementById("listings");
+        //   while (listings?.firstChild) {
+        //     listings?.removeChild(listings?.firstChild);
+        //   }
+        // });
+
+        // mapRef.current.addControl(geocoder, "top-left");
+
+        // -- GEOCODER CODE -- //
+        // -- GEOCODER CODE -- //
+        // -- GEOCODER CODE -- //
       });
     }
     const resizeMap = () => {
