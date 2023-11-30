@@ -1,30 +1,34 @@
-import { useState } from "react";
-import { api } from "../utils/api";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import { Transition } from "@headlessui/react";
 
-import { type Meetup } from "~/utils/types";
 import Link from "next/link";
+import { type Meetup } from "~/utils/types";
+import { useState } from "react";
 
-export const MeetupsList = () => {
+type Props = {
+  meetups: Meetup[];
+  onPageChange: (currentPage: number) => void;
+};
+
+export const MeetupsList = ({ meetups, onPageChange }: Props) => {
   const myLoader = ({ src }: { src: string; width: number }) => {
     return `${src}?w=${200}`;
   };
 
-  const router = useRouter();
-
-  const [meetups, setMeetups] = useState<Meetup[]>([]);
-
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: fetchedMeetups } = api.meetup.getAll.useQuery(
-    { page: currentPage },
-    {
-      onSuccess: (data: Meetup[]) => {
-        setMeetups(data ?? fetchedMeetups);
-      },
-    },
-  );
+  const handlePageIncrement = () => {
+    const newPage = currentPage + 1;
+    setCurrentPage(newPage);
+    onPageChange(newPage);
+  };
+
+  const handlePageDecrement = () => {
+    const newPage = currentPage - 1;
+    setCurrentPage(newPage);
+    onPageChange(newPage);
+  };
+
+  // console.log("In MeetupsList component", meetups);
 
   return (
     <>
@@ -86,10 +90,6 @@ export const MeetupsList = () => {
                       <div className="flex gap-2 self-center xl:self-start xl:pl-4">
                         <Link
                           className="btn btn-sm border-0 bg-green-200 capitalize text-slate-600 hover:bg-green-300"
-                          // onClick={(evt) => {
-                          //   evt.preventDefault();
-                          //   void router.push(`/${meetup.id}`);
-                          // }}
                           href={`/${meetup.id}`}
                         >
                           Details
@@ -125,7 +125,7 @@ export const MeetupsList = () => {
             <button
               className="hover:cursor-pointer hover:text-slate-300"
               disabled={currentPage === 1}
-              onClick={() => setCurrentPage((prev) => prev - 1)}
+              onClick={handlePageDecrement}
             >
               Previous
             </button>
@@ -133,9 +133,7 @@ export const MeetupsList = () => {
             <button
               className="hover:cursor-pointer hover:text-slate-300"
               disabled={!meetups}
-              onClick={() => {
-                setCurrentPage((prev) => prev + 1);
-              }}
+              onClick={handlePageIncrement}
             >
               Next
             </button>

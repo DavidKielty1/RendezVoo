@@ -39,7 +39,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/components/ClusterMap.jsx",
-    "src/utils/Prox2.ts"
+    "src/utils/Prox2.ts",
+    "src/utils/SortMeetups.tsx"
   ],
   "exclude": ["node_modules"]
 }

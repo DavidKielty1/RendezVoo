@@ -5,13 +5,21 @@ import styles from "./../styles/sparklyGradient.module.css";
 
 interface FilterMeetupsListProps {
   onSearchChange: (searchTerm: string) => void;
+  onLocationChange: (location: string) => void;
 }
 
 export default function FilterComponent({
   onSearchChange,
+  onLocationChange,
 }: FilterMeetupsListProps) {
-  const handleInputChange = (e: { currentTarget: { value: string } }) => {
+  const handleSearchInputChange = (e: { currentTarget: { value: string } }) => {
     onSearchChange(e.currentTarget.value);
+  };
+
+  const handleLocationInputChange = (e: {
+    currentTarget: { value: string };
+  }) => {
+    onLocationChange(e.currentTarget.value);
   };
 
   return (
@@ -31,18 +39,21 @@ export default function FilterComponent({
             </Disclosure.Button>
           </div>
           <Disclosure.Panel className="text-gray-500">
-            <div className="shadow- flex justify-center rounded-lg  py-8 text-darktext">
-              <div className="flex w-2/3 flex-col items-center gap-1">
-                <label
-                  htmlFor="FilterSearch"
-                  className="text-blue-950/6 text-xl lg:text-2xl"
-                >
-                  Input your query here
-                </label>
+            <div className="flex flex-col justify-center gap-4 rounded-lg py-8  text-xl xl:flex-row">
+              <div className="flex flex-col items-center gap-1 pb-4 ">
                 <input
+                  placeholder="Filter by Search Term"
                   type="text"
-                  className="w-72 rounded-lg bg-blue-950/60 px-2 text-center text-white shadow-lg"
-                  onChange={handleInputChange}
+                  className="w-72 rounded-lg bg-blue-950/60 px-2 py-1 text-center text-white placeholder-white shadow-lg focus:placeholder-transparent"
+                  onChange={handleSearchInputChange}
+                />
+              </div>
+              <div className="flex flex-col items-center gap-1 pb-4">
+                <input
+                  placeholder="Sort by Location"
+                  type="text"
+                  className="w-72 rounded-lg bg-blue-950/60 px-2 py-1 text-center text-white placeholder-white shadow-lg focus:placeholder-transparent"
+                  onChange={handleLocationInputChange}
                 />
               </div>
             </div>

@@ -16,6 +16,7 @@ Routing to delete/edit only your own comments.
 Feedback on comment fail if not logged in. => Only show commentEditor if signed in.
 
 _Mapbox_
+Mapbox popUpMarkup styling
 Look in to rendering multiple overlapping coords at the same time.
 Skeletal template upon page load.
 Only resize after render, not when clicking on browser again. Double refresh.
