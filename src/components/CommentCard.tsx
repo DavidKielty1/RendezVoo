@@ -7,11 +7,11 @@ import { type CommentWithUserInfo } from "~/utils/types";
 export const CommentCard = ({
   meetupComment,
   refetchComments,
-  sessionUserId,
+  userId,
 }: {
   meetupComment: CommentWithUserInfo;
   refetchComments: () => void;
-  sessionUserId: string | undefined;
+  userId: string | undefined;
 }) => {
   const deleteComment = api.comment.delete.useMutation({
     onSuccess: () => {
@@ -19,7 +19,7 @@ export const CommentCard = ({
     },
   });
 
-  console.log(sessionUserId);
+  console.log(userId);
 
   return (
     <div className="card mt-5 border border-gray-200 bg-base-100 shadow-xl">
@@ -36,7 +36,7 @@ export const CommentCard = ({
           </article>
         </div>
         <div className="mx-2 flex justify-end">
-          {sessionUserId === meetupComment.userId ?? (
+          {userId === meetupComment.userId && (
             <button
               className="btn btn-xs mb-2 mr-2 mt-1 w-20 bg-slate-400 px-8 capitalize text-white"
               onClick={() => {

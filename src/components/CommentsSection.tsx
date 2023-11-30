@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CommentCard } from "./CommentCard";
 import { CommentEditor } from "./CommentEditor";
 
@@ -18,7 +18,6 @@ type Props = {
 export default function CommentsSection({ meetupId, userId }: Props) {
   const { data: sessionData } = useSession();
   const userName = sessionData?.user.name;
-  const sessionUserId = sessionData?.user.id;
 
   const [meetupComments, setMeetupComments] = useState<CommentWithUserInfo[]>(
     [],
@@ -64,7 +63,7 @@ export default function CommentsSection({ meetupId, userId }: Props) {
                 <CommentCard
                   meetupComment={meetupComment}
                   refetchComments={refetchComments}
-                  sessionUserId={sessionUserId}
+                  userId={userId}
                 />
               </div>
             ))}
