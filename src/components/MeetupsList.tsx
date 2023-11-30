@@ -2,8 +2,9 @@ import Image from "next/image";
 import { Transition } from "@headlessui/react";
 
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { type Meetup } from "~/utils/types";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type Props = {
   meetups: Meetup[];
@@ -28,7 +29,28 @@ export const MeetupsList = ({ meetups, onPageChange }: Props) => {
     onPageChange(newPage);
   };
 
-  // console.log("In MeetupsList component", meetups);
+  const router = useRouter();
+
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  const handleLiClick = useCallback(
+    (meetupId: string) => {
+      if (isLargeScreen) {
+        void router.push(`/${meetupId}`);
+      }
+    },
+    [isLargeScreen],
+  );
+
+  useEffect(() => {
+    const checkScreenWidth = () => {
+      setIsLargeScreen(window.innerWidth > 1024); // xl breakpoint
+    };
+    checkScreenWidth();
+    window.addEventListener("resize", checkScreenWidth);
+
+    return () => window.removeEventListener("resize", checkScreenWidth);
+  }, []);
 
   return (
     <>
@@ -44,7 +66,11 @@ export const MeetupsList = ({ meetups, onPageChange }: Props) => {
       {meetups ? (
         <ul className="mb-10 flex w-full flex-col gap-10">
           {meetups?.map((meetup) => (
-            <li key={meetup?.id}>
+            <li
+              className="hover:shadow-glow  rounded-xl transition duration-300 ease-in-out xl:hover:cursor-pointer"
+              key={meetup?.id}
+              onClick={() => handleLiClick(meetup.id)}
+            >
               <section className="card border border-slate-200 shadow-2xl">
                 <article className="flex flex-col justify-center lg:flex-row">
                   <div className="relative h-[249px] overflow-hidden rounded-tl-xl rounded-tr-xl opacity-80 lg:w-5/12 lg:rounded-bl-xl lg:rounded-tr-none xl:w-4/12">
@@ -64,7 +90,12 @@ export const MeetupsList = ({ meetups, onPageChange }: Props) => {
                     <section className="flex flex-col xl:h-[208px]">
                       <div className="flex justify-center ">
                         <p className="w-full overflow-clip bg-slate-100/50 py-2 pl-4 text-left font-sans text-lg font-bold capitalize text-darktext lg:rounded-t-xl lg:rounded-tl-none lg:py-3 lg:text-xl">
-                          <span className="line-clamp-1 ">{meetup?.title}</span>
+                          <Link
+                            className="line-clamp-1 hover:text-purple-400"
+                            href={`/${meetup.id}`}
+                          >
+                            {meetup?.title}
+                          </Link>
                         </p>
                       </div>
                       <div className="mx-2 flex max-w-full flex-col justify-between gap-1">

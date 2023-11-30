@@ -1,11 +1,5 @@
 _Search & Filter_
-Expandable searchtools Component.
-Sorting and filtering by date/proximity **/country/city**.
-**Search words.**
-HeadlessUI Combobox for searching? Dynamically link to array/objet holding up-to-date location information.
-Turn off spellcheck.
 Turn on predictive text.
-Current app is not sorting or filtering a single list, but providing and rendering completely new components based on the new list.
 
 _Comments_
 Change comment title to user. Link to profile.
@@ -14,11 +8,11 @@ Comment threads - every comment can have multiple repliesMake reply schemaSort r
 Thumbs up/reactions schema.
 Routing to delete/edit only your own comments.
 Feedback on comment fail if not logged in. => Only show commentEditor if signed in.
+Transfer to textarea.
 
 _Mapbox_
 Mapbox popUpMarkup styling
 Look in to rendering multiple overlapping coords at the same time.
-Skeletal template upon page load.
 Only resize after render, not when clicking on browser again. Double refresh.
 New Meetup page.
 Edit page.
@@ -27,17 +21,13 @@ _Datetime_
 Relative time (2 weeks ago), hover-over show absolute time.
 Timezones. UTC at end of all timezones?
 Display date relative to time-zone.
-Localization.
-
-_FavIcon_
-Can I set the favicon somewhere globally? Top level index/app component?
 
 _Refactor_
 Categories array within ProfileTabs component.
-Pagination buttons @MeetupsList, @SubmittedMeetups, @SavedMeetups, @FilteredMeetupsList, @SortedMeetupsList
+Pagination buttons @MeetupsList, @SubmittedMeetups, @SavedMeetups.
 Can useSession be set globally? - globalStateManagement?
 Next/Head Favicon, description.
-Try to refactor showDetails (search find bg-green-200) to separate component. Used in @FilteredMeetups, @Meetuplist, @SubmittedMeetups, @SortedMeetupsList
+Try to refactor showDetails (search find bg-green-200) to separate component. Used in @Meetuplist, @SubmittedMeetups.
 Transitions components.
 Can I refactor the type-guarding in [MeetupId]Index component? Ask Chatgpt for this one.
 Edit form at some point.
@@ -93,6 +83,7 @@ _MeetupsList_
 Add loding div.
 On phone - button to scroll on top of page.
 Take users to top of meetupLists component upon next page click.
+FilteredComponent needed?
 
 _SubmittedMeetupsList_
 In profile tab, needs dynamic routing. If your meetups 'Check out your saved meetups here'; otherwise 'Check out ${userId}'s meetups here'. Check session.
@@ -143,6 +134,7 @@ Scaling.
 AWS, lambdas, etc.
 
 A/B testing?
+Localization.
 
 Database migration techniques - expand/contract.
 Dev, Staging, Prod deployment processes?.

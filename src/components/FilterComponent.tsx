@@ -44,6 +44,7 @@ export default function FilterComponent({
                 <input
                   placeholder="Filter by Search Term"
                   type="text"
+                  spellCheck="false"
                   className="w-72 rounded-lg bg-blue-950/60 px-2 py-1 text-center text-white placeholder-white shadow-lg focus:placeholder-transparent"
                   onChange={handleSearchInputChange}
                 />
@@ -52,6 +53,7 @@ export default function FilterComponent({
                 <input
                   placeholder="Sort by Location"
                   type="text"
+                  spellCheck="false"
                   className="w-72 rounded-lg bg-blue-950/60 px-2 py-1 text-center text-white placeholder-white shadow-lg focus:placeholder-transparent"
                   onChange={handleLocationInputChange}
                 />

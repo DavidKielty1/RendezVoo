@@ -1,5 +1,4 @@
 import { type Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
   content: [
@@ -18,11 +17,13 @@ export default {
       "3xl": "1536px",
     },
     extend: {
-      // fontFamily: {
-      //   sans: ["var(--font-sans)", ...fontFamily.sans],
-      // },
+      boxShadow: {
+        glow: "0 0 6px 3px rgba(232, 121, 249, 0.2)",
+      },
       colors: {
-        darktext: "#475569",
+        darktextalt: "#475569",
+        darktext: "#64748b",
+        glowblue: "#A5B4FC",
       },
       fontSize: {
         "8xl": "6rem",

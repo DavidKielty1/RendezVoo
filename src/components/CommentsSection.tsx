@@ -17,9 +17,11 @@ type Props = {
 
 export default function CommentsSection({ meetupId, userId }: Props) {
   const { data: sessionData } = useSession();
+  const userName = sessionData?.user.name;
+  const sessionUserId = sessionData?.user.id;
 
   const [meetupComments, setMeetupComments] = useState<CommentWithUserInfo[]>(
-    []
+    [],
   );
 
   const { data: fetchedComments, refetch: refetchComments } =
@@ -30,7 +32,7 @@ export default function CommentsSection({ meetupId, userId }: Props) {
         onSuccess: (data: CommentWithUserInfo[]) => {
           setMeetupComments(data ?? fetchedComments ?? []);
         },
-      }
+      },
     );
 
   const createComment = api.comment.create.useMutation({
@@ -53,6 +55,7 @@ export default function CommentsSection({ meetupId, userId }: Props) {
                   userId,
                 });
               }}
+              userName={userName}
             />
           </div>
           <div>
@@ -61,6 +64,7 @@ export default function CommentsSection({ meetupId, userId }: Props) {
                 <CommentCard
                   meetupComment={meetupComment}
                   refetchComments={refetchComments}
+                  sessionUserId={sessionUserId}
                 />
               </div>
             ))}
