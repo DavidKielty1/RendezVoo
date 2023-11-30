@@ -6,21 +6,24 @@ Change comment title to user. Link to profile.
 Profile pic thumbnail by name.
 Comment threads - every comment can have multiple repliesMake reply schemaSort replies by time.
 Thumbs up/reactions schema.
-Routing to delete/edit only your own comments.
 Feedback on comment fail if not logged in. => Only show commentEditor if signed in.
 Transfer to textarea.
 
 _Mapbox_
-Mapbox popUpMarkup styling
+**Mapbox popUpMarkup styling**
 Look in to rendering multiple overlapping coords at the same time.
 Only resize after render, not when clicking on browser again. Double refresh.
 New Meetup page.
 Edit page.
 
-_Datetime_
-Relative time (2 weeks ago), hover-over show absolute time.
-Timezones. UTC at end of all timezones?
-Display date relative to time-zone.
+_MeetupsList_
+Add loading div.
+On phone - button to scroll on top of page.
+Take users to top of meetupLists component upon next page click.
+
+_SubmittedMeetupsList_
+In profile tab, needs dynamic routing. If your meetups 'Check out your saved meetups here'; otherwise 'Check out ${userId}'s meetups here'. Check session.
+Only show delete button here and in details, rather than meetupsList.
 
 _Refactor_
 Categories array within ProfileTabs component.
@@ -42,15 +45,6 @@ API routers?
 _NavBar_
 Clicking on profile picture does nothing.
 
-_APIs_
-Getting there tab.
-Flights tab.
-MeetupDelete route does not work with meetups that have comments.
-
-_PrivacyPolicy_
-Using google.
-BFG - Docker
-
 _Meetup Details_
 Date format of seed is too specific with seconds.
 Add user.name/author name to meetup details. - Link to their profile page. => Find user.name from meetup.userId.
@@ -61,13 +55,12 @@ Line clamping in the information could probably change, be expanded.
 Title could be more obvious on phone screen resolution (bold).
 
 _ProfilePage_
-UserInformation in profileOverview needs overall overflow-hidden or clap solution.
+UserInformation in profileOverview needs overall overflow-hidden or clamp solution.
 Update User info page - incl. prof picture, banner
 Randomize colour banner in profile overview.
 Profile page image can be changed to user.image || default image. Same with title
 Profile related info - number of posts etc, last seen, last post when etc. Use/update schema.
 Anonymity - user info selectively hidden unless in 'close contact list'.
-Notifications if someone comments on your submission.
 Place-holder profile image, add, edit profile image (upload) functionality.
 Comment info needed, Contact list.
 Access to other members that are attending same meetup. Routing, schema, seeding considerations.
@@ -79,15 +72,9 @@ Scrollbar opacity 0, transition ease-in-out upon scroll/hover.
 _Buttons_
 Why isn't the text aligned real center? add padding? Ask Chatpgt.
 
-_MeetupsList_
-Add loding div.
-On phone - button to scroll on top of page.
-Take users to top of meetupLists component upon next page click.
-FilteredComponent needed?
-
-_SubmittedMeetupsList_
-In profile tab, needs dynamic routing. If your meetups 'Check out your saved meetups here'; otherwise 'Check out ${userId}'s meetups here'. Check session.
-Only show delete button here and in details, rather than meetupsList.
+_Datetime_
+Relative time (2 weeks ago), hover-over show absolute time.
+Timezones. UTC at end of all timezones? Display date relative to time-zone.
 
 _New Meetup_
 Image Cloudinary upload x1.
@@ -105,8 +92,18 @@ HeadlessUI Combobox for searching? Dynamically link to array/objet holding up-to
 _SaveMeetupsList_
 Needs delete route.
 
+_APIs_
+Getting there tab.
+Flights tab.
+MeetupDelete route does not work with meetups that have comments.
+
+_PrivacyPolicy_
+Using google.
+BFG - Docker
+
 _App-wide_
 Skeleton page upon initial server fetch.
+Notifications. -> If someone comments on your submission., friend request, friend added etc.
 
 _Auth0_
 Error on Auth0 login
