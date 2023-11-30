@@ -13,50 +13,42 @@ type Props = {
   sortedMeetups: (meetups: Meetup[]) => void;
 };
 
-export default function SortMeetups({ locationInput, sortedMeetups }: Props) {
-  const { data: meetups } = api.meetup.getAllMeetups.useQuery<Meetup[]>();
-  const [geoData, setGeoData] = useState(null);
+const MapboxToken = process.env.NEXT_PUBLIC_MAPTOKEN;
+const geocoder = mbxGeocoding({ accessToken: MapboxToken });
 
-  const MapboxToken = process.env.NEXT_PUBLIC_MAPTOKEN;
-  const geocoder = mbxGeocoding({ accessToken: MapboxToken });
+async function sortMeetupsByLocation(
+  locationInput: string,
+  meetups: Meetup[],
+  callback: (sortedMeetups: Meetup[]) => void,
+) {
+  if (!locationInput) return;
 
-  useEffect(() => {
-    async function getCoordinatesFromLocationInput() {
-      try {
-        const response = await geocoder
-          .forwardGeocode({
-            query: locationInput,
-            limit: 1,
-          })
-          .send();
+  try {
+    const response = await geocoder
+      .forwardGeocode({
+        query: locationInput,
+        limit: 1,
+      })
+      .send();
 
-        setGeoData(response.body.features[0].geometry.coordinates);
-      } catch (error) {
-        console.error("Error fetching geodata:", error);
-      }
-    }
+    const geoData = response.body.features[0].geometry.coordinates;
 
-    if (locationInput) {
-      void getCoordinatesFromLocationInput();
-    }
-  }, [locationInput]);
+    const sortedMeetupsArray = meetups.slice().sort((a, b) => {
+      const distA = haversineDistance(
+        geoData,
+        a.coordinates as [number, number],
+      );
+      const distB = haversineDistance(
+        geoData,
+        b.coordinates as [number, number],
+      );
+      return distA - distB;
+    });
 
-  useEffect(() => {
-    if (geoData && meetups) {
-      const sortedMeetupsArray = meetups.slice().sort((a, b) => {
-        const distA = haversineDistance(
-          geoData,
-          a.coordinates as [number, number],
-        );
-        const distB = haversineDistance(
-          geoData,
-          b.coordinates as [number, number],
-        );
-        return distA - distB;
-      });
-      sortedMeetups(sortedMeetupsArray);
-    }
-  }, [geoData, meetups]);
+    callback(sortedMeetupsArray);
+  } catch (error) {
+    console.error("Error fetching geodata:", error);
+  }
 
   function haversineDistance(
     coords1: [number, number],
@@ -90,3 +82,5 @@ export default function SortMeetups({ locationInput, sortedMeetups }: Props) {
     return d;
   }
 }
+
+export default sortMeetupsByLocation;

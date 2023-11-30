@@ -124,15 +124,21 @@ export const meetupRouter = createTRPCRouter({
     }),
 
   searchFilter: publicProcedure
-    .input(z.object({ searchInput: z.string() }))
-    .query(({ ctx, input }) => {
-      return ctx.db.meetup.findMany({
+    .input(z.object({ searchInput: z.string(), page: z.number() }))
+    .query(async ({ ctx, input }) => {
+      const postsPerPage = 10;
+      const skip = ((input?.page || 1) - 1) * postsPerPage;
+
+      const posts = await ctx.db.meetup.findMany({
+        skip: skip,
+        take: postsPerPage,
         where: {
           title: {
             contains: input.searchInput,
-            mode: "insensitive", // Optional: makes the search case-insensitive
+            mode: "insensitive",
           },
         },
       });
+      return posts;
     }),
 });

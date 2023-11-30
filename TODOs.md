@@ -83,6 +83,9 @@ Comment info needed, Contact list.
 Access to other members that are attending same meetup. Routing, schema, seeding considerations.
 Add to contacts button.
 
+_Styles_
+Scrollbar opacity 0, transition ease-in-out upon scroll/hover.
+
 _Buttons_
 Why isn't the text aligned real center? add padding? Ask Chatpgt.
 

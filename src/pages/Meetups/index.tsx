@@ -2,8 +2,8 @@ import { MeetupsList } from "~/components/MeetupsList";
 import ClusterMap from "~/components/ClusterMap";
 import Head from "next/head";
 import FilterComponent from "~/components/FilterComponent";
-import { useState } from "react";
-import SortMeetups from "~/utils/SortMeetups";
+import { useEffect, useState } from "react";
+import sortMeetupsByLocation from "~/utils/SortMeetupsByLocation";
 
 import { api } from "../../utils/api";
 import { type Meetup } from "~/utils/types";
@@ -25,7 +25,7 @@ const HomePage: React.FC = () => {
 
   const [filteredMeetups, setFilteredMeetups] = useState<Meetup[]>(meetups);
   const { data: filteredData } = api.meetup.searchFilter.useQuery(
-    { searchInput },
+    { searchInput, page: currentPage },
     {
       onSuccess: (data: Meetup[]) => {
         setFilteredMeetups(data ?? filteredData);
@@ -33,6 +33,14 @@ const HomePage: React.FC = () => {
       },
     },
   );
+
+  useEffect(() => {
+    if (locationInput) {
+      void sortMeetupsByLocation(locationInput, meetups, (sortedMeetups) => {
+        setMeetups(sortedMeetups);
+      });
+    }
+  }, [locationInput, meetups]);
 
   const handleSearchChange = (newSearchInput: string) => {
     setSearchInput(newSearchInput);
@@ -43,9 +51,8 @@ const HomePage: React.FC = () => {
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
   };
-  const handleSortedMeetupsHandler = (newMeetups: Meetup[]) => {
-    setMeetups(newMeetups);
-  };
+
+  // console.log(currentPage);
 
   return (
     <>
@@ -63,10 +70,6 @@ const HomePage: React.FC = () => {
           onLocationChange={handleLocationChange}
         />
         <MeetupsList meetups={meetups} onPageChange={handlePageChange} />
-        <SortMeetups
-          sortedMeetups={handleSortedMeetupsHandler}
-          locationInput={locationInput}
-        />
       </div>
     </>
   );
