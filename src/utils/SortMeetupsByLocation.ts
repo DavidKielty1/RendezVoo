@@ -3,15 +3,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 // import React, { useState } from "react";
-import React, { useState, useEffect } from "react";
 import { type Meetup } from "~/utils/types";
-import { api } from "~/utils/api";
-import mbxGeocoding from "@mapbox/mapbox-sdk/services/geocoding.js";
-
-type Props = {
-  locationInput: string;
-  sortedMeetups: (meetups: Meetup[]) => void;
-};
+const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding.js") as any;
 
 const MapboxToken = process.env.NEXT_PUBLIC_MAPTOKEN;
 const geocoder = mbxGeocoding({ accessToken: MapboxToken });
@@ -64,7 +57,7 @@ async function sortMeetupsByLocation(
     const lon2 = coords2[0];
     const lat2 = coords2[1];
 
-    const R = 6371; // Earth's radius in km
+    const R = 3959; // Earth's radius in miles
 
     const x1 = lat2 - lat1;
     const dLat = toRad(x1);
