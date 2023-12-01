@@ -93,7 +93,7 @@ export default function MobileNavbar() {
               </div>
               {sessionData && (
                 <Link
-                  href={`/Profile/@${sessionData?.user.name as string}`}
+                  href={`/Profile/@${sessionData.user.name!}`}
                   className={`block w-full py-6 hover:bg-slate-400/40`}
                   onClick={closeMobileMenu}
                 >

@@ -46,9 +46,12 @@ Re-use the sparklyGradient elsewhere throughout site.
 Svg in navbar?
 Desktop Navbar.
 API routers?
-.
+
 _NavBar_
 Clicking on profile picture does nothing.
+Profile dropdown menu can have same background as filter component.
+Mobile Menu: hitting top RendezVoo bar closes menu.
+When menu is open, allow a filter over rest of window? Progressive?
 
 _APIs_
 Getting there tab.
@@ -87,10 +90,13 @@ _MeetupsList_
 Add loding div.
 On phone - button to scroll on top of page.
 Take users to top of meetupLists component upon next page click.
+On screens larger than lg:hover:scale 1.05, entire card goes to details. Take away details button. If not scale, some other minor different, and keep details button.
+Postcreated still clips button, make it lg:.
 
 _SubmittedMeetupsList_
 In profile tab, needs dynamic routing. If your meetups 'Check out your saved meetups here'; otherwise 'Check out ${userId}'s meetups here'. Check session.
 Only show delete button here and in details, rather than meetupsList.
+Page button defaults to user.id's meetups!
 
 _New Meetup_
 Image Cloudinary upload x1.
@@ -102,12 +108,14 @@ _Edit_
 Refactor Edit. Editpage Parent Index Component -> Edit child component.
 Persisting dateTime
 HeadlessUI Combobox for searching? Dynamically link to array/objet holding up-to-date location information.
+Persisted image needs solution.
 
 _SaveMeetupsList_
 Needs delete route.
 
 _App-wide_
 Skeleton page upon initial server fetch.
+Session in pagelayout or before Navbar. Test to see if it fixes errors.
 
 _Auth0_
 Error on Auth0 login

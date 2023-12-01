@@ -31,7 +31,7 @@ const NewMeetupForm = () => {
   };
 
   const locationHandler = async (
-    event: React.KeyboardEvent<HTMLInputElement>
+    event: React.KeyboardEvent<HTMLInputElement>,
   ) => {
     setInputLocation(event.currentTarget.value);
     if (event.currentTarget.value && event.currentTarget.value.length > 0) {
@@ -51,7 +51,7 @@ const NewMeetupForm = () => {
   };
 
   const descriptionHandler = (
-    event: React.KeyboardEvent<HTMLTextAreaElement>
+    event: React.KeyboardEvent<HTMLTextAreaElement>,
   ) => {
     setInputDescription(event.currentTarget.value);
   };
@@ -70,6 +70,8 @@ const NewMeetupForm = () => {
       void refetchMeetups();
     },
   });
+
+  // showToast(result.error.format()._errors[0], "error")
 
   const submitHandler = () => {
     function notify() {

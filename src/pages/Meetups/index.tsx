@@ -17,7 +17,7 @@ const HomePage: React.FC = () => {
       <Head>
         <title>David Kielty Meetups</title>
         <meta name="description" content="" />
-        <link rel="icon" href="../../../public/favicon.ico" />
+        <link rel="icon" href="../../../public/favicon" />
       </Head>
       <div className="flex flex-col gap-4">
         <div className="mb-8 h-[500px] w-full shadow-lg" id="map">
