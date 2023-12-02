@@ -22,7 +22,7 @@ export const CommentCard = ({
   console.log(userId);
 
   return (
-    <div className="card mt-5 border border-gray-200 bg-base-100 shadow-xl">
+    <div className="card border border-gray-200 bg-base-100 shadow-xl">
       <div className="card-body m-0 ml-2 p-0 pt-2">
         <div>
           <Link

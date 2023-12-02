@@ -1,8 +1,4 @@
-_Search & Filter_
-Turn on predictive text.
-
 _Comments_
-Change comment title to user. Link to profile.
 Profile pic thumbnail by name.
 Comment threads - every comment can have multiple repliesMake reply schemaSort replies by time.
 Thumbs up/reactions schema.
@@ -20,6 +16,8 @@ _MeetupsList_
 Add loading div.
 On phone - button to scroll on top of page.
 Take users to top of meetupLists component upon next page click.
+Hover glow only after xl: resolution.
+Pagination buttons should not show unless meetups.length >= 1
 
 _SubmittedMeetupsList_
 In profile tab, needs dynamic routing. If your meetups 'Check out your saved meetups here'; otherwise 'Check out ${userId}'s meetups here'. Check session.
@@ -44,6 +42,11 @@ API routers?
 
 _NavBar_
 Clicking on profile picture does nothing.
+Higher contrast needed in mobile phone menu
+
+_FilterComponent_
+Turn on predictive text.
+Feedback in filter component showing results for searchTerm, showing results for location, showing results for both. Can I change the label value?
 
 _Meetup Details_
 Date format of seed is too specific with seconds.
@@ -53,6 +56,8 @@ Comment toast is freezing?
 Who is attending. SavedMeetups.
 Line clamping in the information could probably change, be expanded.
 Title could be more obvious on phone screen resolution (bold).
+SaveMeetup button should redirect to login if no session.
+Needs an 'attending' element which pulls savedMeetupData (users shown by profilePics as links).
 
 _ProfilePage_
 UserInformation in profileOverview needs overall overflow-hidden or clamp solution.
@@ -61,7 +66,7 @@ Randomize colour banner in profile overview.
 Profile page image can be changed to user.image || default image. Same with title
 Profile related info - number of posts etc, last seen, last post when etc. Use/update schema.
 Anonymity - user info selectively hidden unless in 'close contact list'.
-Place-holder profile image, add, edit profile image (upload) functionality.
+Place-holder profile image, add, edit profile image (upload) functionality. - should pull from an array upon userCreation. Many random possible profilepics.
 Comment info needed, Contact list.
 Access to other members that are attending same meetup. Routing, schema, seeding considerations.
 Add to contacts button.
@@ -88,6 +93,7 @@ _Edit_
 Refactor Edit. Editpage Parent Index Component -> Edit child component.
 Persisting dateTime
 HeadlessUI Combobox for searching? Dynamically link to array/objet holding up-to-date location information.
+If sessionData userId =/= meetupuserId block routing. Authorization 405?
 
 _SaveMeetupsList_
 Needs delete route.
@@ -107,12 +113,6 @@ Notifications. -> If someone comments on your submission., friend request, frien
 
 _Auth0_
 Error on Auth0 login
-
-_Seed_
-Different street names within cities (if can't find multiple mapbox popup solution).
-For search functionality: "Add 50 more cities from UK, 50 more cities world-wide. Create 400 seeds.
-Change it so along with the comment, the user will add that meetup to their saved meetup also.
-Perhaps members could also @ other people who have commented on the post.
 
 .
 

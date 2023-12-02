@@ -48,7 +48,7 @@ function MeetupDetails() {
         <link rel="icon" href="..//favicon.ico" />
       </Head>
       {selectedMeetup ? (
-        <div className="grid gap-7 pb-10 md:grid-cols-2">
+        <div className="grid gap-8 pb-10 md:grid-cols-2">
           <MeetupInformation selectedMeetup={selectedMeetup} userId={userId} />
           <CommentsSection meetupId={meetupId} userId={userId} />
         </div>

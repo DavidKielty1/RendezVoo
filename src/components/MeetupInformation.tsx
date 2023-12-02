@@ -33,7 +33,7 @@ export default function MeetupInformation({ selectedMeetup, userId }: Props) {
   const deleteMeetupHandler = api.meetup.delete.useMutation({});
 
   return (
-    <section className="items-left card flex max-h-[1000px] justify-between border-gray-200 text-slate-500 shadow-xl">
+    <section className="items-left card flex max-h-[1000px] justify-between border-gray-200 text-slate-500 shadow-xl md:max-h-[900px]">
       <div className="relative h-[200px] max-w-full overflow-hidden opacity-80 2xl:h-[300px]">
         <Image
           loader={myLoader}

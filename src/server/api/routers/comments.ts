@@ -3,10 +3,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const commentRouter = createTRPCRouter({
-  getAll: protectedProcedure
+  getAll: publicProcedure
     .input(z.object({ meetupId: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.db.comment.findMany({

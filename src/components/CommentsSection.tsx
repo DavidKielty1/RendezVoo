@@ -27,7 +27,7 @@ export default function CommentsSection({ meetupId, userId }: Props) {
     api.comment.getAll.useQuery<CommentWithUserInfo[]>(
       { meetupId },
       {
-        enabled: sessionData?.user !== undefined && meetupId !== null,
+        // enabled: sessionData?.user !== undefined && meetupId !== null,
         onSuccess: (data: CommentWithUserInfo[]) => {
           setMeetupComments(data ?? fetchedComments ?? []);
         },
@@ -43,8 +43,8 @@ export default function CommentsSection({ meetupId, userId }: Props) {
   return (
     <section>
       {meetupComments ? (
-        <section className="text-slate-500">
-          <div>
+        <section className="flex flex-col gap-8 text-slate-500">
+          {sessionData && (
             <CommentEditor
               onSave={({ title, content }) => {
                 void createComment.mutate({
@@ -56,8 +56,8 @@ export default function CommentsSection({ meetupId, userId }: Props) {
               }}
               userName={userName}
             />
-          </div>
-          <div>
+          )}
+          <div className="flex flex-col gap-4">
             {meetupComments?.map((meetupComment) => (
               <div key={meetupComment.id}>
                 <CommentCard

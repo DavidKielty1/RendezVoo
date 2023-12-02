@@ -17,9 +17,7 @@ export const CommentEditor = ({
   return (
     <div className="card border border-gray-200 bg-base-100 shadow-xl">
       <div className="card-body m-0 p-0 ">
-        <label className="mt-2 px-8 py-1 text-xl font-bold text-darktext">
-          {userName}
-        </label>
+        <label className="mt-2 px-8 py-1 text-xl font-bold ">{userName}</label>
         <CodeMirror
           placeholder="Leave a comment!"
           value={code}
