@@ -63,6 +63,7 @@ model User {
     comments      Comment[]
     location      String?
     description   String?
+    likes         Like[]
 }
 
 model Meetup {
@@ -99,7 +100,21 @@ model Comment {
     title       String
     content     String      @db.Text
     meetupId    String     
-    meetup      Meetup      @relation(fields: [meetupId], references: [id])
-    user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId      String
+    parentId    String?     
+    meetup      Meetup      @relation(fields: [meetupId], references: [id])
+    user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+    parent      Comment?    @relation("CommentToComment", fields: [parentId], references: [id])
+    replies     Comment[]   @relation("CommentToComment")
+    likes       Like[]
+}
+
+model Like {
+    id        String        @id @default(cuid())
+    userId    String
+    commentId String
+    user      User          @relation(fields: [userId], references: [id])
+    comment   Comment       @relation(fields: [commentId], references: [id])
+
+    @@unique([userId, commentId])
 }

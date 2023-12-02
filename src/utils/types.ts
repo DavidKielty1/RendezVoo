@@ -71,6 +71,7 @@ export type Comment = {
   meetupId: string;
   meetup?: Meetup;
   userId: string;
+  parentId?: string;
 };
 
 export type CommentWithUserInfo = {
@@ -81,6 +82,7 @@ export type CommentWithUserInfo = {
   content: string;
   meetupId: string;
   userId: string;
+  parentId: string | null;
   user: {
     id: string;
     name: string;

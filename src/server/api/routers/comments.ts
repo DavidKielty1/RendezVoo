@@ -14,6 +14,7 @@ export const commentRouter = createTRPCRouter({
         orderBy: [{ createdAt: "desc" }],
         where: {
           meetupId: input.meetupId,
+          parentId: null,
         },
         include: {
           user: {

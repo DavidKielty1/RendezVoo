@@ -8,16 +8,10 @@ import {
   userIDs,
   places,
   events,
-} from "./seedArrayHelper.mjs";
+  randomChoice,
+} from "./ArrayHelper.js";
 
 const prisma = new PrismaClient();
-
-const randomChoice = (arr) => {
-  if (!arr || arr.length === 0) {
-    return "Default Choice";
-  }
-  return arr[Math.floor(Math.random() * arr.length)];
-};
 
 import mbxGeocoding from "@mapbox/mapbox-sdk/services/geocoding.js";
 const MapboxToken = process.env.NEXT_PUBLIC_MAPTOKEN;
@@ -77,7 +71,7 @@ async function seedMeetups() {
 
   for (let i = 0; i < 20; i++) {
     let meetupData = await generateMeetupData();
-    meetupData.userId = "clp889ldb0000xvp4hor0aueu";
+    meetupData.userId = "clpojs6300000xt87x2cwtsqv";
 
     let createdMeetup = await prisma.meetup.create({
       data: meetupData,
@@ -108,7 +102,7 @@ async function seedMeetups() {
   }
 
   // Seed remaining meetups
-  for (let i = 20; i < 150; i++) {
+  for (let i = 20; i < 100; i++) {
     let meetupData = await generateMeetupData();
 
     let createdMeetup = await prisma.meetup.create({
@@ -144,7 +138,7 @@ async function seedMeetups() {
     // Randomly select 10 unique user IDs for each meetup
     let selectedUserIDs = userIDs
       .sort(() => 0.5 - Math.random())
-      .slice(0, 10)
+      .slice(0, 7)
       .map((userId) => ({
         userId: userId,
         meetupId: meetup.id,

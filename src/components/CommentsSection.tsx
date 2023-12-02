@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { CommentCard } from "./CommentCard";
 import { CommentEditor } from "./CommentEditor";
 
@@ -22,12 +22,10 @@ export default function CommentsSection({ meetupId, userId }: Props) {
   const [meetupComments, setMeetupComments] = useState<CommentWithUserInfo[]>(
     [],
   );
-
   const { data: fetchedComments, refetch: refetchComments } =
     api.comment.getAll.useQuery<CommentWithUserInfo[]>(
       { meetupId },
       {
-        // enabled: sessionData?.user !== undefined && meetupId !== null,
         onSuccess: (data: CommentWithUserInfo[]) => {
           setMeetupComments(data ?? fetchedComments ?? []);
         },
@@ -57,7 +55,7 @@ export default function CommentsSection({ meetupId, userId }: Props) {
               userName={userName}
             />
           )}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-8">
             {meetupComments?.map((meetupComment) => (
               <div key={meetupComment.id}>
                 <CommentCard
