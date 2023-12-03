@@ -23,7 +23,7 @@ const NewMeetupForm = () => {
   const [inputImage, setInputImage] = useState<string>("");
 
   const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
-  const MapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+  const MapboxToken = process.env.NEXT_PUBLIC_MAPTOKEN;
   const geocoder = mbxGeocoding({ accessToken: MapboxToken });
 
   const titleHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {

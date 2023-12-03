@@ -30,6 +30,14 @@ function MeetupDetails() {
     userId = "defautId";
   }
 
+  const userNameOrUndefined = sessionData?.user?.name;
+  let userName: string;
+  if (typeof userNameOrUndefined === "string") {
+    userName = userNameOrUndefined;
+  } else {
+    userName = "defautId";
+  }
+
   const [selectedMeetup, setSelectedMeetup] = useState<Meetup>();
   api.meetup.getOne.useQuery(
     { meetupId },
@@ -37,7 +45,7 @@ function MeetupDetails() {
       onSuccess: (data: Meetup) => {
         setSelectedMeetup(data);
       },
-    }
+    },
   );
 
   return (
@@ -45,12 +53,12 @@ function MeetupDetails() {
       <Head>
         <title>David Kielty Meetup Detail</title>
         <meta name="description" content="" />
-        <link rel="icon" href="../../../public/favicon.ico" />
+        <link rel="icon" href="..//favicon.ico" />
       </Head>
       {selectedMeetup ? (
-        <div className="grid gap-7 pb-10 md:grid-cols-2">
+        <div className="grid gap-8 pb-10 md:grid-cols-2">
           <MeetupInformation selectedMeetup={selectedMeetup} userId={userId} />
-          <CommentsSection meetupId={meetupId} userId={userId} />
+          <CommentsSection meetupId={meetupId} userId={userId}  userName={userName}/>
         </div>
       ) : (
         <div className="h-screen pt-72 text-center text-2xl font-bold text-darktext">

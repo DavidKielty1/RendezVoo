@@ -122,7 +122,7 @@ export default function DesktopNavbar() {
                   } w-32 flex-col rounded-md bg-slate-300 bg-slate-300/30 bg-opacity-95 text-center text-lg font-bold ${textColorClass} backdrop-blur-sm`}
                 >
                   <Link
-                    href={`/Profile/@${sessionData?.user.name as string}`}
+                    href={`/Profile/@${sessionData.user.name!}`}
                     className="block w-full rounded-md py-1 hover:bg-slate-900/60 hover:text-white"
                   >
                     Profile

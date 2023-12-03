@@ -1,29 +1,56 @@
-import { useState } from "react";
-import { api } from "../utils/api";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import { Transition } from "@headlessui/react";
 
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { type Meetup } from "~/utils/types";
+import { useCallback, useEffect, useState } from "react";
 
-export const MeetupsList = () => {
+type Props = {
+  meetups: Meetup[];
+  onPageChange: (currentPage: number) => void;
+};
+
+export const MeetupsList = ({ meetups, onPageChange }: Props) => {
   const myLoader = ({ src }: { src: string; width: number }) => {
     return `${src}?w=${200}`;
   };
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const handlePageIncrement = () => {
+    const newPage = currentPage + 1;
+    setCurrentPage(newPage);
+    onPageChange(newPage);
+  };
+
+  const handlePageDecrement = () => {
+    const newPage = currentPage - 1;
+    setCurrentPage(newPage);
+    onPageChange(newPage);
+  };
+
   const router = useRouter();
 
-  const [meetups, setMeetups] = useState<Meetup[]>([]);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const { data: fetchedMeetups } = api.meetup.getAll.useQuery(
-    { page: currentPage },
-    {
-      onSuccess: (data: Meetup[]) => {
-        setMeetups(data ?? fetchedMeetups);
-      },
+  const handleLiClick = useCallback(
+    (meetupId: string) => {
+      if (isLargeScreen) {
+        void router.push(`/${meetupId}`);
+      }
     },
+    [isLargeScreen],
   );
+
+  useEffect(() => {
+    const checkScreenWidth = () => {
+      setIsLargeScreen(window.innerWidth > 1024); // xl breakpoint
+    };
+    checkScreenWidth();
+    window.addEventListener("resize", checkScreenWidth);
+
+    return () => window.removeEventListener("resize", checkScreenWidth);
+  }, []);
 
   return (
     <>
@@ -39,7 +66,11 @@ export const MeetupsList = () => {
       {meetups ? (
         <ul className="mb-10 flex w-full flex-col gap-10">
           {meetups?.map((meetup) => (
-            <li key={meetup?.id}>
+            <li
+              className="hover:shadow-glow  rounded-xl transition duration-300 ease-in-out xl:hover:cursor-pointer"
+              key={meetup?.id}
+              onClick={() => handleLiClick(meetup.id)}
+            >
               <section className="card border border-slate-200 shadow-2xl">
                 <article className="flex flex-col justify-center lg:flex-row">
                   <div className="relative h-[249px] overflow-hidden rounded-tl-xl rounded-tr-xl opacity-80 lg:w-5/12 lg:rounded-bl-xl lg:rounded-tr-none xl:w-4/12">
@@ -59,7 +90,12 @@ export const MeetupsList = () => {
                     <section className="flex flex-col xl:h-[208px]">
                       <div className="flex justify-center ">
                         <p className="w-full overflow-clip bg-slate-100/50 py-2 pl-4 text-left font-sans text-lg font-bold capitalize text-darktext lg:rounded-t-xl lg:rounded-tl-none lg:py-3 lg:text-xl">
-                          <span className="line-clamp-1 ">{meetup?.title}</span>
+                          <Link
+                            className="line-clamp-1 hover:text-purple-400"
+                            href={`/${meetup.id}`}
+                          >
+                            {meetup?.title}
+                          </Link>
                         </p>
                       </div>
                       <div className="mx-2 flex max-w-full flex-col justify-between gap-1">
@@ -83,15 +119,12 @@ export const MeetupsList = () => {
 
                     <div className="mb-2 flex flex-col py-4 lg:py-0">
                       <div className="flex gap-2 self-center xl:self-start xl:pl-4">
-                        <button
+                        <Link
                           className="btn btn-sm border-0 bg-green-200 capitalize text-slate-600 hover:bg-green-300"
-                          onClick={(evt) => {
-                            evt.preventDefault();
-                            void router.push(`/${meetup.id}`);
-                          }}
+                          href={`/${meetup.id}`}
                         >
                           Details
-                        </button>
+                        </Link>
                       </div>
                       <div className="w-full text-end">
                         <span className="absolute bottom-0.5 right-2 text-xs">
@@ -123,7 +156,7 @@ export const MeetupsList = () => {
             <button
               className="hover:cursor-pointer hover:text-slate-300"
               disabled={currentPage === 1}
-              onClick={() => setCurrentPage((prev) => prev - 1)}
+              onClick={handlePageDecrement}
             >
               Previous
             </button>
@@ -131,9 +164,7 @@ export const MeetupsList = () => {
             <button
               className="hover:cursor-pointer hover:text-slate-300"
               disabled={!meetups}
-              onClick={() => {
-                setCurrentPage((prev) => prev + 1);
-              }}
+              onClick={handlePageIncrement}
             >
               Next
             </button>

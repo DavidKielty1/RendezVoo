@@ -1,7 +1,7 @@
 import mapboxgl from "mapbox-gl";
 import React, { useEffect, useRef } from "react";
 
-const mapToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN as string;
+const mapToken = process.env.NEXT_PUBLIC_MAPTOKEN!;
 
 import { type Meetup } from "~/utils/types";
 
@@ -14,7 +14,7 @@ const MeetupDetailMap: React.FC<Meetup> = (selectedMeetup) => {
 
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: "mapbox://styles/mapbox/light-v10",
+      style: "mapbox://styles/mapbox/light-v11",
       center: selectedMeetup.coordinates as [number, number],
       zoom: 14,
     });
@@ -25,8 +25,8 @@ const MeetupDetailMap: React.FC<Meetup> = (selectedMeetup) => {
       .setLngLat(selectedMeetup.coordinates as [number, number])
       .setPopup(
         new mapboxgl.Popup({ offset: 25 }).setHTML(
-          `<h5>${selectedMeetup.title}</h5><p>${selectedMeetup.location}</p>`
-        )
+          `<h5>${selectedMeetup.title}</h5><p>${selectedMeetup.location}</p>`,
+        ),
       )
       .addTo(map);
   }, [selectedMeetup]);

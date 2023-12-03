@@ -22,7 +22,7 @@ function Edit() {
         setInputImage(data.image);
         // setInputTime("01/01/2024 20:00");
       },
-    }
+    },
   );
 
   const [inputTitle, setInputTitle] = useState<string>("");
@@ -40,7 +40,7 @@ function Edit() {
   };
 
   const descriptionHandler = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     setInputDescription(event.target.value);
   };
@@ -76,7 +76,7 @@ function Edit() {
       <Head>
         <title>David Kielty Edit Details</title>
         <meta name="description" content="" />
-        <link rel="icon" href="../../../public/favicon.ico" />
+        <link rel="icon" href="..//favicon.ico" />
       </Head>
       <form onSubmit={(e) => submitHandler(e)} className="h-screen">
         <div className="mx-auto mt-16 max-w-4xl rounded-md border border-gray-300 bg-slate-100 px-20 py-10 shadow-xl">

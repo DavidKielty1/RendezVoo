@@ -5,16 +5,15 @@ import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
-export const commentRouter = createTRPCRouter({
-  getAll: publicProcedure
-    .input(z.object({ meetupId: z.string() }))
+export const replyRouter = createTRPCRouter({
+  getAllReplies: publicProcedure
+    .input(z.object({ parentId: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.db.comment.findMany({
-        take: 50,
-        orderBy: [{ createdAt: "desc" }],
+        take: 10,
+        orderBy: [{ createdAt: "asc" }],
         where: {
-          meetupId: input.meetupId,
-          parentId: null,
+          parentId: input.parentId,
         },
         include: {
           user: {
@@ -31,28 +30,20 @@ export const commentRouter = createTRPCRouter({
     .input(
       z.object({
         author: z.string(),
+        userId: z.string(),
         content: z.string(),
         meetupId: z.string(),
-        userId: z.string(),
+        parentId: z.string(),
       }),
     )
     .mutation(({ ctx, input }) => {
       return ctx.db.comment.create({
         data: {
           author: input.author,
+          content: input.content,
           meetupId: input.meetupId,
           userId: input.userId,
-          content: input.content,
-        },
-      });
-    }),
-
-  delete: protectedProcedure
-    .input(z.object({ id: z.string() }))
-    .mutation(({ ctx, input }) => {
-      return ctx.db.comment.delete({
-        where: {
-          id: input.id,
+          parentId: input.parentId,
         },
       });
     }),

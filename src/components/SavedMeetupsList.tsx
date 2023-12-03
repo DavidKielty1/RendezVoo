@@ -19,14 +19,14 @@ export default function SavedMeetupsList({ user }: Props) {
   const userId = user.id;
 
   const [savedMeetups, setSavedMeetups] = useState<Meetup[]>([]);
-  api.savemeetup.getAllSavedMeetups.useQuery<Meetup[]>(
+  api.savedmeetup.getAllSavedMeetups.useQuery<Meetup[]>(
     { userId },
     {
       enabled: sessionData?.user !== null,
       onSuccess: (data) => {
         setSavedMeetups(data);
       },
-    }
+    },
   );
 
   return (

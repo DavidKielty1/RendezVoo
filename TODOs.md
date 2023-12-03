@@ -1,41 +1,34 @@
-_Search & Filter_
-Expandable searchtools Component
-Sorting and filtering by date/proximity **/country/city**.
-**Search words.**
-HeadlessUI Combobox for searching? Dynamically link to array/objet holding up-to-date location information.
-Turn off spellcheck
-Turn on predictive text
-
 _Comments_
-Change comment title to user. Link to profile.
 Profile pic thumbnail by name.
 Comment threads - every comment can have multiple repliesMake reply schemaSort replies by time.
 Thumbs up/reactions schema.
-Routing to delete/edit only your own comments.
 Feedback on comment fail if not logged in. => Only show commentEditor if signed in.
+Transfer to textarea.
 
 _Mapbox_
+**Mapbox popUpMarkup styling**
 Look in to rendering multiple overlapping coords at the same time.
-Skeletal template upon page load.
 Only resize after render, not when clicking on browser again. Double refresh.
 New Meetup page.
 Edit page.
 
-_Datetime_
-Relative time (2 weeks ago), hover-over show absolute time.
-Timezones. UTC at end of all timezones?
-Display date relative to time-zone.
-Localization.
+_MeetupsList_
+Add loading div.
+On phone - button to scroll on top of page.
+Take users to top of meetupLists component upon next page click.
+Hover glow only after xl: resolution.
+Pagination buttons should not show unless meetups.length >= 1
 
-_FavIcon_
-Can I set the favicon somewhere globally? Top level index/app component?
+_SubmittedMeetupsList_
+In profile tab, needs dynamic routing. If your meetups 'Check out your saved meetups here'; otherwise 'Check out ${userId}'s meetups here'. Check session.
+Only show delete button here and in details, rather than meetupsList.
 
 _Refactor_
 Categories array within ProfileTabs component.
-Pagination buttons @MeetupsList, @SubmittedMeetups, @SavedMeetups, @FilteredMeetupsList
+Pagination buttons @MeetupsList, @SubmittedMeetups, @SavedMeetups.
 Can useSession be set globally? - globalStateManagement?
 Next/Head Favicon, description.
-Try to refactor showDetails (search find bg-green-200) to separate component. Used in @FilteredMeetups, @Meetuplist, @SubmittedMeetups
+Try to refactor showDetails (search find bg-green-200) to separate component. Used in @Meetuplist, @SubmittedMeetups.
 Transitions components.
 Can I refactor the type-guarding in [MeetupId]Index component? Ask Chatgpt for this one.
 Edit form at some point.
@@ -49,17 +42,11 @@ API routers?
 
 _NavBar_
 Clicking on profile picture does nothing.
-Profile dropdown menu can have same background as filter component.
-Mobile Menu: hitting top RendezVoo bar closes menu.
-When menu is open, allow a filter over rest of window? Progressive?
+Higher contrast needed in mobile phone menu
 
-_APIs_
-Getting there tab.
-Flights tab.
-
-_PrivacyPolicy_
-Using google.
-BFG - Docker
+_FilterComponent_
+Turn on predictive text.
+Feedback in filter component showing results for searchTerm, showing results for location, showing results for both. Can I change the label value?
 
 _Meetup Details_
 Date format of seed is too specific with seconds.
@@ -69,60 +56,63 @@ Comment toast is freezing?
 Who is attending. SavedMeetups.
 Line clamping in the information could probably change, be expanded.
 Title could be more obvious on phone screen resolution (bold).
+SaveMeetup button should redirect to login if no session.
+Needs an 'attending' element which pulls savedMeetupData (users shown by profilePics as links).
 
 _ProfilePage_
-UserInformation in profileOverview needs overall overflow-hidden or clap solution.
+UserInformation in profileOverview needs overall overflow-hidden or clamp solution.
 Update User info page - incl. prof picture, banner
 Randomize colour banner in profile overview.
 Profile page image can be changed to user.image || default image. Same with title
 Profile related info - number of posts etc, last seen, last post when etc. Use/update schema.
 Anonymity - user info selectively hidden unless in 'close contact list'.
-Notifications if someone comments on your submission.
-Place-holder profile image, add, edit profile image (upload) functionality.
+Place-holder profile image, add, edit profile image (upload) functionality. - should pull from an array upon userCreation. Many random possible profilepics.
 Comment info needed, Contact list.
 Access to other members that are attending same meetup. Routing, schema, seeding considerations.
 Add to contacts button.
 
+_Styles_
+Scrollbar opacity 0, transition ease-in-out upon scroll/hover.
+
 _Buttons_
 Why isn't the text aligned real center? add padding? Ask Chatpgt.
 
-_MeetupsList_
-Add loding div.
-On phone - button to scroll on top of page.
-Take users to top of meetupLists component upon next page click.
-On screens larger than lg:hover:scale 1.05, entire card goes to details. Take away details button. If not scale, some other minor different, and keep details button.
-Postcreated still clips button, make it lg:.
-
-_SubmittedMeetupsList_
-In profile tab, needs dynamic routing. If your meetups 'Check out your saved meetups here'; otherwise 'Check out ${userId}'s meetups here'. Check session.
-Only show delete button here and in details, rather than meetupsList.
-Page button defaults to user.id's meetups!
+_Datetime_
+Relative time (2 weeks ago), hover-over show absolute time.
+Timezones. UTC at end of all timezones? Display date relative to time-zone.
 
 _New Meetup_
 Image Cloudinary upload x1.
 Upon submitting, navigate to the new meetup page (How can I get ID if not already made)?
 Form location intellisense? Mapbox? Find solution. HeadlessUI Combobox for searching? Dynamically link to array/objet holding up-to-date location information.
 Need to prompt toast in redirected page after new meetup submission => Require change from router to Next/redirect? (Full page refresh cancels toast).Portals. See headlessUI Dialog (Modal).
+Validation - should not be a date less than DateNow().
+New Meetup is submitted/rendered in wrong date-time. Check seed. Look for datetime without seconds.
 
 _Edit_
 Refactor Edit. Editpage Parent Index Component -> Edit child component.
 Persisting dateTime
 HeadlessUI Combobox for searching? Dynamically link to array/objet holding up-to-date location information.
-Persisted image needs solution.
+If sessionData userId =/= meetupuserId block routing. Authorization 405?
 
 _SaveMeetupsList_
 Needs delete route.
 
+_APIs_
+Getting there tab.
+Flights tab.
+MeetupDelete route does not work with meetups that have comments.
+
+_PrivacyPolicy_
+Using google.
+BFG - Docker
+
 _App-wide_
 Skeleton page upon initial server fetch.
-Session in pagelayout or before Navbar. Test to see if it fixes errors.
+Notifications. -> If someone comments on your submission., friend request, friend added etc.
 
 _Auth0_
 Error on Auth0 login
-
-_Seed_
-Different street names within cities (if can't find multiple mapbox popup solution).
-For search functionality: "Add 50 more cities from UK, 50 more cities world-wide. Create 400 seeds.
 
 .
 
@@ -141,6 +131,7 @@ Scaling.
 AWS, lambdas, etc.
 
 A/B testing?
+Localization.
 
 Database migration techniques - expand/contract.
 Dev, Staging, Prod deployment processes?.

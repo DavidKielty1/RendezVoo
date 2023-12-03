@@ -29,10 +29,10 @@ export const SubmittedMeetups = ({ user }: Props) => {
         onSuccess: (data) => {
           setMeetups(data ?? fetchedMeetups);
         },
-      }
+      },
     );
 
-  const deleteMeetup = api.meetup.delete.useMutation({
+  const deleteMeetupHandler = api.meetup.delete.useMutation({
     onSuccess: () => {
       void refetchMeetups();
     },
@@ -97,11 +97,11 @@ export const SubmittedMeetups = ({ user }: Props) => {
                           className="btn btn-sm border-0 bg-red-200 capitalize text-slate-600 hover:bg-red-300"
                           data-id={meetup.id}
                           onClick={(
-                            event: React.MouseEvent<HTMLButtonElement>
+                            event: React.MouseEvent<HTMLButtonElement>,
                           ) => {
                             const button = event.target as HTMLButtonElement;
-                            const params = { id: button.dataset.id || "" };
-                            deleteMeetup.mutate(params);
+                            const params = { id: button.dataset.id ?? "" };
+                            deleteMeetupHandler.mutate(params);
                           }}
                         >
                           Delete

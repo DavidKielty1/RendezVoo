@@ -13,24 +13,23 @@ import "react-toastify/dist/ReactToastify.css";
 type Props = {
   meetupId: string;
   userId: string;
+  userName: string;
 };
 
-export default function CommentsSection({ meetupId, userId }: Props) {
+export default function CommentsSection({ meetupId, userId, userName }: Props) {
   const { data: sessionData } = useSession();
 
   const [meetupComments, setMeetupComments] = useState<CommentWithUserInfo[]>(
-    []
+    [],
   );
-
   const { data: fetchedComments, refetch: refetchComments } =
     api.comment.getAll.useQuery<CommentWithUserInfo[]>(
       { meetupId },
       {
-        enabled: sessionData?.user !== undefined && meetupId !== null,
         onSuccess: (data: CommentWithUserInfo[]) => {
           setMeetupComments(data ?? fetchedComments ?? []);
         },
-      }
+      },
     );
 
   const createComment = api.comment.create.useMutation({
@@ -42,25 +41,28 @@ export default function CommentsSection({ meetupId, userId }: Props) {
   return (
     <section>
       {meetupComments ? (
-        <section className="text-slate-500">
-          <div>
+        <section className="flex flex-col gap-8 text-slate-500">
+          {sessionData && (
             <CommentEditor
-              onSave={({ title, content }) => {
+              onSave={({ author, content }) => {
                 void createComment.mutate({
-                  title,
+                  author,
                   content,
                   meetupId,
                   userId,
                 });
               }}
+              userName={userName}
             />
-          </div>
-          <div>
+          )}
+          <div className="flex flex-col gap-8">
             {meetupComments?.map((meetupComment) => (
               <div key={meetupComment.id}>
                 <CommentCard
                   meetupComment={meetupComment}
                   refetchComments={refetchComments}
+                  userId={userId}
+                  userName={userName}
                 />
               </div>
             ))}

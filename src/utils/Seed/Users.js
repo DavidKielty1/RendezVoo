@@ -238,12 +238,20 @@ const bios = [
 // };
 
 //Otherwise just index
-async function main() {
-  for (let i = 0; i < 31; i++) {
+export async function seedUsers() {
+  for (let i = 0; i < userIDs.length; i++) {
+    const id = userIDs[i];
+    const userExists = await prisma.user.findUnique({
+      where: { id },
+    });
+    if (userExists) {
+      console.log(`User with ID ${id} already exists, skipping...`);
+      continue; // Skip this iteration and don't attempt to create this user
+    }
+
     const userName = userNames[i];
     const profilePic = profilePics[i]; // You might want to randomize this if there are more pics than users
     const email = emails[i];
-    const id = userIDs[i];
     const location = cities[i];
     const bio = bios[i];
 
@@ -260,7 +268,7 @@ async function main() {
   }
 }
 
-main()
+seedUsers()
   .catch((e) => {
     throw e;
   })

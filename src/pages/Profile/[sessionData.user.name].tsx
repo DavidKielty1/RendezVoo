@@ -23,7 +23,7 @@ const Profile = () => {
       onSuccess: (data: User) => {
         setUser(data ?? fetchedUser);
       },
-    }
+    },
   );
 
   return (
@@ -31,7 +31,7 @@ const Profile = () => {
       <Head>
         <title>David Kielty Profile</title>
         <meta name="description" />
-        <link rel="icon" href="../../../public/favicon.ico" />
+        <link rel="icon" href="..//favicon.ico" />
       </Head>
       <article className="flex flex-col gap-8">
         {user && <ProfileOverview user={user} />}
