@@ -10,8 +10,8 @@ export const replyRouter = createTRPCRouter({
     .input(z.object({ parentId: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.db.comment.findMany({
-        take: 5,
-        orderBy: [{ createdAt: "desc" }],
+        take: 10,
+        orderBy: [{ createdAt: "asc" }],
         where: {
           parentId: input.parentId,
         },
