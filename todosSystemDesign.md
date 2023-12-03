@@ -25,6 +25,7 @@ Test logout not pushing to '/'. Think about new meetup, edit etc. considerations
 
 _SeedImplement_
 Rectify savedMeetup logic. Each user should submit 10 meetups, have should have 5 'saved meetups'.
+Replies - please change events, places, and cities to savedMeetup event, place, city, as I need the replies to be relevant to the meetup post they are posting on.
 
 Separate seedHelperComments function. Each user should have atleast 5 comments. These should be on the same meetups which they have attended.
 Some of these comments should @the original poster, and @other people attending the meetup.

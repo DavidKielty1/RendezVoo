@@ -100,38 +100,64 @@ const generateDynamicReply = (mentionUser, city, place, event) => {
   return randomChoice(templates);
 };
 
-async function seedCommentRepliesAndLikes() {
+export async function seedCommentRepliesAndLikes() {
   let commentCounter = 0;
   let likeCounter = 0;
+  const userReplyCount = {}; // Track the number of replies per user
 
   for (const userId of userIDs) {
+    userReplyCount[userId] = 0; // Initialize reply count for this user
+
     const user = await prisma.user.findUnique({
       where: { id: userId },
     });
-
     const userName = user ? user.name : "Unknown User";
 
-    const existingComments = await prisma.comment.findMany();
+    const savedMeetups = await prisma.savedMeetup.findMany({
+      where: { userId },
+      include: {
+        meetup: {
+          include: {
+            comments: {
+              where: { parentId: null },
+              include: { user: true, meetup: { include: { savedBy: true } } },
+            },
+          },
+        },
+      },
+    });
 
-    if (existingComments.length > 0) {
-      for (let i = 0; i < 40; i++) {
-        const commentToReply = randomChoice(existingComments);
+    for (const savedMeetup of savedMeetups) {
+      const eligibleComments = savedMeetup.meetup.comments.filter(
+        (comment) => comment.userId !== userId,
+      );
+      for (const commentToReply of eligibleComments) {
+        if (userReplyCount[userId] >= 10) break; // Skip if user already has 10 replies
+        const attendees = commentToReply.meetup.savedBy.map(
+          (attendee) => attendee.userId,
+        );
 
-        if (commentToReply.userId === userId) continue;
-
-        const mentionUser = await prisma.user
-          .findUnique({
-            where: { id: commentToReply.userId },
+        // Filter out the current user and select a random attendee to mention
+        const potentialMentions = attendees.filter((id) => id !== userId);
+        let mentionUserName = "";
+        if (potentialMentions.length > 0) {
+          const mentionUserId = randomChoice(potentialMentions);
+          const mentionUser = await prisma.user.findUnique({
+            where: { id: mentionUserId },
             select: { name: true },
-          })
-          .then((u) => u?.name || "Unknown User");
+          });
+          mentionUserName = mentionUser
+            ? `${mentionUser.name}`
+            : "@Unknown User";
+        }
+
         const city = randomChoice(cities);
         const place = randomChoice(places);
         const event = randomChoice(events);
 
         // Create a dynamic reply
         const dynamicReply = generateDynamicReply(
-          mentionUser,
+          mentionUserName,
           city,
           place,
           event,
@@ -141,7 +167,7 @@ async function seedCommentRepliesAndLikes() {
         await prisma.comment
           .create({
             data: {
-              title: `${userName}`,
+              author: `${userName}`,
               content: dynamicReply,
               userId: userId,
               meetupId: commentToReply.meetupId,
@@ -150,6 +176,7 @@ async function seedCommentRepliesAndLikes() {
           })
           .then((comment) => {
             commentCounter++;
+            userReplyCount[userId]++;
             console.log(
               `Reply Comment #${commentCounter} created: ${comment.id} by User ${userId}`,
             );

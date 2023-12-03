@@ -62,7 +62,7 @@ const generateMeetupData = async () => {
   };
 };
 
-async function seedMeetups() {
+export async function seedMeetups() {
   await prisma.comment.deleteMany({});
   await prisma.savedMeetup.deleteMany({});
   await prisma.meetup.deleteMany({});
@@ -71,7 +71,7 @@ async function seedMeetups() {
 
   for (let i = 0; i < 20; i++) {
     let meetupData = await generateMeetupData();
-    meetupData.userId = "clpojs6300000xt87x2cwtsqv";
+    meetupData.userId = "clpppgtyu000alzv0dzamnuzh";
 
     let createdMeetup = await prisma.meetup.create({
       data: meetupData,
@@ -90,7 +90,7 @@ async function seedMeetups() {
 
       await prisma.comment.create({
         data: {
-          title: `${userName}`,
+          author: `${userName}`,
           content: randomChoice(comments),
           userId: `${userId}`,
           meetupId: createdMeetup.id,
@@ -122,7 +122,7 @@ async function seedMeetups() {
 
       await prisma.comment.create({
         data: {
-          title: `${userName}`,
+          author: `${userName}`,
           content: randomChoice(comments),
           userId: `${userId}`,
           meetupId: createdMeetup.id,

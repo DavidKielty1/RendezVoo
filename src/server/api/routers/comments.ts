@@ -30,7 +30,7 @@ export const commentRouter = createTRPCRouter({
   create: protectedProcedure
     .input(
       z.object({
-        title: z.string(),
+        author: z.string(),
         content: z.string(),
         meetupId: z.string(),
         userId: z.string(),
@@ -39,7 +39,7 @@ export const commentRouter = createTRPCRouter({
     .mutation(({ ctx, input }) => {
       return ctx.db.comment.create({
         data: {
-          title: input.title,
+          author: input.author,
           meetupId: input.meetupId,
           userId: input.userId,
           content: input.content,

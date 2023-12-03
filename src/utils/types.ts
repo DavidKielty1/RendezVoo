@@ -66,7 +66,7 @@ export type Comment = {
   id: string;
   createdAt: Date;
   updatedAt: Date;
-  title: string;
+  author: string;
   content: string;
   meetupId: string;
   meetup?: Meetup;
@@ -78,7 +78,7 @@ export type CommentWithUserInfo = {
   id: string;
   createdAt: Date;
   updatedAt: Date;
-  title: string;
+  author: string;
   content: string;
   meetupId: string;
   userId: string;
@@ -111,7 +111,7 @@ export type SavedMeetupWithDetails = {
       id: string;
       createdAt: Date;
       updatedAt: Date;
-      title: string;
+      author: string;
       content: string;
       meetupId: string;
     }>;

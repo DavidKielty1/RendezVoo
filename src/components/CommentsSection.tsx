@@ -13,11 +13,11 @@ import "react-toastify/dist/ReactToastify.css";
 type Props = {
   meetupId: string;
   userId: string;
+  userName: string;
 };
 
-export default function CommentsSection({ meetupId, userId }: Props) {
+export default function CommentsSection({ meetupId, userId, userName }: Props) {
   const { data: sessionData } = useSession();
-  const userName = sessionData?.user.name;
 
   const [meetupComments, setMeetupComments] = useState<CommentWithUserInfo[]>(
     [],
@@ -44,9 +44,9 @@ export default function CommentsSection({ meetupId, userId }: Props) {
         <section className="flex flex-col gap-8 text-slate-500">
           {sessionData && (
             <CommentEditor
-              onSave={({ title, content }) => {
+              onSave={({ author, content }) => {
                 void createComment.mutate({
-                  title,
+                  author,
                   content,
                   meetupId,
                   userId,
@@ -62,6 +62,7 @@ export default function CommentsSection({ meetupId, userId }: Props) {
                   meetupComment={meetupComment}
                   refetchComments={refetchComments}
                   userId={userId}
+                  userName={userName}
                 />
               </div>
             ))}

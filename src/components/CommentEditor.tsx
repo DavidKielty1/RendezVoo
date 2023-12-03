@@ -8,11 +8,11 @@ export const CommentEditor = ({
   onSave,
   userName,
 }: {
-  onSave: (comment: { title: string; content: string }) => void;
+  onSave: (comment: { author: string; content: string }) => void;
   userName: string | null | undefined;
 }) => {
   const [code, setCode] = useState<string>("");
-  const [title, setTitle] = useState(`${userName}`);
+  const [author, setAuthor] = useState(`${userName}`);
 
   return (
     <div className="card border border-gray-200 bg-base-100 shadow-xl">
@@ -35,11 +35,11 @@ export const CommentEditor = ({
           <button
             onClick={() => {
               onSave({
-                title,
+                author,
                 content: code,
               });
               setCode("");
-              setTitle("");
+              setAuthor("");
             }}
             className="border-1 btn btn-xs mb-2 mr-2 mt-1 w-20 border-slate-500 bg-slate-400 px-8 capitalize text-white"
             disabled={code.trim().length === 0}
