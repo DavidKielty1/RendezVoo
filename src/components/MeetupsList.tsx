@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Transition } from "@headlessui/react";
-import styles from "./../styles/lightSparklyGradient.module.css";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
