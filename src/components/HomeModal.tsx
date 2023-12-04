@@ -2,23 +2,20 @@
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-import ModalImage from "../../public/images/ModalImage.jpg";
 
 export default function HomeModal() {
   return (
     <div className="fixed left-0 top-0 z-40 h-full w-full bg-zinc-950">
       <div className="align-center absolute flex h-full place-items-center justify-center">
         <div className="absolute left-0 top-0 z-0 h-full w-full bg-cover">
-          {ModalImage && (
-            <Image
-              className="z-0 opacity-20"
-              alt="RendezVou"
-              fill
-              style={{ objectFit: "cover" }}
-              src={ModalImage}
-              priority
-            ></Image>
-          )}
+          <Image
+            className="z-0 opacity-20"
+            alt="RendezVou"
+            fill
+            style={{ objectFit: "cover" }}
+            src={"/images/ModalImage.jpg"}
+            priority
+          ></Image>
         </div>
         <div className="relative top-[-60px] z-50 flex w-screen flex-col gap-8 text-center text-white">
           <h1 className="text-6xl xl:text-8xl">RendezVoo</h1>
