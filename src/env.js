@@ -36,6 +36,8 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
+    NEXT_PUBLIC_MAPTOKEN: z.string(),
+
     // NEXT_PUBLIC_NODE_ENV: z
     //   .enum(["development", "test", "production"])
     //   .default("development"),
@@ -56,8 +58,6 @@ export const env = createEnv({
     // NEXT_PUBLIC_GITHUB_CLIENT_SECRET: z.string(),
     // NEXT_PUBLIC_GOOGLE_CLIENT_ID: z.string(),
     // NEXT_PUBLIC_GOOGLE_CLIENT_SECRET: z.string(),
-
-    NEXT_PUBLIC_MAPTOKEN: z.string(),
   },
 
   /**
@@ -76,6 +76,7 @@ export const env = createEnv({
     MAPTOKEN: process.env.MAPTOKEN,
 
     /* Next Public*/
+    NEXT_PUBLIC_MAPTOKEN: process.env.NEXT_PUBLIC_MAPTOKEN,
 
     // NEXT_PUBLIC_NODE_ENV: process.env.NEXT_PUBLIC_NODE_ENV,
     // NEXT_PUBLIC_NEXTAUTH_URL: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
@@ -88,8 +89,6 @@ export const env = createEnv({
     // NEXT_PUBLIC_GITHUB_CLIENT_ID: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID,
     // NEXT_PUBLIC_GITHUB_CLIENT_SECRET:
     //   process.env.NEXT_PUBLIC_GITHUB_CLIENT_SECRET,
-
-    NEXT_PUBLIC_MAPTOKEN: process.env.NEXT_PUBLIC_MAPTOKEN,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
