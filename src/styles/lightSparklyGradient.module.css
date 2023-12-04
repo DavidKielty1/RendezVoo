@@ -1,0 +1,51 @@
+/* Sparkly Gradient FilterComponter Discloser module button background hover */
+@keyframes shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.myUniqueGradient {
+  width: 100%;
+  height: fit-content;
+  background: none;
+  overflow: hidden;
+  position: relative;
+}
+
+.myUniqueGradient ::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+      45deg,
+      rgba(34, 211, 238, 0.048) 0%,
+      #e879f91c 100%
+    ),
+    url("../../public/Sparkle.png");
+  background-size:
+    200% 200%,
+    auto;
+  background-repeat: no-repeat, repeat;
+  background-blend-mode: screen;
+  opacity: 0; /* Start fully transparent */
+  transition: opacity 200ms ease-in-out;
+  z-index: -1;
+}
+
+.myUniqueGradient :hover::before {
+  opacity: 1; /* Fully visible on hover */
+}
+
+.myUniqueGradient :hover::before {
+  animation: shift 10s ease infinite;
+}

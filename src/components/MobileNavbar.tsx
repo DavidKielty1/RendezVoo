@@ -86,11 +86,12 @@ export default function MobileNavbar() {
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-              <div
+              <Link
                 className={`block w-full bg-slate-600 py-6 font-serif text-4xl font-normal text-white`}
+                href="/"
               >
                 RendezVoo
-              </div>
+              </Link>
               {sessionData && (
                 <Link
                   href={`/Profile/@${sessionData.user.name!}`}

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Transition } from "@headlessui/react";
+import styles from "./../styles/lightSparklyGradient.module.css";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -67,7 +68,7 @@ export const MeetupsList = ({ meetups, onPageChange }: Props) => {
         <ul className="mb-10 flex w-full flex-col gap-10">
           {meetups?.map((meetup) => (
             <li
-              className="hover:shadow-glow  rounded-xl transition duration-300 ease-in-out xl:hover:cursor-pointer"
+              className="rounded-xl transition duration-300 ease-in-out xl:hover:cursor-pointer xl:hover:shadow-glow"
               key={meetup?.id}
               onClick={() => handleLiClick(meetup.id)}
             >
@@ -86,7 +87,7 @@ export const MeetupsList = ({ meetups, onPageChange }: Props) => {
                       />
                     )}
                   </div>
-                  <div className="flex flex-col justify-between rounded-xl rounded-bl-none bg-white lg:w-7/12 xl:w-8/12 ">
+                  <div className="flex flex-col justify-between rounded-xl rounded-bl-none bg-white lg:w-7/12 xl:w-8/12">
                     <section className="flex flex-col xl:h-[208px]">
                       <div className="flex justify-center ">
                         <p className="w-full overflow-clip bg-slate-100/50 py-2 pl-4 text-left font-sans text-lg font-bold capitalize text-darktext lg:rounded-t-xl lg:rounded-tl-none lg:py-3 lg:text-xl">

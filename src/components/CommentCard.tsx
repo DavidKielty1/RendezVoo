@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { api } from "~/utils/api";
+import { useSession } from "next-auth/react";
 
-import ReactMarkdown from "react-markdown";
 import { toast } from "react-toastify";
 import { Disclosure } from "@headlessui/react";
 import {
@@ -27,6 +27,8 @@ export const CommentCard = ({
   userId: string;
   userName: string;
 }) => {
+  const { data: sessionData } = useSession();
+
   const [isReplySectionVisible, setIsReplySectionVisible] = useState(false);
   const [replyContent, setReplyContent] = useState("");
 
@@ -40,20 +42,26 @@ export const CommentCard = ({
   const deleteComment = api.comment.delete.useMutation({
     onSuccess: () => {
       void refetchComments();
+      void refetchReplies();
     },
   });
 
-  const { data: replies } = api.reply.getAllReplies.useQuery({
-    parentId: meetupComment.id,
-  });
-
-  useEffect(() => {
-    console.log(replyContent);
-  }, [replyContent]);
+  const [replies, setReplies] = useState<CommentWithUserInfo[]>();
+  const { data: fetchedReplies, refetch: refetchReplies } =
+    api.reply.getAllReplies.useQuery(
+      {
+        parentId: meetupCommentId,
+      },
+      {
+        onSuccess: (data: CommentWithUserInfo[]) => {
+          setReplies(data ?? fetchedReplies);
+        },
+      },
+    );
 
   const createReply = api.reply.create.useMutation({
     onSuccess: () => {
-      void refetchComments();
+      void refetchReplies();
     },
   });
 
@@ -65,6 +73,8 @@ export const CommentCard = ({
       parentId: meetupCommentId,
       content: replyContent,
     });
+    void refetchReplies();
+    setIsReplySectionVisible(!isReplySectionVisible);
     setReplyContent("");
   };
 
@@ -75,11 +85,11 @@ export const CommentCard = ({
           className={`${styles.myUniqueGradient} card border border-gray-200 bg-base-100 shadow-xl`}
         >
           <div className="card-body ml-2 flex w-full py-2 text-center">
-            <Disclosure.Button className=" flex flex-col">
-              <div className="relative flex max-h-[30px] w-full flex-row ">
+            <div className="flex flex-col">
+              <div className="relative flex max-h-[30px] w-full flex-row">
                 <Link
                   href={`/Profile/@${meetupComment.user.name}`}
-                  className="b-0 collapse-title max-h-[30px] p-0 text-xl font-bold hover:text-purple-400"
+                  className="b-0 mx-auto max-h-[30px] p-0 text-xl font-bold hover:text-purple-400"
                 >
                   {meetupComment.author}
                 </Link>
@@ -97,23 +107,29 @@ export const CommentCard = ({
                       Delete
                     </XMarkIcon>
                   )}
-                  <PlusIcon
-                    className="scale-100"
-                    onClick={toggleReplySection}
-                  />
-                  {replies && replies?.length > 0 && (
-                    <ChevronRightIcon
-                      className={`mt-0.5 w-6 scale-125 ${
-                        open ? "rotate-90 transform" : ""
-                      }`}
+                  {sessionData && (
+                    <PlusIcon
+                      className="scale-100"
+                      onClick={toggleReplySection}
                     />
+                  )}
+
+                  {replies && replies?.length > 0 && (
+                    <Disclosure.Button>
+                      {" "}
+                      <ChevronRightIcon
+                        className={`mt-0.5 w-6 scale-125 ${
+                          open ? "rotate-90 transform" : ""
+                        }`}
+                      />
+                    </Disclosure.Button>
                   )}
                 </div>
               </div>
               <article className="lg:prose-md prose w-full pl-4">
-                <ReactMarkdown>{meetupComment.content}</ReactMarkdown>
+                <span>{meetupComment.content}</span>
               </article>
-            </Disclosure.Button>
+            </div>
             {replies &&
               replies?.length > 0 &&
               open &&
@@ -122,13 +138,30 @@ export const CommentCard = ({
                   <Disclosure.Panel className="text-center">
                     <div className="mx-auto my-2 h-1 w-40 items-center self-center border-2 border-slate-300/10"></div>
                     <div className="flex flex-col gap-2"></div>
-                    <Link
-                      href={`/Profile/@${reply.user.name}`}
-                      className="collapse-title p-0 text-xl font-bold hover:text-purple-400"
-                    >
-                      {reply.author}
-                    </Link>
-                    <ReactMarkdown>{reply.content}</ReactMarkdown>
+                    <div className="relative flex max-h-[30px] w-full flex-row ">
+                      <Link
+                        href={`/Profile/@${reply.userId}`}
+                        className="b-0 collapse-title max-h-[30px] p-0 text-xl font-bold hover:text-purple-400"
+                      >
+                        {reply.author}
+                      </Link>{" "}
+                      <div className="absolute -right-5 top-0 flex h-full scale-75 flex-row">
+                        {userId === meetupComment.userId && (
+                          <XMarkIcon
+                            onClick={() => {
+                              deleteComment.mutate({
+                                id: reply.id,
+                              });
+                              toast(`Comment deleted!`);
+                            }}
+                          >
+                            Delete
+                          </XMarkIcon>
+                        )}
+                      </div>
+                    </div>
+
+                    <span>{reply.content}</span>
                   </Disclosure.Panel>
                 </div>
               ))}
@@ -139,15 +172,15 @@ export const CommentCard = ({
               } flex-col gap-1`}
             >
               <label htmlFor="replyComment font-bold text-3xl">Reply:</label>
-              <div className="t flex w-full  flex-row self-center">
+              <div className="flex w-full flex-row self-center">
                 <textarea
+                  className="my-2 w-full rounded-lg border-2 border-slate-300/60"
                   name="replyComment"
                   id="replyComment"
                   value={replyContent}
                   onChange={(e) => {
                     setReplyContent(e.currentTarget.value);
                   }}
-                  className="w-full rounded-lg border-2 border-slate-300/60"
                 />
                 <CheckIcon
                   className="w-10 self-center hover:cursor-pointer"

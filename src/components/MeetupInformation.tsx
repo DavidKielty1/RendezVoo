@@ -50,7 +50,7 @@ export default function MeetupInformation({ selectedMeetup, userId }: Props) {
           <p className="mr-3 hidden w-full font-bold text-slate-600 md:text-right 2xl:inline 2xl:w-3/12">
             Title:
           </p>
-          <p className="line-clamp-1 w-full 2xl:w-9/12 2xl:text-left ">
+          <p className="line-clamp-1 w-full font-bold 2xl:w-9/12 2xl:text-left 2xl:font-normal">
             {selectedMeetup.title}
           </p>
         </div>

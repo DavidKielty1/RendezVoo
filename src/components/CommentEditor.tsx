@@ -1,8 +1,6 @@
 import { useState } from "react";
-
-import CodeMirror from "@uiw/react-codemirror";
-import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
-import { languages } from "@codemirror/language-data";
+// import { toast } from "react-toastify";
+import { CheckIcon } from "@heroicons/react/20/solid";
 
 export const CommentEditor = ({
   onSave,
@@ -16,37 +14,24 @@ export const CommentEditor = ({
 
   return (
     <div className="card border border-gray-200 bg-base-100 shadow-xl">
-      <div className="card-body m-0 p-0 ">
-        <label className="mt-2 px-8 py-1 text-xl font-bold ">{userName}</label>
-        <CodeMirror
+      <div className="ml-2 flex w-full flex-row px-8 py-4">
+        <textarea
+          className="mx-auto w-full rounded-lg border border-slate-300/60 text-center"
           placeholder="Leave a comment!"
           value={code}
-          width="max-w-500px"
-          height="10vh"
-          minWidth="100%"
-          minHeight="30vh"
-          extensions={[
-            markdown({ base: markdownLanguage, codeLanguages: languages }),
-          ]}
-          onChange={(value) => setCode(value)}
-          className="border border-gray-300"
+          onChange={(e) => setCode(e.currentTarget.value)}
         />
-        <div className="card-actions justify-end">
-          <button
-            onClick={() => {
-              onSave({
-                author,
-                content: code,
-              });
-              setCode("");
-              setAuthor("");
-            }}
-            className="border-1 btn btn-xs mb-2 mr-2 mt-1 w-20 border-slate-500 bg-slate-400 px-8 capitalize text-white"
-            disabled={code.trim().length === 0}
-          >
-            Save
-          </button>
-        </div>
+        <CheckIcon
+          className="w-10 self-center hover:cursor-pointer"
+          onClick={() => {
+            onSave({
+              author,
+              content: code,
+            });
+            setCode("");
+            setAuthor("");
+          }}
+        />
       </div>
     </div>
   );

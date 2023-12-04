@@ -1,47 +1,47 @@
 _Comments_
 Profile pic thumbnail by name.
-Comment threads - every comment can have multiple repliesMake reply schemaSort replies by time.
-Thumbs up/reactions schema.
-Feedback on comment fail if not logged in. => Only show commentEditor if signed in.
-Transfer to textarea.
+Edit functionality.
+Toast in editor. Success/fail.
+**Comment threads - every comment can have multiple repliesMake reply schemaSort replies by time.**
+**Thumbs up/reactions schema.**
+**Feedback on comment fail if not logged in. => Only show commentEditor if signed in.**
+**Transfer to textarea.**
 
 _Mapbox_
-**Mapbox popUpMarkup styling**
+**Mapbox popUpMarkup styling** TODO:
 Look in to rendering multiple overlapping coords at the same time.
 Only resize after render, not when clicking on browser again. Double refresh.
 New Meetup page.
-Edit page.
+Edit page. -> Is editPage necessary? Can I edit in meetupInformatin component? Perhaps hide editPage and try this option (Do not delete edit page).
 
 _MeetupsList_
 Add loading div.
 On phone - button to scroll on top of page.
 Take users to top of meetupLists component upon next page click.
-Hover glow only after xl: resolution.
+**Hover glow only after xl: resolution.**
 Pagination buttons should not show unless meetups.length >= 1
 
 _SubmittedMeetupsList_
 In profile tab, needs dynamic routing. If your meetups 'Check out your saved meetups here'; otherwise 'Check out ${userId}'s meetups here'. Check session.
-Only show delete button here and in details, rather than meetupsList.
+Only show delete button here and in details, rather than meetupsList (maybe).
 
 _Refactor_
-Categories array within ProfileTabs component.
+**Categories array within ProfileTabs component.**
 Pagination buttons @MeetupsList, @SubmittedMeetups, @SavedMeetups.
-Can useSession be set globally? - globalStateManagement?
 Next/Head Favicon, description.
-Try to refactor showDetails (search find bg-green-200) to separate component. Used in @Meetuplist, @SubmittedMeetups.
-Transitions components.
-Can I refactor the type-guarding in [MeetupId]Index component? Ask Chatgpt for this one.
+Try to refactor showDetails button (search find bg-green-200) to separate component. Used in @Meetuplist, @SubmittedMeetups.
+Transitions headlessUI components.
+Type-guarding in [MeetupId]Index component.
 Edit form at some point.
 NewMeetup GeoData logic.
 Both -^ forms. State is verbose, lengthy.
 Can the NextImages be refactored?
-Re-use the sparklyGradient elsewhere throughout site.
 Svg in navbar?
 Desktop Navbar.
 API routers?
 
 _NavBar_
-Clicking on profile picture does nothing.
+**Clicking on profile picture does nothing.**
 Higher contrast needed in mobile phone menu
 
 _FilterComponent_
@@ -51,11 +51,10 @@ Feedback in filter component showing results for searchTerm, showing results for
 _Meetup Details_
 Date format of seed is too specific with seconds.
 Add user.name/author name to meetup details. - Link to their profile page. => Find user.name from meetup.userId.
-Should not show save/attend button for own meetup.
+**Should not show save/attend button for own meetup.**
 Comment toast is freezing?
-Who is attending. SavedMeetups.
 Line clamping in the information could probably change, be expanded.
-Title could be more obvious on phone screen resolution (bold).
+**Title could be more obvious on phone screen resolution (bold).**
 SaveMeetup button should redirect to login if no session.
 Needs an 'attending' element which pulls savedMeetupData (users shown by profilePics as links).
 
@@ -68,7 +67,7 @@ Profile related info - number of posts etc, last seen, last post when etc. Use/u
 Anonymity - user info selectively hidden unless in 'close contact list'.
 Place-holder profile image, add, edit profile image (upload) functionality. - should pull from an array upon userCreation. Many random possible profilepics.
 Comment info needed, Contact list.
-Access to other members that are attending same meetup. Routing, schema, seeding considerations.
+Access to other members that are attending same meetup. Routing, schema, seeding considerations. ([x] is attending [ymeetup] too!)
 Add to contacts button.
 
 _Styles_

@@ -76,14 +76,14 @@ export default function DesktopNavbar() {
       >
         {sessionData && (
           <span
-            className={`z-50 cursor-pointer text-right text-2xl font-bold  hover:text-purple-400 ${textColorClass} `}
+            className={`z-50 text-right text-2xl font-bold ${textColorClass} `}
           >
             {sessionData?.user.name}
           </span>
         )}
         <div className="z-50 flex-none gap-2 ">
           {sessionData?.user ? (
-            <label className="avatar btn btn-circle btn-ghost">
+            <label className="avatar ml-2">
               <div className="w-10 rounded-full">
                 <img
                   className="rounded-full "
