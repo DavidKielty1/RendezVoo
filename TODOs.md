@@ -2,10 +2,6 @@ _Comments_
 Profile pic thumbnail by name.
 Edit functionality.
 Toast in editor. Success/fail.
-**Comment threads - every comment can have multiple repliesMake reply schemaSort replies by time.**
-**Thumbs up/reactions schema.**
-**Feedback on comment fail if not logged in. => Only show commentEditor if signed in.**
-**Transfer to textarea.**
 
 _Mapbox_
 **Mapbox popUpMarkup styling** TODO:
@@ -18,7 +14,6 @@ _MeetupsList_
 Add loading div.
 On phone - button to scroll on top of page.
 Take users to top of meetupLists component upon next page click.
-**Hover glow only after xl: resolution.**
 Pagination buttons should not show unless meetups.length >= 1
 
 _SubmittedMeetupsList_
@@ -26,7 +21,6 @@ In profile tab, needs dynamic routing. If your meetups 'Check out your saved mee
 Only show delete button here and in details, rather than meetupsList (maybe).
 
 _Refactor_
-**Categories array within ProfileTabs component.**
 Pagination buttons @MeetupsList, @SubmittedMeetups, @SavedMeetups.
 Next/Head Favicon, description.
 Try to refactor showDetails button (search find bg-green-200) to separate component. Used in @Meetuplist, @SubmittedMeetups.
@@ -41,7 +35,6 @@ Desktop Navbar.
 API routers?
 
 _NavBar_
-**Clicking on profile picture does nothing.**
 Higher contrast needed in mobile phone menu
 
 _FilterComponent_
@@ -51,10 +44,8 @@ Feedback in filter component showing results for searchTerm, showing results for
 _Meetup Details_
 Date format of seed is too specific with seconds.
 Add user.name/author name to meetup details. - Link to their profile page. => Find user.name from meetup.userId.
-**Should not show save/attend button for own meetup.**
 Comment toast is freezing?
 Line clamping in the information could probably change, be expanded.
-**Title could be more obvious on phone screen resolution (bold).**
 SaveMeetup button should redirect to login if no session.
 Needs an 'attending' element which pulls savedMeetupData (users shown by profilePics as links).
 

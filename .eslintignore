@@ -3,3 +3,5 @@ src/server/db.ts
 src/server/api/routers/user.ts
 src/utils
 next.config.js
+env.helper.js
+mapboxHelper.tsx
