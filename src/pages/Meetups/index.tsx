@@ -52,8 +52,6 @@ const HomePage: React.FC = () => {
     setCurrentPage(newPage);
   };
 
-  // console.log(currentPage);
-
   return (
     <>
       <Head>
