@@ -4,9 +4,6 @@ Edit functionality.
 Toast in editor. Success/fail.
 
 _Mapbox_
-**Mapbox popUpMarkup styling** TODO:
-**Look in to rendering multiple overlapping coords at the same time.**
-**Only resize after render, not when clicking on browser again. Double refresh.**
 New Meetup page.
 Edit page. -> Is editPage necessary? Can I edit in meetupInformatin component? Perhaps hide editPage and try this option (Do not delete edit page).
 
