@@ -8,7 +8,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import { useEffect, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import mapboxgl, { type LngLatLike } from "mapbox-gl";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -23,13 +23,10 @@ const mapToken = env.NEXT_PUBLIC_MAPTOKEN;
 mapboxgl.accessToken = mapToken;
 
 export default function ClusterMap() {
+  const { data: meetups } = api.meetup.getAllMeetups.useQuery();
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map>();
   const clusterMarkers: mapboxgl.Marker[] = [];
-
-  const { data: meetups } =
-    api.meetup.getAllMeetups.useQuery<Meetup[]>(undefined);
-
   let spiderifier: any;
   let SPIDERFY_FROM_ZOOM: number;
   const mapCenter: [number, number] = [0, 0];
@@ -37,31 +34,30 @@ export default function ClusterMap() {
 
   useEffect(() => {
     if (!mapRef.current && mapContainerRef.current) {
-      mapRef.current = new mapboxgl.Map({
+      (mapRef.current = new mapboxgl.Map({
         container: mapContainerRef.current,
         style: "mapbox://styles/mapbox/light-v11",
         center: [-4.1317, 50.8525],
         zoom: 4,
-      }),
-      spiderifier = new MapboxglSpiderifier(mapRef.current, {
-        customPin: true,
-      }),
-      SPIDERFY_FROM_ZOOM = 7,
-      features = _.map(_.range(10000), function (index: any) {
-        return {
-          type: "feature",
-          properties: { id: index },
-          geometry: {
-            type: "Point",
-            coordinates: [
-              mapCenter[0] + _.random(1000) * 0.001,
-              mapCenter[1] + _.random(1000) * 0.001,
-            ],
-          },
-        };
-      }),
-
-      mapRef.current.addControl(new mapboxgl.NavigationControl());
+      })),
+        (spiderifier = new MapboxglSpiderifier(mapRef.current, {
+          customPin: true,
+        })),
+        (SPIDERFY_FROM_ZOOM = 7),
+        (features = _.map(_.range(10000), function (index: any) {
+          return {
+            type: "feature",
+            properties: { id: index },
+            geometry: {
+              type: "Point",
+              coordinates: [
+                mapCenter[0] + _.random(1000) * 0.001,
+                mapCenter[1] + _.random(1000) * 0.001,
+              ],
+            },
+          };
+        })),
+        mapRef.current.addControl(new mapboxgl.NavigationControl());
 
       mapRef.current.on("load", () => {
         const meetupsGeoJSON: GeoJSON.FeatureCollection<GeoJSON.Geometry> = {
@@ -157,89 +153,72 @@ export default function ClusterMap() {
             },
           });
 
-          
-         
-            mapRef.current.on("click", "clusters", clusterClick);
-            mapRef.current.on(
-              "click",
-              "unclustered-point",
-              (
-                e: mapboxgl.MapMouseEvent & {
-                  features?: mapboxgl.MapboxGeoJSONFeature[] | undefined;
-                } & mapboxgl.EventData,
-              ) => {
-                const features = e.features;
-                if (!features || features.length === 0) return;
+          mapRef.current.on("click", "clusters", clusterClick);
+          mapRef.current.on(
+            "click",
+            "unclustered-point",
+            (
+              e: mapboxgl.MapMouseEvent & {
+                features?: mapboxgl.MapboxGeoJSONFeature[] | undefined;
+              } & mapboxgl.EventData,
+            ) => {
+              const features = e.features;
+              if (!features || features.length === 0) return;
 
-                const firstFeature = features[0];
-                if (firstFeature == undefined) return;
-                const geometry = firstFeature.geometry;
+              const firstFeature = features[0];
+              if (firstFeature == undefined) return;
+              const geometry = firstFeature.geometry;
 
-                if (geometry.type === "Point" && "coordinates" in geometry) {
-                  const coordinates = geometry.coordinates;
+              if (geometry.type === "Point" && "coordinates" in geometry) {
+                const coordinates = geometry.coordinates;
 
-                  const popUpMarkup = firstFeature?.properties?.popUpMarkup;
-                  if (!mapRef.current || !popUpMarkup || !clusterMarkers) return;
+                const popUpMarkup = firstFeature?.properties?.popUpMarkup;
+                if (!mapRef.current || !popUpMarkup || !clusterMarkers) return;
 
-                  new mapboxgl.Popup()
-                    .setLngLat(coordinates as [number, number])
-                    .setHTML(popUpMarkup)
-                    .addTo(mapRef.current)
-                    .on("open", () => {
-                      const links =
-                        document.querySelectorAll(".map-popup-link");
-                      links.forEach((link) => {
-                        link.addEventListener("click", (event) => {
-                          event.preventDefault();
-                          const meetupId = link.getAttribute("data-id");
-                          void router.push(`/path/${meetupId}`);
-                        });
+                new mapboxgl.Popup()
+                  .setLngLat(coordinates as [number, number])
+                  .setHTML(popUpMarkup)
+                  .addTo(mapRef.current)
+                  .on("open", () => {
+                    const links = document.querySelectorAll(".map-popup-link");
+                    links.forEach((link) => {
+                      link.addEventListener("click", (event) => {
+                        event.preventDefault();
+                        const meetupId = link.getAttribute("data-id");
+                        void router.push(`/path/${meetupId}`);
                       });
                     });
-                }
-              },
-            );
-
-            //
-            mapRef.current.on("click", () => {
-              if (!mapRef.current) return;
-          
-              // Delay the removal of markers
-              setTimeout(() => {
-                  if (!isClusterMarkerClicked) {
-                      clusterMarkers.forEach(marker => marker.remove());
-                      clusterMarkers.length = 0;
-                  }
-              }, 10000);
-          });
+                  });
+              }
+            },
+          );
+          let dragendTimeoutId: NodeJS.Timeout;
           mapRef.current.on("dragend", () => {
             if (!mapRef.current) return;
-        
-            // Delay the removal of markers to ensure no conflict with other events
-            setTimeout(() => {
-                if (!isClusterMarkerClicked) {
-                    clusterMarkers.forEach(marker => marker.remove());
-                    clusterMarkers.length = 0;
-                }
+            if (dragendTimeoutId) clearTimeout(dragendTimeoutId);
+            dragendTimeoutId = setTimeout(() => {
+              if (!isClusterMarkerClicked) {
+                clusterMarkers.forEach((marker) => marker.remove());
+                clusterMarkers.length = 0;
+              }
             }, 10000);
-        });
-            //
+          });
 
-            mapRef.current.on("mouseenter", "clusters", () => {
-              if (!mapRef.current) return;
-              mapRef.current.getCanvas().style.cursor = "pointer";
-            });
-            mapRef.current.on("mouseleave", "clusters", () => {
-              if (!mapRef.current) return;
-              mapRef.current.getCanvas().style.cursor = "";
-            });
-              if (!mapRef.current) return;
-            mapRef.current.on("mousemove", mouseMove);
-            mapRef.current.on("zoomstart", function () {
-              if (!mapRef.current) return;
-              spiderifier.unspiderfy();
-              setZoomInfoText();
-            });
+          mapRef.current.on("mouseenter", "clusters", () => {
+            if (!mapRef.current) return;
+            mapRef.current.getCanvas().style.cursor = "pointer";
+          });
+          mapRef.current.on("mouseleave", "clusters", () => {
+            if (!mapRef.current) return;
+            mapRef.current.getCanvas().style.cursor = "";
+          });
+          if (!mapRef.current) return;
+          mapRef.current.on("mousemove", mouseMove);
+          mapRef.current.on("zoomstart", function () {
+            if (!mapRef.current) return;
+            spiderifier.unspiderfy();
+            setZoomInfoText();
+          });
 
           setZoomInfoText();
           function setZoomInfoText() {
@@ -293,114 +272,118 @@ export default function ClusterMap() {
         let isClusterMarkerClicked = false;
         function clusterClick(e: any) {
           if (mapRef.current) {
-
             const currentZoom = mapRef.current.getZoom();
             if (currentZoom < 9) {
-                const newZoom = Math.min(currentZoom + 4, mapRef.current.getMaxZoom());
-                mapRef.current.flyTo({ center: e.lngLat, zoom: newZoom });
+              const newZoom = Math.min(
+                currentZoom + 4,
+                mapRef.current.getMaxZoom(),
+              );
+              mapRef.current.flyTo({ center: e.lngLat, zoom: newZoom });
             }
-            
+
             isClusterMarkerClicked = true;
 
             if (!mapRef.current) {
               return;
             }
-  
-              const features = mapRef.current.queryRenderedFeatures(e.point, {
-                layers: ["clusters"],
-              });
-  
-              if (features.length > 0) {
-                const clusterId = features[0]?.properties?.cluster_id;
-                const source = mapRef.current.getSource("meetups") as mapboxgl.GeoJSONSource;
-  
-                if (
-                  clusterId !== undefined &&
-                  source &&
-                  typeof source.getClusterLeaves === "function"
-                ) {
-                  source?.getClusterExpansionZoom(clusterId, (err: any) => {
-                    if (err) return;
-  
-                    source?.getClusterLeaves(
-                      clusterId,
-                      100,
-                      0,
-                      (err: any, leaves: any[]) => {
-                        if (err) return;
-  
-                        const clusterCoordinates = calculateClusterCenter(
-                          leaves.map((leaf) => leaf.geometry.coordinates),
-                        );
-  
-                        clusterMarkers.forEach((marker) => {
-                          marker.remove();
-                        });
-                        clusterMarkers.length = 0;
-  
-                        const markers = leaves
-                          .map(
-                            (leaf: {
-                              geometry: { type: string; coordinates: any };
-                              properties: any;
-                            }) => {
-                              const leafCoords =
-                                leaf.geometry.type === "Point"
-                                  ? leaf.geometry.coordinates
-                                  : null;
-                              return {
-                                coordinates: leafCoords,
-                                properties: leaf.properties,
-                              };
-                            },
-                          )
-                          .filter((leaf: any) => leaf.coordinates);
-  
-                        if (markers.length > 0) {
-                          const radius = 0.1;
-                          const angleStep = (2 * Math.PI) / markers.length;
-  
-                          for (let i = 0; i < markers.length; i++) {
-                            const angle = i * angleStep;
-                            const x = radius * Math.cos(angle);
-                            const y = radius * Math.sin(angle);
-  
-                            if (!clusterCoordinates[0] || !clusterCoordinates[1])
-                              return;
-                            const markerCoordinates: LngLatLike = [
-                              clusterCoordinates[0] + x,
-                              clusterCoordinates[1] + y,
-                            ];
-                            const popupContent =
-                              markers[i]?.properties?.popUpMarkup ?? "No Content";
-                              if (!mapRef.current) {
-                                return;
-                              }
-                            const newMarker: mapboxgl.Marker =
-                              new mapboxgl.Marker()
-                                .setLngLat(markerCoordinates)
-                                .setPopup(
-                                  new mapboxgl.Popup().setHTML(popupContent),
-                                )
-                                .addTo(mapRef.current);
-                            clusterMarkers.push(newMarker);
+
+            const features = mapRef.current.queryRenderedFeatures(e.point, {
+              layers: ["clusters"],
+            });
+
+            if (features.length > 0) {
+              const clusterId = features[0]?.properties?.cluster_id;
+              const source = mapRef.current.getSource(
+                "meetups",
+              ) as mapboxgl.GeoJSONSource;
+
+              if (
+                clusterId !== undefined &&
+                source &&
+                typeof source.getClusterLeaves === "function"
+              ) {
+                source?.getClusterExpansionZoom(clusterId, (err: any) => {
+                  if (err) return;
+
+                  source?.getClusterLeaves(
+                    clusterId,
+                    100,
+                    0,
+                    (err: any, leaves: any[]) => {
+                      if (err) return;
+
+                      const clusterCoordinates = calculateClusterCenter(
+                        leaves.map((leaf) => leaf.geometry.coordinates),
+                      );
+
+                      clusterMarkers.forEach((marker) => {
+                        marker.remove();
+                      });
+                      clusterMarkers.length = 0;
+
+                      const markers = leaves
+                        .map(
+                          (leaf: {
+                            geometry: { type: string; coordinates: any };
+                            properties: any;
+                          }) => {
+                            const leafCoords =
+                              leaf.geometry.type === "Point"
+                                ? leaf.geometry.coordinates
+                                : null;
+                            return {
+                              coordinates: leafCoords,
+                              properties: leaf.properties,
+                            };
+                          },
+                        )
+                        .filter((leaf: any) => leaf.coordinates);
+
+                      if (markers.length > 0) {
+                        const radius = 0.01;
+                        const angleStep = (2 * Math.PI) / markers.length;
+
+                        for (let i = 0; i < markers.length; i++) {
+                          const angle = i * angleStep;
+                          const x = radius * Math.cos(angle);
+                          const y = radius * Math.sin(angle);
+
+                          if (!clusterCoordinates[0] || !clusterCoordinates[1])
+                            return;
+                          const markerCoordinates: LngLatLike = [
+                            clusterCoordinates[0] + x,
+                            clusterCoordinates[1] + y,
+                          ];
+                          const popupContent =
+                            markers[i]?.properties?.popUpMarkup ?? "No Content";
+                          if (!mapRef.current) {
+                            return;
                           }
+                          const newMarker: mapboxgl.Marker =
+                            new mapboxgl.Marker()
+                              .setLngLat(markerCoordinates)
+                              .setPopup(
+                                new mapboxgl.Popup().setHTML(popupContent),
+                              )
+                              .addTo(mapRef.current);
+                          clusterMarkers.push(newMarker);
                         }
-                      },
-                    );
-                  });
-                }
+                      }
+                    },
+                  );
+                });
               }
-              setTimeout(() => {
-                isClusterMarkerClicked = false;
-            }, 10);}
-          
+            }
+            setTimeout(() => {
+              isClusterMarkerClicked = false;
+            }, 10);
+          }
         }
       });
       const resizeMap = () => {
         mapRef.current?.resize();
       };
-      const resizeTimeout = setTimeout(resizeMap, 1);
+      const resizeTimeout = setTimeout(resizeMap, 10);
       window.addEventListener("resize", resizeMap);
       return () => {
         clearTimeout(resizeTimeout);
@@ -411,7 +394,7 @@ export default function ClusterMap() {
         }
       };
     }
-  }, []);
+  }, [mapRef.current]);
   return (
     <div
       className="h-[500px] w-full"
