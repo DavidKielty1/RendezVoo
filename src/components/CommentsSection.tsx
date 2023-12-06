@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { CommentCard } from "./CommentCard";
 import { CommentEditor } from "./CommentEditor";
+import { signIn } from "next-auth/react";
 
 import { type CommentWithUserInfo } from "~/utils/types";
 
@@ -42,18 +43,29 @@ export default function CommentsSection({ meetupId, userId, userName }: Props) {
     <section>
       {meetupComments ? (
         <section className="flex flex-col gap-8 text-slate-500">
-          {sessionData && (
-            <CommentEditor
-              onSave={({ author, content }) => {
-                void createComment.mutate({
-                  author,
-                  content,
-                  meetupId,
-                  userId,
-                });
+          {sessionData ? (
+            <>
+              <CommentEditor
+                onSave={({ author, content }) => {
+                  void createComment.mutate({
+                    author,
+                    content,
+                    meetupId,
+                    userId,
+                  });
+                }}
+                userName={userName}
+              />
+            </>
+          ) : (
+            <h2
+              className="self-center text-2xl font-bold hover:cursor-pointer hover:text-fuchsia-600"
+              onClick={() => {
+                void signIn();
               }}
-              userName={userName}
-            />
+            >
+              Log in to comment!
+            </h2>
           )}
           <div className="flex flex-col gap-8">
             {meetupComments?.map((meetupComment) => (

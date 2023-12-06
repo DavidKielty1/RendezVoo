@@ -77,7 +77,7 @@ export const CommentCard = ({
     setIsReplySectionVisible(!isReplySectionVisible);
     setReplyContent("");
   };
-
+  console.log(sessionData);
   return (
     <Disclosure>
       {({ open }) => (
@@ -116,7 +116,6 @@ export const CommentCard = ({
 
                   {replies && replies?.length > 0 && (
                     <Disclosure.Button>
-                      {" "}
                       <ChevronRightIcon
                         className={`mt-0.5 w-6 scale-125 ${
                           open ? "rotate-90 transform" : ""
@@ -144,9 +143,9 @@ export const CommentCard = ({
                         className="b-0 collapse-title max-h-[30px] p-0 text-xl font-bold hover:text-purple-400"
                       >
                         {reply.author}
-                      </Link>{" "}
+                      </Link>
                       <div className="absolute -right-5 top-0 flex h-full scale-75 flex-row">
-                        {userId === meetupComment.userId && (
+                        {userId === reply.userId && (
                           <XMarkIcon
                             onClick={() => {
                               deleteComment.mutate({
