@@ -37,9 +37,11 @@ _NavBar_
 Higher contrast needed in mobile phone menu
 
 _FilterComponent_
+Sort must be a dropdown. meetups.FindManyWhereLocation => searchInput = allMeetupsFiltered.location. Make input dropdown, map through returned values as options.
 Above inputs set dynamic. if(no searchTerm) {Please enter search term} else {Searching for 'searchTerm'}. Same for sort. Sorting by: . .
 Turn on predictive text.
 Feedback in filter component showing results for searchTerm, showing results for location, showing results for both. Can I change the label value?
+CSS: shadow over opened component. Dynamic rendering.
 
 _Meetup Details_
 Date format of seed is too specific with seconds.
