@@ -34,13 +34,25 @@ const HomePage: React.FC = () => {
     },
   );
 
+  const [allMeetupsFiltered, setAllMeetupsFiltered] = useState<Meetup[]>([]);
+  const { data: filteredAllMeetups } =
+    api.meetup.searchFilterAllMeetups.useQuery(
+      { searchInput },
+      {
+        onSuccess: (data: Meetup[]) => {
+          setFilteredMeetups(data ?? filteredAllMeetups);
+          setAllMeetupsFiltered(data ?? filteredAllMeetups);
+        },
+      },
+    );
+
   useEffect(() => {
     if (locationInput) {
       void sortMeetupsByLocation(locationInput, meetups, (sortedMeetups) => {
         setMeetups(sortedMeetups);
       });
     }
-  }, [locationInput, meetups]);
+  }, [locationInput]);
 
   const handleSearchChange = (newSearchInput: string) => {
     setSearchInput(newSearchInput);
@@ -61,7 +73,7 @@ const HomePage: React.FC = () => {
       </Head>
       <div className="flex flex-col gap-4">
         <div className="mb-8 h-[500px] w-full shadow-lg" id="map">
-          <ClusterMap />
+          <ClusterMap allMeetupsFiltered={allMeetupsFiltered} />
         </div>
         <FilterComponent
           onSearchChange={handleSearchChange}

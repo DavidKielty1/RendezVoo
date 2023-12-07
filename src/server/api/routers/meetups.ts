@@ -123,6 +123,20 @@ export const meetupRouter = createTRPCRouter({
       });
     }),
 
+  searchFilterAllMeetups: publicProcedure
+    .input(z.object({ searchInput: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const posts = await ctx.db.meetup.findMany({
+        where: {
+          title: {
+            contains: input.searchInput,
+            mode: "insensitive",
+          },
+        },
+      });
+      return posts;
+    }),
+
   searchFilter: publicProcedure
     .input(z.object({ searchInput: z.string(), page: z.number() }))
     .query(async ({ ctx, input }) => {

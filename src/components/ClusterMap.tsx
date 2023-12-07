@@ -8,12 +8,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import mapboxgl, { type LngLatLike } from "mapbox-gl";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { env } from "../env.js";
-import { api } from "../utils/api";
 import { type Meetup } from "~/utils/types";
 import router from "next/router";
 import MapboxglSpiderifier from "mapboxgl-spiderifier";
@@ -22,8 +21,12 @@ import _ from "lodash";
 const mapToken = env.NEXT_PUBLIC_MAPTOKEN;
 mapboxgl.accessToken = mapToken;
 
-export default function ClusterMap() {
-  const { data: meetups } = api.meetup.getAllMeetups.useQuery();
+type Props = {
+  allMeetupsFiltered: Meetup[];
+};
+
+export default function ClusterMap({ allMeetupsFiltered }: Props) {
+  const meetups = allMeetupsFiltered;
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map>();
   const clusterMarkers: mapboxgl.Marker[] = [];
@@ -93,7 +96,7 @@ export default function ClusterMap() {
             filter: ["!", ["has", "point_count"]],
             paint: {
               "circle-color": "#93c5fd",
-              "circle-radius": 3,
+              "circle-radius": 5,
               "circle-stroke-width": 0.5,
               "circle-stroke-color": "#020617",
             },

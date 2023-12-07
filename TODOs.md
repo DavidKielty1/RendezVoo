@@ -6,6 +6,8 @@ Toast in editor. Success/fail.
 _Mapbox_
 New Meetup page.
 Edit page. -> Is editPage necessary? Can I edit in meetupInformatin component? Perhaps hide editPage and try this option (Do not delete edit page).
+Hand in the meetups from the filter.
+Sort location reorients map? After 1 second of blur perhaps? etc.
 
 _MeetupsList_
 Add loading div.
@@ -35,6 +37,7 @@ _NavBar_
 Higher contrast needed in mobile phone menu
 
 _FilterComponent_
+Above inputs set dynamic. if(no searchTerm) {Please enter search term} else {Searching for 'searchTerm'}. Same for sort. Sorting by: . .
 Turn on predictive text.
 Feedback in filter component showing results for searchTerm, showing results for location, showing results for both. Can I change the label value?
 
