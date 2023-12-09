@@ -21,8 +21,8 @@ export default {
         glow: "0 0 6px 3px rgba(232, 121, 249, 0.2)",
       },
       colors: {
-        darktextalt: "#475569",
-        darktext: "#64748b",
+        darktextalt: "#64748b",
+        darktext: "#475569",
         glowblue: "#A5B4FC",
       },
       fontSize: {

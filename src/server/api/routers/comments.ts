@@ -27,6 +27,25 @@ export const commentRouter = createTRPCRouter({
       });
     }),
 
+  getAllFromUser: publicProcedure
+    .input(z.object({ userId: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.db.comment.findMany({
+        take: 25,
+        orderBy: [{ createdAt: "desc" }],
+        where: {
+          userId: input.userId,
+        },
+        include: {
+          meetup: {
+            select: {
+              title: true,
+            },
+          },
+        },
+      });
+    }),
+
   create: protectedProcedure
     .input(
       z.object({

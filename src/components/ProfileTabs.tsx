@@ -14,18 +14,12 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-// interface Category {
-//   id: number;
-//   title: string;
-// }
-
 interface Props {
   user: User;
 }
 
 export default function ProfileTabs({ user }: Props) {
   const [categories] = useState(profileTabCategories);
-
   return (
     <section className="mb-10 flex h-[500px] w-full flex-col gap-8 text-darktext">
       <Tab.Group>
@@ -50,7 +44,7 @@ export default function ProfileTabs({ user }: Props) {
           <Tab.Panel>{user && <SubmittedMeetups user={user} />}</Tab.Panel>
           <Tab.Panel>{user && <SavedMeetupsList user={user} />}</Tab.Panel>
           <Tab.Panel>
-            <ProfileCommentsList />
+            <ProfileCommentsList user={user} />
           </Tab.Panel>
           <Tab.Panel>
             <ProfileContacts />

@@ -24,6 +24,7 @@ _Routing_
 Test logout not pushing to '/'. Think about new meetup, edit etc. considerations. Route lockout with no sessionData.
 
 _SeedImplement_
+Each user should only have max 1 comment per meetupId.
 Rectify savedMeetup logic. Each user should submit 10 meetups, have should have 5 'saved meetups'.
 Replies - please change events, places, and cities to savedMeetup event, place, city, as I need the replies to be relevant to the meetup post they are posting on.
 

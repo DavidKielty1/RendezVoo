@@ -77,7 +77,7 @@ model Meetup {
     image       String
     user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId      String
-    comments    Comment[]
+    comments    Comment[]       
     type        String          @default("Point")
     coordinates Float[]   
     savedBy     SavedMeetup[]   
@@ -102,7 +102,7 @@ model Comment {
     meetupId    String     
     userId      String
     parentId    String?     
-    meetup      Meetup      @relation(fields: [meetupId], references: [id])
+    meetup      Meetup      @relation(fields: [meetupId], references: [id], onDelete: Cascade)
     user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
     parent      Comment?    @relation("CommentToComment", fields: [parentId], references: [id])
     replies     Comment[]   @relation("CommentToComment")
@@ -113,8 +113,8 @@ model Like {
     id        String        @id @default(cuid())
     userId    String
     commentId String
-    user      User          @relation(fields: [userId], references: [id])
-    comment   Comment       @relation(fields: [commentId], references: [id])
+    user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+    comment   Comment       @relation(fields: [commentId], references: [id], onDelete: Cascade)
 
     @@unique([userId, commentId])
 }

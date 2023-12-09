@@ -63,7 +63,7 @@ export const MeetupsList = ({ meetups, onPageChange }: Props) => {
       >
         <div id="cluster-map"></div>
       </Transition>
-      {meetups ? (
+      {meetups.length ? (
         <ul className="mb-10 flex w-full flex-col gap-10">
           {meetups?.map((meetup) => (
             <li
@@ -139,38 +139,40 @@ export const MeetupsList = ({ meetups, onPageChange }: Props) => {
           ))}
         </ul>
       ) : (
-        <div className="h-screen py-10 text-center text-lg">
-          View your submitted meetups here!
+        <div className="h-screen py-10 text-center text-2xl font-bold text-darktext">
+          Loading meetups . . .
         </div>
       )}
 
-      <div className="tranform 1 m-auto w-60 pb-8 transition-opacity ease-in">
-        <Transition
-          appear={true}
-          show={true}
-          enter="transition-opacity duration-1000"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-        >
-          <div className="flex justify-between font-bold text-slate-600">
-            <button
-              className="hover:cursor-pointer hover:text-slate-300"
-              disabled={currentPage === 1}
-              onClick={handlePageDecrement}
-            >
-              Previous
-            </button>
-            <span>Page {currentPage}</span>
-            <button
-              className="hover:cursor-pointer hover:text-slate-300"
-              disabled={!meetups}
-              onClick={handlePageIncrement}
-            >
-              Next
-            </button>
-          </div>
-        </Transition>
-      </div>
+      {meetups.length && (
+        <div className="tranform 1 m-auto w-60 pb-8 text-lg transition-opacity ease-in">
+          <Transition
+            appear={true}
+            show={true}
+            enter="transition-opacity duration-1000"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+          >
+            <div className="flex justify-between font-bold text-slate-600">
+              <button
+                className="hover:cursor-pointer hover:text-fuchsia-500"
+                disabled={currentPage === 1}
+                onClick={handlePageDecrement}
+              >
+                Previous
+              </button>
+              <span>Page {currentPage}</span>
+              <button
+                className="hover:cursor-pointer hover:text-fuchsia-500"
+                disabled={!meetups}
+                onClick={handlePageIncrement}
+              >
+                Next
+              </button>
+            </div>
+          </Transition>
+        </div>
+      )}
     </>
   );
 };

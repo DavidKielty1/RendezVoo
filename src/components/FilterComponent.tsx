@@ -32,7 +32,7 @@ export default function FilterComponent({
       {({ open }) => (
         <>
           <div
-            className={`rounded-lg shadow-lg xl:hover:shadow-glow ${styles.myUniqueGradient}`}
+            className={`rounded-lg shadow-lg hover:cursor-pointer xl:hover:shadow-glow ${styles.myUniqueGradient}`}
           >
             <Disclosure.Button
               as="div"
