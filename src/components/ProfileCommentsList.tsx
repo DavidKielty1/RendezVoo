@@ -56,14 +56,15 @@ export default function ProfileCommentsList({ user }: Props) {
           {formattedComments.map((comment) => (
             <div
               key={comment.id}
-              className="justify-evenly self-center rounded-lg bg-slate-100/70 px-4 py-6 text-base shadow-md hover:shadow-glow lg:text-lg xl:w-4/6"
+              className="w-full justify-evenly self-center rounded-lg bg-slate-100/70 py-6 text-base shadow-md hover:shadow-glow lg:w-4/6 lg:text-lg xl:px-4"
             >
-              <div className="flex flex-row justify-center">
+              <Link
+                className="flex flex-row justify-center"
+                href={`/${comment.meetupId}`}
+              >
                 <h2 className="font-bold">{comment.meetup.title}</h2>
-                <Link href={`/${comment.meetupId}`}>
-                  <ArrowRightOnRectangleIcon className="w-6" />
-                </Link>
-              </div>
+                <ArrowRightOnRectangleIcon className="ml-2 w-5 xl:ml-10" />
+              </Link>
               <p>{comment.content}</p>
               <p className="text-base text-darktext/60">
                 Posted on {comment.createdAt}

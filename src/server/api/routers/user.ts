@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
   getOne: protectedProcedure
@@ -11,7 +11,7 @@ export const userRouter = createTRPCRouter({
       });
     }),
 
-  getUserFromName: protectedProcedure
+  getUserFromName: publicProcedure
     .input(z.object({ name: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.db.user.findUnique({

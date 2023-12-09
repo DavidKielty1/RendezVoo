@@ -77,7 +77,6 @@ export const CommentCard = ({
     setIsReplySectionVisible(!isReplySectionVisible);
     setReplyContent("");
   };
-  console.log(sessionData);
   return (
     <Disclosure>
       {({ open }) => (
@@ -89,7 +88,7 @@ export const CommentCard = ({
               <div className="relative flex max-h-[30px] w-full flex-row">
                 <Link
                   href={`/Profile/@${meetupComment.user.name}`}
-                  className="b-0 mx-auto max-h-[30px] p-0 text-lg font-bold hover:text-purple-400"
+                  className="b-0 mx-auto max-h-[30px] p-0 text-base font-bold hover:text-purple-400"
                 >
                   {meetupComment.author}
                 </Link>
@@ -125,7 +124,7 @@ export const CommentCard = ({
                   )}
                 </div>
               </div>
-              <article className="lg:prose-md prose w-full">
+              <article className="lg:prose-md prose w-full text-base">
                 <span>{meetupComment.content}</span>
               </article>
             </div>
@@ -136,11 +135,10 @@ export const CommentCard = ({
                 <div key={idx}>
                   <Disclosure.Panel className="text-center">
                     <div className="mx-auto my-2 h-0.5 w-60 items-center self-center bg-slate-300/20"></div>
-                    <div className="flex flex-col gap-2"></div>
-                    <div className="relative flex max-h-[30px] w-full flex-row ">
+                    <div className="relative flex max-h-[30px] w-full flex-row">
                       <Link
                         href={`/Profile/@${reply.userId}`}
-                        className="b-0 collapse-title max-h-[30px] p-0 text-xl font-bold hover:text-purple-400"
+                        className="collapse-title max-h-[30px] p-0 text-base font-bold hover:text-purple-400"
                       >
                         {reply.author}
                       </Link>
@@ -160,7 +158,7 @@ export const CommentCard = ({
                       </div>
                     </div>
 
-                    <span>{reply.content}</span>
+                    <span className="text-base">{reply.content}</span>
                   </Disclosure.Panel>
                 </div>
               ))}

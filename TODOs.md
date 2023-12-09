@@ -1,12 +1,15 @@
 _Comments_
+Original comment must cascade delete on all comments with originalcommentId as parentId.
 Profile pic thumbnail by name.
 Edit functionality.
 Toast in editor. Success/fail.
 
-_ProfileComments_
-Icon should navigate to place in page where comment is, may need to expand comments to find place in thread.
+_Styles_
+sparklyGradient needs an ease-out-in transition time.
+ProfileComments tab background colour at scroll.
 
 _Mapbox_
+**Conditional spawn markers only within red step. Otherwise zoom.**
 New Meetup page.
 Edit page. -> Is editPage necessary? Can I edit in meetupInformatin component? Perhaps hide editPage and try this option (Do not delete edit page).
 Sort location reorients map? After 1 second of blur perhaps? etc.
@@ -28,6 +31,7 @@ Both -^ forms. State is verbose, lengthy.
 Can the NextImages be refactored?
 Svg in navbar?
 Desktop Navbar.
+Comments and replies?
 API routers?
 
 _NavBar_
@@ -64,6 +68,10 @@ Scrollbar opacity 0, transition ease-in-out upon scroll/hover.
 
 _Buttons_
 Why isn't the text aligned real center? add padding? Ask Chatpgt.
+
+_ProfileComments_
+Icon could be absolutely positioned.
+Icon should navigate to place in page where comment is, may need to expand comments to find place in thread.
 
 _Datetime_
 Relative time (2 weeks ago), hover-over show absolute time.
