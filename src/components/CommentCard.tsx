@@ -171,6 +171,7 @@ export const CommentCard = ({
               <label htmlFor="replyComment font-bold text-3xl">Reply:</label>
               <div className="flex w-full flex-row self-center">
                 <textarea
+                  autoFocus
                   className="my-2 w-full rounded-lg border-2 border-slate-300/60"
                   name="replyComment"
                   id="replyComment"

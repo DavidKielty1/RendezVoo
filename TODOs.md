@@ -3,8 +3,10 @@ Original comment must cascade delete on all comments with originalcommentId as p
 Profile pic thumbnail by name.
 Edit functionality.
 Toast in editor. Success/fail.
+Replies auto focus on expand element.
 
-_Styles_
+_Styles & Html_
+Aria Labels
 sparklyGradient needs an ease-out-in transition time.
 ProfileComments tab background colour at scroll.
 

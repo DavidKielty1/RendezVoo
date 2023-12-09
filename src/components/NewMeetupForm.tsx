@@ -104,6 +104,7 @@ const NewMeetupForm = () => {
         </h2>
         <input
           required
+          autoFocus
           id="title"
           name="title"
           type="text"
