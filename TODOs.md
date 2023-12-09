@@ -9,20 +9,12 @@ Icon should navigate to place in page where comment is, may need to expand comme
 _Mapbox_
 New Meetup page.
 Edit page. -> Is editPage necessary? Can I edit in meetupInformatin component? Perhaps hide editPage and try this option (Do not delete edit page).
-**Hand in the meetups from the filter.**
 Sort location reorients map? After 1 second of blur perhaps? etc.
 
 _MeetupsList_
 Pagination navigation. How to get to page3 instantly?
-**Add loading div.**
 On phone - button to scroll on top of page.
 Take users to top of meetupLists component upon next page click.
-**Pagination buttons should not show unless meetups.length >= 1**
-
-_SubmittedMeetupsList_
-**In profile tab, needs dynamic routing. If your meetups 'Check out your saved meetups here'; otherwise 'Check out ${userId}'s meetups here'. Check session.**
-**Only show delete button here and in details, rather than meetupsList (maybe).**
-**Delete functionality needs fixing.**
 
 _Refactor_
 Pagination buttons @MeetupsList, @SubmittedMeetups, @SavedMeetups.
@@ -39,7 +31,6 @@ Desktop Navbar.
 API routers?
 
 _NavBar_
-**Mobile still doesn't close menu upon click? (Chck)**
 Higher contrast needed in mobile phone menu
 
 _FilterComponent_
@@ -47,7 +38,6 @@ Sort must be a dropdown. meetups.FindManyWhereLocation => searchInput = allMeetu
 Above inputs set dynamic. if(no searchTerm) {Please enter search term} else {Searching for 'searchTerm'}. Same for sort. Sorting by: . .
 Turn on predictive text.
 Feedback in filter component showing results for searchTerm, showing results for location, showing results for both. Can I change the label value?
-**CSS: shadow over opened component. Dynamic rendering.**
 
 _Meetup Details_
 Date format of seed is too specific with seconds.
@@ -65,9 +55,9 @@ Profile page image can be changed to user.image || default image. Same with titl
 Profile related info - number of posts etc, last seen, last post when etc. Use/update schema.
 Anonymity - user info selectively hidden unless in 'close contact list'.
 Place-holder profile image, add, edit profile image (upload) functionality. - should pull from an array upon userCreation. Many random possible profilepics.
-**Comment info needed**, Contact list.
 Access to other members that are attending same meetup. Routing, schema, seeding considerations. ([x] is attending [y-meetup] too!)
 Add to contacts button.
+Contact list.
 
 _Styles_
 Scrollbar opacity 0, transition ease-in-out upon scroll/hover.
