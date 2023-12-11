@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
@@ -16,37 +15,39 @@ export default function FilterComponent({
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.stopPropagation(); // Prevents the event from bubbling up to the Disclosure
+    e.stopPropagation();
     onSearchChange(e.currentTarget.value);
   };
 
   const handleLocationInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    e.stopPropagation(); // Prevents the event from bubbling up to the Disclosure
+    e.stopPropagation();
     onLocationChange(e.currentTarget.value);
   };
 
+  // const handleDisclosureChange = (open: boolean) => {
+  //   setIsOpen(open);
+  // };
+
   return (
-    <Disclosure as="div" open={isOpen} onChange={setIsOpen}>
-      {({ open }) => (
-        <>
-          <div
-            className={`rounded-lg shadow-lg xl:hover:shadow-glow ${styles.myUniqueGradient}`}
-          >
-            <Disclosure.Button
-              as="div"
-              className="align-center flex w-full flex-col items-center justify-center self-center px-4 py-2 text-xl lg:px-10"
-            >
-              <div className="fel-row flex" onClick={() => setIsOpen(!open)}>
-                Search Meetups
-                <ChevronRightIcon
-                  className={`ml-0.5 mt-0.5 w-6 scale-125 ${
-                    open ? "rotate-90 transform" : ""
-                  }`}
-                />
-              </div>
-              <Disclosure.Panel as="div" className={`text-gray-500`}>
+    <>
+      <div>
+        <div
+          className={`rounded-lg shadow-lg hover:cursor-pointer xl:hover:shadow-glow ${styles.myUniqueGradient}`}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <div className="align-center flex w-full flex-col items-center justify-center self-center px-4 py-2 text-xl lg:px-10">
+            <div className="fel-row flex">
+              Search Meetups
+              <ChevronRightIcon
+                className={`ml-0.5 mt-0.5 w-6 scale-125 ${
+                  isOpen ? "rotate-90 transform" : ""
+                }`}
+              />
+            </div>
+            {isOpen && (
+              <div className={`text-gray-500`}>
                 <div className="flex flex-col justify-center gap-4 rounded-lg py-8  text-xl xl:flex-row">
                   <div className="flex flex-col items-center gap-1 pb-4 ">
                     <input
@@ -69,11 +70,11 @@ export default function FilterComponent({
                     />
                   </div>
                 </div>
-              </Disclosure.Panel>
-            </Disclosure.Button>
+              </div>
+            )}
           </div>
-        </>
-      )}
-    </Disclosure>
+        </div>
+      </div>
+    </>
   );
 }

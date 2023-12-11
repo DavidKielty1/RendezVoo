@@ -24,6 +24,10 @@ export default function MeetupInformation({ selectedMeetup, userId }: Props) {
 
   const { mutate } = api.savedmeetup.create.useMutation({});
   const saveHandler = () => {
+    if (!sessionData) {
+      void router.push("/");
+      //Toast: please log in to save meetups
+    }
     mutate({
       userId,
       meetupId,
