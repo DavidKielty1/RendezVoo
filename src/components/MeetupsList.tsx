@@ -44,7 +44,7 @@ export const MeetupsList = ({ meetups, onPageChange }: Props) => {
 
   useEffect(() => {
     const checkScreenWidth = () => {
-      setIsLargeScreen(window.innerWidth > 1024); // xl breakpoint
+      setIsLargeScreen(window.innerWidth > 1024);
     };
     checkScreenWidth();
     window.addEventListener("resize", checkScreenWidth);

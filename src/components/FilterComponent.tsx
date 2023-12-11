@@ -22,10 +22,6 @@ export default function FilterComponent({
     onLocationChange(e.currentTarget.value);
   };
 
-  // const handleDisclosureChange = (open: boolean) => {
-  //   setIsOpen(open);
-  // };
-
   return (
     <Disclosure>
       {({ open }) => (
