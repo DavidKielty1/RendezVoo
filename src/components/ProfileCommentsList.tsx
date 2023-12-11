@@ -4,11 +4,11 @@ import { api } from "~/utils/api";
 import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
-export type CommentWithMeetupTitle = Omit<Comment, "meetup"> & {
+interface CommentWithMeetupTitle extends Comment {
   meetup: {
     title: string;
   };
-};
+}
 
 type Props = {
   user: User;

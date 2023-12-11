@@ -69,7 +69,6 @@ export type Comment = {
   author: string;
   content: string;
   meetupId: string;
-  meetup?: Meetup;
   userId: string;
   parentId?: string;
 };
