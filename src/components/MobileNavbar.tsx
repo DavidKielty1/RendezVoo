@@ -89,6 +89,7 @@ export default function MobileNavbar() {
               <Link
                 className={`block w-full bg-slate-600 py-6 font-serif text-4xl font-normal text-white`}
                 href="/"
+                onClick={closeMobileMenu}
               >
                 RendezVoo
               </Link>

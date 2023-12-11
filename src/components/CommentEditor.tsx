@@ -9,8 +9,8 @@ export const CommentEditor = ({
   onSave: (comment: { author: string; content: string }) => void;
   userName: string | null | undefined;
 }) => {
+  const author = userName;
   const [code, setCode] = useState<string>("");
-  const [author, setAuthor] = useState(`${userName}`);
 
   return (
     <div className="card border border-gray-200 bg-base-100 shadow-xl">
@@ -25,17 +25,18 @@ export const CommentEditor = ({
             value={code}
             onChange={(e) => setCode(e.currentTarget.value)}
           />
-          <CheckIcon
-            className="w-10 self-center hover:cursor-pointer"
-            onClick={() => {
-              onSave({
-                author,
-                content: code,
-              });
-              setCode("");
-              setAuthor("");
-            }}
-          />
+          {author && (
+            <CheckIcon
+              className="w-10 self-center hover:cursor-pointer"
+              onClick={() => {
+                onSave({
+                  author,
+                  content: code,
+                });
+                setCode("");
+              }}
+            />
+          )}
         </div>
       </div>
     </div>

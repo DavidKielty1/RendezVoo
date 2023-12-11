@@ -54,7 +54,7 @@ export default function MeetupInformation({ selectedMeetup, userId }: Props) {
           <p className="mr-3 hidden w-full font-bold text-slate-600 md:text-right 2xl:inline 2xl:w-3/12">
             Title:
           </p>
-          <p className="line-clamp-1 w-full font-bold 2xl:w-9/12 2xl:text-left 2xl:font-normal">
+          <p className="line-clamp-2 w-full text-lg font-bold 2xl:w-9/12 2xl:text-left 2xl:text-base 2xl:font-normal">
             {selectedMeetup.title}
           </p>
         </div>
@@ -120,6 +120,7 @@ export default function MeetupInformation({ selectedMeetup, userId }: Props) {
               const button = event.target as HTMLButtonElement;
               const params = { id: button.dataset.id ?? "" };
               deleteMeetupHandler.mutate(params);
+              void router.push("/meetups");
             }}
           >
             Delete
