@@ -29,6 +29,7 @@ export default function ClusterMap({ allMeetupsFiltered }: Props) {
   const meetups = allMeetupsFiltered;
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map>();
+  const markerClickedRef = useRef(false);
   const clusterMarkers: mapboxgl.Marker[] = [];
   let spiderifier: any;
   let SPIDERFY_FROM_ZOOM: number;
@@ -195,23 +196,14 @@ export default function ClusterMap({ allMeetupsFiltered }: Props) {
               }
             },
           );
-          // let dragendTimeoutId: NodeJS.Timeout;
-          // mapRef.current.on("dragend", () => {
-          //   if (!mapRef.current) return;
-          //   if (dragendTimeoutId) clearTimeout(dragendTimeoutId);
-          //   dragendTimeoutId = setTimeout(() => {
-          //     if (!isClusterMarkerClicked) {
-          //       clusterMarkers.forEach((marker) => marker.remove());
-          //       clusterMarkers.length = 0;
-          //     }
-          //   }, 2000);
-          // });
+
           mapRef.current.on("click", () => {
             if (!mapRef.current) return;
-            if (!isClusterMarkerClicked) {
+            if (!isClusterMarkerClicked && !markerClickedRef.current) {
               clusterMarkers.forEach((marker) => marker.remove());
               clusterMarkers.length = 0;
             }
+            markerClickedRef.current = false;
           });
 
           mapRef.current.on("mouseenter", "clusters", () => {
@@ -280,10 +272,11 @@ export default function ClusterMap({ allMeetupsFiltered }: Props) {
         }
 
         let isClusterMarkerClicked = false;
+
         function clusterClick(e: any) {
           if (mapRef.current) {
             const currentZoom = mapRef.current.getZoom();
-            if (currentZoom < 9) {
+            if (currentZoom < 11) {
               const newZoom = Math.min(
                 currentZoom + 4,
                 mapRef.current.getMaxZoom(),
@@ -369,6 +362,7 @@ export default function ClusterMap({ allMeetupsFiltered }: Props) {
                           if (!mapRef.current) {
                             return;
                           }
+
                           const newMarker: mapboxgl.Marker =
                             new mapboxgl.Marker()
                               .setLngLat(markerCoordinates)
@@ -376,6 +370,12 @@ export default function ClusterMap({ allMeetupsFiltered }: Props) {
                                 new mapboxgl.Popup().setHTML(popupContent),
                               )
                               .addTo(mapRef.current);
+                          newMarker
+                            .getElement()
+                            .addEventListener("click", () => {
+                              markerClickedRef.current = true;
+                            });
+
                           clusterMarkers.push(newMarker);
                         }
                       }
@@ -390,6 +390,7 @@ export default function ClusterMap({ allMeetupsFiltered }: Props) {
           }
         }
       });
+
       const resizeMap = () => {
         mapRef.current?.resize();
       };
