@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
+import CommentReplyCard from "./CommentReplyCard";
 
 import { toast } from "react-toastify";
 import { Disclosure } from "@headlessui/react";
@@ -42,23 +43,9 @@ export const CommentCard = ({
 
   const deleteComment = api.comment.delete.useMutation({
     onSuccess: () => {
-      void refetchComments();
       void refetchReplies();
     },
   });
-
-  const [replies, setReplies] = useState<CommentWithUserInfo[]>();
-  const { data: fetchedReplies, refetch: refetchReplies } =
-    api.reply.getAllReplies.useQuery(
-      {
-        parentId: meetupCommentId,
-      },
-      {
-        onSuccess: (data: CommentWithUserInfo[]) => {
-          setReplies(data ?? fetchedReplies);
-        },
-      },
-    );
 
   const createReply = api.reply.create.useMutation({
     onSuccess: () => {
@@ -79,26 +66,33 @@ export const CommentCard = ({
     setReplyContent("");
   };
 
-  const likeComment = api.likes.likeComment.useMutation({
-    onSuccess: () => {
-      void refetchLikes();
-    },
-  });
-  const removeCommentLike = api.likes.removeCommentLike.useMutation({
-    onSuccess: () => {
-      void refetchLikes();
-    },
-  });
-
-  const { data: likedComment, refetch: refetchLikes } =
+  const { data: likedMainComment, refetch: refetchMainCommentLike } =
     api.likes.getLikedCommentForSinglePost.useQuery({
       commentId: meetupComment.id,
       userId,
     });
 
-  useEffect(() => {
-    console.log(likedComment);
-  }, [likedComment]);
+  const { data: replies, refetch: refetchReplies } =
+    api.reply.getAllReplies.useQuery({ parentId: meetupComment.id });
+
+  const likeComment = api.likes.likeComment.useMutation({
+    onSuccess: () => {
+      void refetchMainCommentLike();
+    },
+  });
+  const removeCommentLike = api.likes.removeCommentLike.useMutation({
+    onSuccess: () => {
+      void refetchMainCommentLike();
+    },
+  });
+
+  const handleLikeMainComment = () => {
+    if (!likedMainComment) {
+      likeComment.mutate({ commentId: meetupComment.id, userId });
+    } else {
+      removeCommentLike.mutate({ commentId: meetupComment.id, userId });
+    }
+  };
 
   return (
     <Disclosure>
@@ -121,21 +115,9 @@ export const CommentCard = ({
                   )}
                   <HeartIcon
                     className={`${
-                      likedComment ? "text-fuchsia-400" : "text-darktext"
+                      likedMainComment ? "text-fuchsia-400" : "text-darktext"
                     } scale-75 hover:cursor-pointer`}
-                    onClick={() => {
-                      if (!likedComment) {
-                        void likeComment.mutate({
-                          commentId: meetupComment.id,
-                          userId: userId,
-                        });
-                      } else {
-                        void removeCommentLike.mutate({
-                          commentId: meetupComment.id,
-                          userId: userId,
-                        });
-                      }
-                    }}
+                    onClick={handleLikeMainComment}
                   />
                   {userId === meetupComment.userId && (
                     <XMarkIcon
@@ -172,51 +154,13 @@ export const CommentCard = ({
             {replies &&
               replies?.length > 0 &&
               open &&
-              replies.map((reply, idx) => (
-                <div key={idx}>
-                  <Disclosure.Panel className="text-center">
-                    <div className="mx-auto my-2 h-0.5 w-60 items-center self-center bg-slate-300/20"></div>
-                    <div className="relative flex max-h-[30px] w-full flex-row">
-                      <Link
-                        href={`/Profile/@${reply.userId}`}
-                        className="collapse-title max-h-[30px] p-0 text-base font-bold hover:text-purple-400"
-                      >
-                        {reply.author}
-                      </Link>
-                      <div className="absolute -right-5 top-0 flex h-full scale-50 flex-row">
-                        {userId === reply.userId && (
-                          <PencilIcon className=" hover:cursor-pointer" />
-                        )}
-                        <HeartIcon
-                          className={`${
-                            likedComment ? "text-fuchsia-400" : "text-darktext"
-                          } hover:cursor-pointer`}
-                          onClick={() => {
-                            void likeComment.mutate({
-                              commentId: meetupComment.id,
-                              userId: userId,
-                            });
-                          }}
-                        />
-                        {userId === reply.userId && (
-                          <XMarkIcon
-                            className="scale-125"
-                            onClick={() => {
-                              deleteComment.mutate({
-                                id: reply.id,
-                              });
-                              toast(`Comment deleted!`);
-                            }}
-                          >
-                            Delete
-                          </XMarkIcon>
-                        )}
-                      </div>
-                    </div>
-
-                    <span className="text-base">{reply.content}</span>
-                  </Disclosure.Panel>
-                </div>
+              replies.map((reply) => (
+                <CommentReplyCard
+                  key={reply.id}
+                  reply={reply}
+                  userId={userId}
+                  refetchReplies={refetchReplies}
+                />
               ))}
             <div
               id="replyCommentSection"

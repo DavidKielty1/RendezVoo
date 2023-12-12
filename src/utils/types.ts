@@ -88,6 +88,17 @@ export type CommentWithUserInfo = {
   };
 };
 
+export type ReplyType = {
+  id: string;
+  author: string;
+  content: string;
+  userId: string;
+  user: {
+    id: string;
+    name: string | null | undefined;
+  };
+};
+
 export type SavedMeetupWithDetails = {
   id: string;
   userId: string;
