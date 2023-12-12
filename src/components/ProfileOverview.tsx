@@ -26,9 +26,9 @@ export default function ProfileOveriew({ user }: Props) {
           <h2 className=" left-10 top-14 text-xl text-darktext lg:top-28 lg:text-4xl">
             {user.name}
           </h2>
-          <p className="lg:text-md text-lg">{user.description}</p>
+          <p className="lg:text-md text-base">{user.description}</p>
           <p className="text-xs lg:text-base">{user.location}</p>
-          <p className="text-xs lg:text-base">{`Account created ${createdAt}`}</p>
+          <p className="text-xs lg:text-base">Account created {createdAt}</p>
         </div>
       </div>
     </section>

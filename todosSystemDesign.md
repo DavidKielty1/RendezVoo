@@ -1,9 +1,9 @@
 _Relational Databases_
-How will we update schema. What do we need? Comments need sub-comments, likes. Contact list. Expand user,
+Contact list. Expand user model.
 All users need a join with savedContacts. Id from user, foreignkey Id from other user? Each link will also have an id?
 
 _Schema_
-User: savedContact column/join, liked comments.
+User: savedContact column/join.
 Thread: ParentId (if comment has no parent, is original post),
 
 _API RPC_

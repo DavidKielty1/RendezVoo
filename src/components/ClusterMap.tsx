@@ -195,16 +195,23 @@ export default function ClusterMap({ allMeetupsFiltered }: Props) {
               }
             },
           );
-          let dragendTimeoutId: NodeJS.Timeout;
-          mapRef.current.on("dragend", () => {
+          // let dragendTimeoutId: NodeJS.Timeout;
+          // mapRef.current.on("dragend", () => {
+          //   if (!mapRef.current) return;
+          //   if (dragendTimeoutId) clearTimeout(dragendTimeoutId);
+          //   dragendTimeoutId = setTimeout(() => {
+          //     if (!isClusterMarkerClicked) {
+          //       clusterMarkers.forEach((marker) => marker.remove());
+          //       clusterMarkers.length = 0;
+          //     }
+          //   }, 2000);
+          // });
+          mapRef.current.on("click", () => {
             if (!mapRef.current) return;
-            if (dragendTimeoutId) clearTimeout(dragendTimeoutId);
-            dragendTimeoutId = setTimeout(() => {
-              if (!isClusterMarkerClicked) {
-                clusterMarkers.forEach((marker) => marker.remove());
-                clusterMarkers.length = 0;
-              }
-            }, 10000);
+            if (!isClusterMarkerClicked) {
+              clusterMarkers.forEach((marker) => marker.remove());
+              clusterMarkers.length = 0;
+            }
           });
 
           mapRef.current.on("mouseenter", "clusters", () => {
@@ -342,7 +349,7 @@ export default function ClusterMap({ allMeetupsFiltered }: Props) {
                         )
                         .filter((leaf: any) => leaf.coordinates);
 
-                      if (markers.length > 0) {
+                      if (markers.length < 5 && currentZoom > 8) {
                         const radius = 0.01;
                         const angleStep = (2 * Math.PI) / markers.length;
 

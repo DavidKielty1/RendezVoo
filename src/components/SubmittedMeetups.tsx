@@ -116,7 +116,7 @@ export const SubmittedMeetups = ({ user }: Props) => {
         </ul>
       ) : (
         <div className="py-10 text-center text-lg">
-          {`View submitted meetups here!`}
+          View submitted meetups here!
         </div>
       )}
       <div className="tranform 1 m-auto w-60 pb-8 transition-opacity ease-in">
