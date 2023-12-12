@@ -1,14 +1,19 @@
 _Comments_
+Enter should complete commentCreate.
 Original comment must cascade delete on all comments with originalcommentId as parentId.
 Profile pic thumbnail by name.
 Edit functionality.
+First reply should expand disclosure and show.
 Toast in editor. Success/fail.
+Likes should appear pink if userId is in liked table.
 Replies auto focus on expand element.
+Reply to replies (reply button on each reply comment).
+Liking comment is cascading to all comments underneath
 
 _Styles & Html_
 Aria Labels
 sparklyGradient needs an ease-out-in transition time.
-ProfileComments tab background colour at scroll.
+ProfileComments background colour scroll height issue.
 
 _Mapbox_
 **Conditional spawn markers only within red step. Otherwise zoom.**
@@ -33,7 +38,7 @@ Both -^ forms. State is verbose, lengthy.
 Can the NextImages be refactored?
 Svg in navbar?
 Desktop Navbar.
-Comments and replies?
+Comments and replies? - Can both be merged with a conditional?
 Date formatting logic in profileCommentsList.
 API routers?
 

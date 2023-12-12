@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { type User } from "~/utils/types";
+import { PlusCircleIcon } from "@heroicons/react/20/solid";
 
 interface Props {
   user: User;
@@ -11,6 +12,10 @@ export default function ProfileOveriew({ user }: Props) {
   return (
     <section>
       <div className="z-1 relative mb-1 h-[100px] rounded-t-xl bg-slate-600 lg:h-[200px]">
+        <div className="lg:text-md absolute right-4 top-4 flex flex-row gap-1 text-lg text-white">
+          <h3 className="self-center">Add to contacts</h3>
+          <PlusCircleIcon className="w-6 lg:w-7" />
+        </div>
         <div className="z-2 absolute left-10 top-1/2 aspect-square h-[100px] overflow-auto rounded-full border-4 border-slate-50 bg-slate-50 lg:h-[200px]">
           <Image
             className="rounded-full"
@@ -26,7 +31,7 @@ export default function ProfileOveriew({ user }: Props) {
           <h2 className=" left-10 top-14 text-xl text-darktext lg:top-28 lg:text-4xl">
             {user.name}
           </h2>
-          <p className="lg:text-md text-base">{user.description}</p>
+          <p className="text-base lg:text-lg">{user.description}</p>
           <p className="text-xs lg:text-base">{user.location}</p>
           <p className="text-xs lg:text-base">Account created {createdAt}</p>
         </div>

@@ -1,6 +1,7 @@
 _Relational Databases_
 Contact list. Expand user model.
 All users need a join with savedContacts. Id from user, foreignkey Id from other user? Each link will also have an id?
+Add a messaging system, PM's box. Pop-up?
 
 _Schema_
 User: savedContact column/join.

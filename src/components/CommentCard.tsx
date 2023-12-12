@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
@@ -11,6 +11,7 @@ import {
   PencilIcon,
   XMarkIcon,
   CheckIcon,
+  HeartIcon,
 } from "@heroicons/react/20/solid";
 import styles from "./../styles/sparklyGradient.module.css";
 
@@ -77,6 +78,28 @@ export const CommentCard = ({
     setIsReplySectionVisible(!isReplySectionVisible);
     setReplyContent("");
   };
+
+  const likeComment = api.likes.likeComment.useMutation({
+    onSuccess: () => {
+      void refetchLikes();
+    },
+  });
+  const removeCommentLike = api.likes.removeCommentLike.useMutation({
+    onSuccess: () => {
+      void refetchLikes();
+    },
+  });
+
+  const { data: likedComment, refetch: refetchLikes } =
+    api.likes.getLikedCommentForSinglePost.useQuery({
+      commentId: meetupComment.id,
+      userId,
+    });
+
+  useEffect(() => {
+    console.log(likedComment);
+  }, [likedComment]);
+
   return (
     <Disclosure>
       {({ open }) => (
@@ -94,8 +117,26 @@ export const CommentCard = ({
                 </Link>
                 <div className="absolute -right-5 top-0 flex h-full scale-75 flex-row">
                   {meetupComment.userId === userId && (
-                    <PencilIcon className="scale-75" />
+                    <PencilIcon className="scale-75 hover:cursor-pointer" />
                   )}
+                  <HeartIcon
+                    className={`${
+                      likedComment ? "text-fuchsia-400" : "text-darktext"
+                    } scale-75 hover:cursor-pointer`}
+                    onClick={() => {
+                      if (!likedComment) {
+                        void likeComment.mutate({
+                          commentId: meetupComment.id,
+                          userId: userId,
+                        });
+                      } else {
+                        void removeCommentLike.mutate({
+                          commentId: meetupComment.id,
+                          userId: userId,
+                        });
+                      }
+                    }}
+                  />
                   {userId === meetupComment.userId && (
                     <XMarkIcon
                       onClick={() => {
@@ -142,9 +183,24 @@ export const CommentCard = ({
                       >
                         {reply.author}
                       </Link>
-                      <div className="absolute -right-5 top-0 flex h-full scale-75 flex-row">
+                      <div className="absolute -right-5 top-0 flex h-full scale-50 flex-row">
+                        {userId === reply.userId && (
+                          <PencilIcon className=" hover:cursor-pointer" />
+                        )}
+                        <HeartIcon
+                          className={`${
+                            likedComment ? "text-fuchsia-400" : "text-darktext"
+                          } hover:cursor-pointer`}
+                          onClick={() => {
+                            void likeComment.mutate({
+                              commentId: meetupComment.id,
+                              userId: userId,
+                            });
+                          }}
+                        />
                         {userId === reply.userId && (
                           <XMarkIcon
+                            className="scale-125"
                             onClick={() => {
                               deleteComment.mutate({
                                 id: reply.id,
