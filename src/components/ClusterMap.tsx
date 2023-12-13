@@ -202,6 +202,16 @@ export default function ClusterMap({ allMeetupsFiltered }: Props) {
             if (!isClusterMarkerClicked && !markerClickedRef.current) {
               clusterMarkers.forEach((marker) => marker.remove());
               clusterMarkers.length = 0;
+              mapRef.current.setLayoutProperty(
+                "clusters",
+                "visibility",
+                "visible",
+              );
+              mapRef.current.setLayoutProperty(
+                "cluster-count",
+                "visibility",
+                "visible",
+              );
             }
             markerClickedRef.current = false;
           });
@@ -342,7 +352,41 @@ export default function ClusterMap({ allMeetupsFiltered }: Props) {
                         )
                         .filter((leaf: any) => leaf.coordinates);
 
-                      if (markers.length < 5 && currentZoom > 8) {
+                      if (
+                        markers.length < 5 &&
+                        currentZoom > 8 &&
+                        mapRef.current
+                      ) {
+                        const clustersVisibility =
+                          mapRef.current.getLayoutProperty(
+                            "clusters",
+                            "visibility",
+                          );
+                        const counterVisibility =
+                          mapRef.current.getLayoutProperty(
+                            "cluster-count",
+                            "visibility",
+                          );
+                        if (
+                          clustersVisibility === "visible" &&
+                          counterVisibility === "visible"
+                        ) {
+                          mapRef.current.setLayoutProperty(
+                            "clusters",
+                            "visibility",
+                            "none",
+                          );
+                          mapRef.current.setLayoutProperty(
+                            "cluster-count",
+                            "visibility",
+                            "none",
+                          );
+                          clusterMarkers.forEach((marker) => {
+                            marker.remove();
+                          });
+                          clusterMarkers.length = 0;
+                        }
+
                         const radius = 0.01;
                         const angleStep = (2 * Math.PI) / markers.length;
 
