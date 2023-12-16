@@ -16,44 +16,44 @@ datasource db {
 
 // Necessary for Next auth
 model Account {
-    id                String  @id @default(cuid())
+    id                String    @id @default(cuid())
     userId            String
     type              String
     provider          String
     providerAccountId String
-    refresh_token     String? @db.Text
-    access_token      String? @db.Text
+    refresh_token     String?   @db.Text
+    access_token      String?   @db.Text
     expires_at        Int?
     token_type        String?
     scope             String?
-    id_token          String? @db.Text
+    id_token          String?   @db.Text
     session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([provider, providerAccountId])
 }
 
 model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
+    id           String         @id @default(cuid())
+    sessionToken String         @unique
     userId       String
     expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {
     identifier String
-    token      String   @unique
+    token      String           @unique
     expires    DateTime
 
     @@unique([identifier, token])
 }
 
 model User {
-    id            String    @id @default(cuid())
-    createdAt   DateTime    @default(now())
-    name          String?   @unique
-    email         String?   @unique
+    id            String        @id @default(cuid())
+    createdAt   DateTime        @default(now())
+    name          String?       @unique
+    email         String?       @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
@@ -70,11 +70,11 @@ model User {
 }
 
 model UserContact {
-    id          String      @id @default(cuid())
+    id          String          @id @default(cuid())
     userId      String
     contactId   String
-    user        User        @relation(name: "UserContacts", fields: [userId], references: [id])
-    contact     User        @relation(name: "ContactedBy", fields: [contactId], references: [id])
+    user        User            @relation(name: "UserContacts", fields: [userId], references: [id])
+    contact     User            @relation(name: "ContactedBy", fields: [contactId], references: [id])
 
     @@unique([userId, contactId])
 }
@@ -97,37 +97,37 @@ model Meetup {
 }
 
 model SavedMeetup {
-    id        String   @id @default(cuid())
+    id        String            @id @default(cuid())
     userId    String
     meetupId  String
-    user      User     @relation(fields: [userId], references: [id])
-    meetup    Meetup   @relation(fields: [meetupId], references: [id], onDelete: Cascade)
+    user      User              @relation(fields: [userId], references: [id])
+    meetup    Meetup            @relation(fields: [meetupId], references: [id], onDelete: Cascade)
 
     @@unique([userId, meetupId]) 
 }
 
 model Comment {
-    id          String      @id @default(cuid())
-    createdAt   DateTime    @default(now())
-    updatedAt   DateTime    @updatedAt
+    id          String          @id @default(cuid())
+    createdAt   DateTime        @default(now())
+    updatedAt   DateTime        @updatedAt
     author      String
-    content     String      @db.Text
+    content     String          @db.Text
     meetupId    String     
     userId      String
     parentId    String?     
-    meetup      Meetup      @relation(fields: [meetupId], references: [id], onDelete: Cascade)
-    user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-    parent      Comment?    @relation("CommentToComment", fields: [parentId], references: [id])
-    replies     Comment[]   @relation("CommentToComment")
+    meetup      Meetup          @relation(fields: [meetupId], references: [id], onDelete: Cascade)
+    user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+    parent      Comment?        @relation("CommentToComment", fields: [parentId], references: [id])
+    replies     Comment[]       @relation("CommentToComment")
     likes       Like[]
 }
 
 model Like {
-    id        String        @id @default(cuid())
+    id        String            @id @default(cuid())
     userId    String
     commentId String
-    user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-    comment   Comment       @relation(fields: [commentId], references: [id], onDelete: Cascade)
+    user      User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+    comment   Comment           @relation(fields: [commentId], references: [id], onDelete: Cascade)
 
     @@unique([userId, commentId])
 }
