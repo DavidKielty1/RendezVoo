@@ -1,5 +1,5 @@
 _Comments_
-route of clicked reply incorrect - make routing per reply
+route of clicked reply incorrect - make routing per reply.
 styling should only affect one reply?
 Enter should complete commentCreate.
 Original comment must cascade delete on all comments with originalcommentId as parentId.
@@ -11,10 +11,14 @@ Toast in editor. Success/fail.
 Likes should appear pink if userId is in liked table.
 Replies auto focus on expand element.
 Reply to replies (reply button on each reply comment).
-Liking comment is cascading to all comments underneath
+Liking comment is cascading to all comments underneath.
+
+_CICD_
+Add to yml file from biobank.
+Dockerize - push docker to vercel?
 
 _Styles & Html_
-Aria Labels
+Aria Labels.
 sparklyGradient needs an ease-out-in transition time.
 ProfileComments background colour scroll height issue.
 
