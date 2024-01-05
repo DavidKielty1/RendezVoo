@@ -1,7 +1,10 @@
 _Comments_
+route of clicked reply incorrect - make routing per reply
+styling should only affect one reply?
 Enter should complete commentCreate.
 Original comment must cascade delete on all comments with originalcommentId as parentId.
 Profile pic thumbnail by name.
+
 Edit functionality.
 First reply should expand disclosure and show.
 Toast in editor. Success/fail.
