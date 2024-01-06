@@ -69,7 +69,8 @@ _ProfilePage_
 UserInformation in profileOverview needs overall overflow-hidden or clamp solution.
 Update User info page - incl. prof picture, banner
 Randomize colour banner in profile overview.
-Profile page image can be changed to user.image || default image. Same with title
+Profile page image can be changed to user.image || default image. src="{{ member.photoUrl || './assets/user.png' }}"
+Same with title
 Profile related info - number of posts etc, last seen, last post when etc. Use/update schema.
 Anonymity - user info selectively hidden unless in 'close contact list'.
 Place-holder profile image, add, edit profile image (upload) functionality. - should pull from an array upon userCreation. Many random possible profilepics.
