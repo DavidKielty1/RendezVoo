@@ -43,6 +43,7 @@ Different street names within cities (if can't find multiple mapbox popup soluti
 For search functionality: "Add 50 more cities from UK, 50 more cities world-wide. Create 400 seeds.
 Change it so along with the comment, the user will add that meetup to their saved meetup also.
 Perhaps members could also @ other people who have commented on the post.
+Randomize colour banner in profile overview as default. Seed consideration.
 
 _Future Considerations_
 Notifcations,
