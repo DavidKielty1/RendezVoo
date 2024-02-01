@@ -11,7 +11,9 @@ OAuth session-specific routing & authorization./
 PostgreSQL Prisma ORM schema deployed with supabase./
 Automated CI/CD github actions deployment./
 
-Mapbox, react-toastify, as well as tailwind HealessUI(for profile tabs) have been utilized in this project.
+Mapbox, react-toastify, as well as tailwind HeadlessUI(for profile tabs) have been utilized in this project.
 
 A github or google account will be required to log in for create, update, and delete functionalities./
 Nextauth is used to access session information.
+
+Built upon foundation of t3-stack.

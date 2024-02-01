@@ -1,156 +1,154 @@
-_Comments_
-route of clicked reply incorrect - make routing per reply.
-styling should only affect one reply?
-Enter should complete commentCreate.
-Original comment must cascade delete on all comments with originalcommentId as parentId.
-Profile pic thumbnail by name.
+## Comments
 
-Edit functionality.
-First reply should expand disclosure and show.
-Toast in editor. Success/fail.
-Likes should appear pink if userId is in liked table.
-Replies auto focus on expand element.
-Reply to replies (reply button on each reply comment).
-Liking comment is cascading to all comments underneath.
+- Navigation route of reply when clicked is incorrect - make routing per reply.
+- Styling should affect only one reply on hover.
+- Enter should trigger commentCreate route in comment editor component.
+- Original comment must cascade delete on all comments with originalCommentId as parentId.
+- Add user's profile pic thumbnail alongside their name.
+- Implement edit functionality.
+- First reply should expand disclosure and show.
+- Implement toast in editor for success/error for commentCreate route.
+- Likes should appear pink if userId is in the liked DB table.
+- Clicking reply should auto-focus on input field within expanded element.
+- Implement reply to replies (reply button on lastChild of reply tree).
+- Fix cascading effect of liking a comment/reply.
 
-_CICD_
-Add to yml file from biobank.
-Dockerize - push docker to vercel?
+## CI/CD
 
-_Styles & Html_
-Aria Labels.
-sparklyGradient needs an ease-out-in transition time.
-ProfileComments background colour scroll height issue.
+- Implement automated lighthouse, lint, formatting, pa11y, testing.
+- Parallelize CI process with build job.
+- Dockerize and push to Vercel.
 
-_Mapbox_
-**Conditional spawn markers only within red step. Otherwise zoom.**
-New Meetup page.
-Edit page. -> Is editPage necessary? Can I edit in meetupInformatin component? Perhaps hide editPage and try this option (Do not delete edit page).
-Sort location reorients map? After 1 second of blur perhaps? etc.
+## Styles & HTML
 
-_MeetupsList_
-Pagination navigation. How to get to page3 instantly?
-On phone - button to scroll on top of page.
-Take users to top of meetupLists component upon next page click.
+- Add Aria Labels for accessibility.
+- Implement an ease-out-in transition time for sparklyGradient.
+- Resolve ProfileComments background color scroll height issue.
+- Set scrollbar opacity to 0 with transition ease-in-out upon scroll/hover.
 
-_Refactor_
-Pagination buttons @MeetupsList, @SubmittedMeetups, @SavedMeetups.
-Next/Head Favicon, description.
-Try to refactor showDetails button (search find bg-green-200) to separate component. Used in @Meetuplist, @SubmittedMeetups.
-Transitions headlessUI components.
-Type-guarding in [MeetupId]Index component.
-Edit form at some point.
-NewMeetup GeoData logic.
-Both -^ forms. State is verbose, lengthy.
-Can the NextImages be refactored?
-Svg in navbar?
-Desktop Navbar.
-Comments and replies? - Can both be merged with a conditional?
-Date formatting logic in profileCommentsList.
-API routers?
+## Mapbox
 
-_Admin Page_
-Show latest image uploads,
-Profile changes,
-Meetups,
-Comments
+- Conditional spawn markers only within red step. Otherwise, zoom.
+- Implement Mapbox geolocation data within New Meetup page for location input field information.
+- Evaluate the necessity of Edit page. Consider editing within meetupInformation component.
+- Sort location reorients map after a delay. Use sorted input to geocode and reorient the map.
 
-_NavBar_
-Higher contrast needed in mobile phone menu
+## MeetupsList
 
-_FilterComponent_
-Sort must be a dropdown. meetups.FindManyWhereLocation => searchInput = allMeetupsFiltered.location. Make input dropdown, map through returned values as options.
-Above inputs set dynamic. if(no searchTerm) {Please enter search term} else {Searching for 'searchTerm'}. Same for sort. Sorting by: . .
-Turn on predictive text.
-Feedback in filter component showing results for searchTerm, showing results for location, showing results for both. Can I change the label value?
+- Implement pagination navigation to specific pages instantly.
+- For phone browsers, add a button to scroll to the top of the page.
+- Ensure clicking the next page reorients the scrollbar to the top of the MeetupList component.
 
-_Meetup Details_
-Date format of seed is too specific with seconds.
-Add user.name/author name to meetup details. - Link to their profile page. => Find user.name from meetup.userId.
-Comment toast is freezing?
-Line clamping in the information could probably change, be expanded.
-SaveMeetup button should redirect to login if no session.
-Needs an 'attending' element which pulls savedMeetupData (users shown by profilePics as links).
+## Refactor
 
-_ProfilePage_
-UserInformation in profileOverview needs overall overflow-hidden or clamp solution.
-Update User info page - incl. prof picture, banner
-Randomize colour banner in profile overview.
-Profile page image can be changed to user.image || default image. src="{{ member.photoUrl || './assets/user.png' }}"
-Same with title
-Profile related info - number of posts etc, last seen, last post when etc. Use/update schema.
-Anonymity - user info selectively hidden unless in 'close contact list'.
-Place-holder profile image, add, edit profile image (upload) functionality. - should pull from an array upon userCreation. Many random possible profilepics.
-Access to other members that are attending same meetup. Routing, schema, seeding considerations. ([x] is attending [y-meetup] too!)
-Add to contacts button.
-Contact list.
+- Reduce duplication in pagination buttons across various components.
+- Update Next/Head Favicon and descriptions.
+- Refactor showDetails button to a separate component.
+- Separate Transitions headlessUI into its own component.
+- Implement type-guarding in [MeetupId]Index component and create a props type file.
+- Refactor and simplify state in Edit and NewMeetup forms.
+- Review NextImage information and SVG in Navbar.
+- Consider merging comments and replies with conditional logic.
+- Standardize date formatting logic in ProfileCommentsList.
+- Organize API route actions.
 
-_Styles_
-Scrollbar opacity 0, transition ease-in-out upon scroll/hover.
+## Admin Page
 
-_Buttons_
-Why isn't the text aligned real center? add padding? Ask Chatpgt.
+- Display latest image uploads, profile changes, meetups, and comments.
 
-_ProfileComments_
-Icon could be absolutely positioned.
-Icon should navigate to place in page where comment is, may need to expand comments to find place in thread.
+## NavBar
 
-_Datetime_
-Relative time (2 weeks ago), hover-over show absolute time.
-Timezones. UTC at end of all timezones? Display date relative to time-zone.
+- Increase contrast in the mobile phone menu.
 
-_New Meetup_
-Image Cloudinary upload x1.
-Upon submitting, navigate to the new meetup page (How can I get ID if not already made)?
-Form location intellisense? Mapbox? Find solution. HeadlessUI Combobox for searching? Dynamically link to array/object holding up-to-date location information.
-Need to prompt toast in redirected page after new meetup submission => Require change from router to Next/redirect? (Full page refresh cancels toast).Portals. See headlessUI Dialog (Modal).
-Validation - should not be a date less than DateNow().
-New Meetup is submitted/rendered in wrong date-time. Check seed. Look for datetime without seconds.
+## FilterComponent
 
-_Edit_
-Refactor Edit. Editpage Parent Index Component -> Edit child component.
-Persisting dateTime
-HeadlessUI Combobox for searching? Dynamically link to array/objet holding up-to-date location information.
-If sessionData userId =/= meetupuserId block routing. Authorization 405?
+- Change sort to a dropdown.
+- Implement dynamic feedback based on search inputs.
+- Enable predictive text.
 
-_SavedMeetupsList_
-Needs delete route.
+## Meetup Details
 
-_APIs_
-Getting there tab.
-Flights tab.
-MeetupDelete route does not work with meetups that have comments.
+- Adjust date format to be less specific.
+- Add user/author name linking to their profile.
+- Address the issue of comment toast freezing.
+- Expand line clamping in the meetups details.
+- Redirect SaveMeetup button to login if no session is found.
+- Implement an 'attending' element for meetups.
 
-_PrivacyPolicy_
-Using google.
-BFG - Docker
+## Profile Page
 
-_App-wide_
-Skeleton page upon initial server fetch.
-Notifications. -> If someone comments on your submission., friend request, friend added etc.
+- Implement overflow-hidden or clamp solution for user information.
+- Update user information page including profile picture and banner.
+- Randomize color banner in profile overview as default.
+- Allow profile page image and title to be dynamic.
+- Implement selective anonymity in user info.
+- Add functionality for profile image upload and editing.
+- Hook up the contact list and consider schema and route implications.
 
-_Auth0_
-Error on Auth0 login
+## Buttons
+
+- Align text to the real center and consider adding padding.
+
+## Profile Comments
+
+- Position icon absolutely.
+- Make icon navigate to the corresponding place in the MeetupDetail component.
+
+## DateTime
+
+- Show relative time for submitted comments and meetups, with objective time on hover.
+- Display dates relative to the user's timezone.
+
+## New Meetup
+
+- Implement single image upload with Cloudinary.
+- Navigate to the new meetup page upon submission.
+- Explore form location intellisense solutions.
+- Implement toast notifications for successful meetup submission.
+- Validate to prevent submission of dates earlier than the current date.
+
+## Edit
+
+- Refactor the Edit page into parent and child components.
+- Persist dateTime information.
+- Block unauthorized routing in session data mismatch.
+
+## SavedMeetupsList
+
+- Add a delete route.
+
+## APIs
+
+- Develop 'Getting there' and 'Flights' tabs.
+- Fix MeetupDelete route for meetups with comments.
+
+## Privacy Policy
+
+- Discuss the use of Google and Docker in the BFG.
+
+## App-wide
+
+- Implement a skeleton page for initial server fetch.
+- Develop a notification system for various user actions.
+
+## Auth0
+
+- Address the error in Auth0 login.
+
+## Testing
+
+- Add tests for all components, considering potential refactoring.
+
+## Future Considerations
+
+- Move TODOs (this doc) to Trello.
 
 .
 
-.
+- Cloud.
+- Scaling.
+- AWS, lambdas.
 
-.
+- A/B testing?
 
-Move TODOs (this doc) to Trello.
-
-Tests.
-
-CircleCI.
-Lighthouse.
-
-Scaling.
-AWS, lambdas, etc.
-
-A/B testing?
-Localization.
-
-Database migration techniques - expand/contract.
-Dev, Staging, Prod deployment processes?.
-How to update project with no downtime.
+- Localization.
