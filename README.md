@@ -1,4 +1,4 @@
-rendezvoo.vercel.app
+rendezvoo.vercel.app.
 
 Please visit the above website to check out this project deployment./
 
