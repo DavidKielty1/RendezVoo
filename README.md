@@ -16,4 +16,4 @@ Mapbox, react-toastify, as well as tailwind HeadlessUI(for profile tabs) have be
 A github or google account will be required to log in for create, update, and delete functionalities./
 Nextauth is used to access session information.
 
-Built upon foundation of t3-stack.
+Built upon foundation of t3-stack
