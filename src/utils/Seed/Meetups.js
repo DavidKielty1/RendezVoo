@@ -71,7 +71,7 @@ export async function seedMeetups() {
 
   for (let i = 0; i < 20; i++) {
     let meetupData = await generateMeetupData();
-    meetupData.userId = "clpppgtyu000alzv0dzamnuzh";
+    meetupData.userId = "cm5334qqx0000o7qtal3hij2e";
 
     let createdMeetup = await prisma.meetup.create({
       data: meetupData,
