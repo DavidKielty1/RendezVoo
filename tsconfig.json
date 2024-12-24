@@ -40,6 +40,6 @@
     ".next/types/**/*.ts",
     "src/components/ClusterMap.tsx",
     "src/utils/Prox2.ts",
-    "src/utils/SortMeetupsByLocation.ts"  ],
+    "src/utils/SortMeetupsByLocation.ts", "src/pages/TestApi/index.ssx"  ],
   "exclude": ["node_modules", "src/components/ClusterMapRedo.jsx"]
 }
