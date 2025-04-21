@@ -40,6 +40,9 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   debug: true, // Enable debugging
+  pages: {
+    error: '/auth/error',
+  },
   callbacks: {
     session: ({ session, user }) => ({
       ...session,
@@ -48,6 +51,21 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
       },
     }),
+    redirect: ({ url, baseUrl }) => {
+      // Allows relative callback URLs
+      if (url.startsWith("/")) return `${baseUrl}${url}`
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return url
+      return baseUrl
+    },
+  },
+  events: {
+    signIn: (message) => {
+      console.log("NextAuth signIn:", message);
+    },
+    createUser: (message) => {
+      console.log("NextAuth createUser:", message);
+    },
   },
   adapter: PrismaAdapter(db),
   providers: [
