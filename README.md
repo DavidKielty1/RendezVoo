@@ -4,7 +4,7 @@
 
 ## Overview
 
-RendezVoo is a modern social platform that connects people through shared hobbies and interests. Built with cutting-edge web technologies, it demonstrates full-stack development capabilities with a focus on user experience, performance, and scalability.
+RendezVoo is a modern social platform that connects people through shared hobbies and interests. Built with cutting-edge web technologies, it demonstrates full-stack development capabilities with a focus on user experience, performance, and scalability
 
 **Live Demo:** [rendezvoo.vercel.app](https://rendezvoo.vercel.app)
 
